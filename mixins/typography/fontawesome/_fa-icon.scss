@@ -17,6 +17,7 @@
 ///
 /// @param {String} $type [solid]
 ///   - The name of Font Awesome family type.
+///     Only `solid` (default), `regular` or `brands` are allowed values.
 ///
 /// @param {Bool | String} $position [false]
 ///   - If needed, this will be the icon position.
@@ -28,7 +29,7 @@
 ///
 /// @example scss - Usage.
 ///   .element {
-///     @include fa-icon('chevron-down', $position: after);
+///     @include fa-icon('chevron-down', $position: 'after');
 ///   }
 ///
 ///   // CSS Output
@@ -39,10 +40,8 @@
 ///     display: inline-block;
 ///     font-style: normal;
 ///     font-variant: normal;
-///     font-weight: normal;
 ///     text-rendering: auto;
 ///     line-height: 1;
-///     vertical-align: middle;
 ///   }
 ///   .element::after {
 ///     font-family: 'Font Awesome 5 Free';
@@ -112,11 +111,9 @@
   font: {
     style: normal;
     variant: normal;
-    weight: normal;
   }
   text-rendering: auto;
   line-height: 1;
-  vertical-align: middle;
 }
 
 
