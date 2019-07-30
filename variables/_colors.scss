@@ -1,16 +1,17 @@
 
 ///
 /// @file
-/// Kiso’s default palette
+/// Default palette
 ///
 /// Define the color palette which will be used through all site pages.
 ///
 
 
-/// Most colors that currently make up Kiso’s default palette—used throughout the
-/// framework for things such as button variations, alert variations, form validation
-/// indicators—lead to sufficient color contrast (compliant with the recommended
-/// WCAG 2.0 color contrast ratio of 4.5:1) when used against a white back(fore)ground.
+/// Most colors that currently make up default palette—used throughout the
+/// framework for things such as button variations, alert variations, form
+/// validation indicators—lead to sufficient color contrast (compliant with
+/// the recommended WCAG 2.1 color contrast ratio of 4.5:1) when used against
+/// a white back(fore)ground.
 ///
 /// If modified, authors will need to manually modify/extend these default colors
 /// to ensure adequate color contrast ratios.
@@ -20,7 +21,6 @@
 ///
 /// @type Color
 
-$slate:   #405b77 !default;
 $blue:    #0071eb !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
@@ -48,9 +48,6 @@ $gray-900: #212529 !default;
 
 
 /// Map of default color scheme.
-///
-/// @prop {Color} slate
-///   - The "Slate" color.
 ///
 /// @prop {Color} blue
 ///   - The "Blue" color.
@@ -92,7 +89,6 @@ $gray-900: #212529 !default;
 $colors: () !default;
 $colors: map-merge(
   (
-    'slate':     $slate,
     'blue':      $blue,
     'indigo':    $indigo,
     'purple':    $purple,
@@ -142,7 +138,7 @@ $colors: map-merge(
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    'primary':   $slate,
+    'primary':   $blue,
     'secondary': $gray-600,
     'success':   $green,
     'info':      $cyan,
