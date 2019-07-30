@@ -1,0 +1,434 @@
+@charset 'utf-8';
+
+
+/// Form controls
+///
+/// Easily set out default styles for all form controls.
+///
+/// @group library
+///
+/// @param {Bool} $rounded [true]
+///   - Enable or disable the border radius on form controls.
+///
+/// @param {Bool} $transition [true]
+///   - Enable or disable the transitions when form controls state changes.
+///
+/// @param {Bool} $shadow [false]
+///   - Enable or disable the box shadow on form controls.
+///
+/// @param {Number} $form-control-vertical-padding [0.5rem]
+///   - The top/bottom (vertical) padding size to be applied on form controls.
+///
+/// @param {Number} $form-control-horizontal-padding [1rem]
+///   - The right/left (horizontal) padding size to be applied on form controls.
+///
+/// @param {Number} $form-control-font-size [1rem]
+///   - The font size to be applied on form controls.
+///
+/// @param {Number} $form-control-line-height [1.5]
+///   - The text line height to be applied on form controls.
+///
+/// @param {Color} $form-control-color [#000033]
+///   - The text color to be applied on form controls.
+///
+/// @param {Color} $form-control-placeholder-color [#aaa]
+///   - The text color to be applied for placeholders on form controls.
+///
+/// @param {Color} $form-control-focus-color [#000033]
+///   - The text color to be applied on form controls when focused.
+///
+/// @param {Color} $form-control-background-color [#ffffff]
+///   - The background color to be applied on form controls.
+///
+/// @param {Color} $form-control-focus-background-color [#ffffff]
+///   - The background color to be applied on form controls when focused.
+///
+/// @param {Color} $form-control-disabled-background-color [#dddddd]
+///   - The background color to be applied on form controls when readonly and/or disabled.
+///
+/// @param {Number} $form-control-border-width [1px]
+///   - The border width to be applied on form controls.
+///
+/// @param {Color} $form-control-border-color [#cccccc]
+///   - The border color to be applied on form controls.
+///
+/// @param {Color} $form-control-hover-border-color [#868e96]
+///   - The border color to be applied on form controls when hovered.
+///
+/// @param {Color} $form-control-focus-border-color [#0000b3]
+///   - The border color to be applied on form controls when focused.
+///
+/// @param {String} $form-control-border-style [solid]
+///   - The border style to be applied on form controls.
+///
+/// @param {Number} $form-control-border-radius [0.25rem]
+///   - The border radius size to be applied on form controls.
+///
+/// @param {Number} $form-control-border-width-height [2px]
+///   - The somme of both border width used to calculate the height to be applied on form controls.
+///
+/// @param {Number} $form-control-inner-height [2.5rem]
+///   - The inner height (height & vertical paddings values) used to calculate the height to be applied on form controls.
+///
+/// @param {List} $form-control-transition [background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out]
+///   - The transition properties to be applied on form controls.
+///
+/// @param {List} $form-control-inset-box-shadow [inset 0 1px 1px #00000014]
+///   - The box inner shadow to be applied on form controls.
+///
+/// @param {List} $form-control-focus-box-shadow [0 0 0 3px #00003340]
+///   - The box shadow to be applied on form controls when focused.
+///
+/// @example scss - Usage.
+///   .form-element {
+///     @include form-control;
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-element {
+///     padding: 0.5rem 1rem;
+///     font-size: 1rem;
+///     line-height: 1.5;
+///     background-color: #fff;
+///     ...
+///     width: 100%;
+///     background-image: none;
+///     background-clip: padding-box;
+///     border-radius: 0.25rem;
+///     ...
+///   }
+///
+/// @requires {variable} enable-rounded
+/// @requires {variable} enable-shadows
+/// @requires {variable} enable-transitions
+/// @requires {variable} body-base-font-size
+/// @requires {variable} body-base-line-height
+/// @requires {variable} body-base-color
+/// @requires {variable} component-vertical-paddings
+/// @requires {variable} component-horizontal-paddings
+/// @requires {variable} component-border-width
+/// @requires {variable} component-border-colors
+/// @requires {variable} component-border-style
+/// @requires {variable} component-border-radiuses
+/// @requires {variable} component-state-colors
+/// @requires {variable} component-state-background-colors
+/// @requires {variable} component-transitions
+/// @requires {variable} component-box-shadows
+/// @requires {mixin} rem
+/// @requires {mixin} background
+
+@mixin form-control(
+  $rounded: $enable-rounded,
+  $transition: $enable-transitions,
+  $shadow: $enable-shadows,
+  $form-control-vertical-padding: map-get($component-vertical-paddings, 'default'),
+  $form-control-horizontal-padding: map-get($component-horizontal-paddings, 'default'),
+  $form-control-font-size: $body-base-font-size,
+  $form-control-line-height: $body-base-line-height,
+  $form-control-color: $body-base-color,
+  $form-control-placeholder-color: map-get($component-state-colors, 'muted'),
+  $form-control-focus-color: $form-control-color,
+  $form-control-background-color: white,
+  $form-control-focus-background-color: $form-control-background-color,
+  $form-control-disabled-background-color: map-get($component-state-background-colors, 'muted'),
+  $form-control-border-width: $component-border-width,
+  $form-control-border-color: map-get($component-border-colors, 'default'),
+  $form-control-hover-border-color: map-get($component-state-border-colors, 'hover'),
+  $form-control-focus-border-color: map-get($component-state-border-colors, 'focus'),
+  $form-control-border-style: $component-border-style,
+  $form-control-border-radius: map-get($component-border-radiuses, 'default'),
+  $form-control-border-width-height: ($form-control-border-width * 2),
+  $form-control-inner-height: ($form-control-font-size * $form-control-line-height) + ($form-control-vertical-padding * 2),
+  $form-control-transition: map-get($component-transitions, 'input'),
+  $form-control-inset-box-shadow: map-get($component-box-shadows, 'inset'),
+  $form-control-focus-box-shadow: map-get($component-box-shadows, 'focus')
+) {
+
+  @include rem('padding', $form-control-vertical-padding $form-control-horizontal-padding);
+  @include rem('font-size', $form-control-font-size);
+  @include rem('line-height', $form-control-line-height);
+  @include background($color: $form-control-background-color);
+  height: calc(#{$form-control-inner-height} + #{$form-control-border-width-height});
+  color: $form-control-color;
+  border: {
+    @include rem('width', $form-control-border-width);
+    color: $form-control-border-color;
+    style: $form-control-border-style;
+  }
+  display: block;
+  width: 100%;
+  background: {
+    image: none;
+    clip: padding-box;
+  }
+
+  // Manually set `border-radius` to account for iOS override.
+  //
+  // Note: This has no effect on `<select>`s in some browsers, due
+  // to the limited stylability of `<select>`s in CSS.
+  //
+  @if $rounded {
+    @include rem('border-radius', $form-control-border-radius);
+  }
+  @else {
+    border-radius: 0; // Reset the iOS default.
+  }
+
+  // Conditionally set a `transition`.
+  //
+  @if $transition {
+    transition: $form-control-transition;
+  }
+
+  // Conditionally set a `box-shadow`.
+  //
+  @if $shadow {
+    box-shadow: $form-control-inset-box-shadow;
+
+    // Box shadows (Focus state)
+    //
+    &:focus {
+      box-shadow: $form-control-inset-box-shadow, $form-control-focus-box-shadow;
+    }
+  }
+
+  // Hover state
+  //
+  &:hover {
+    border-color: $form-control-hover-border-color;
+  }
+
+  // Focus state
+  //
+  &:focus {
+    @include background($color: $form-control-focus-background-color);
+    color: $form-control-focus-color;
+    border-color: lighten($form-control-focus-border-color, 25%);
+    outline: none;
+  }
+
+  // Remove the default caret on `<select>`s in IE10+.
+  //
+  &::-ms-expand {
+    display: none;
+  }
+
+  // Placeholder
+  //
+  &::placeholder {
+    color: $form-control-placeholder-color;
+    opacity: 1; // Override Firefox's unusual default opacity.
+  }
+
+  // Disabled and read-only inputs
+  //
+  &:disabled,
+  &[readonly] {
+    @include background($color: $form-control-disabled-background-color);
+    opacity: 1; // iOS fix for unreadable disabled content.
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+
+/// Form check-lists
+///
+/// Easily set out default styles for all (un)limited check-list type.
+///
+/// @group library
+///
+/// @param {Bool} $transition [true]
+///   - Enable or disable the transitions when form check-lists state changes.
+///
+/// @param {Bool} $shadow [false]
+///   - Enable or disable the box shadow on form check-lists.
+///
+/// @param {Number} $form-check-label-padding-left [1.5rem]
+///   - The left padding size to be applied on form check-lists labels.
+///
+/// @param {Color} $form-check-label-disabled-color [#aaaaaa]
+///   - The background color to be applied on form check-lists labels when readonly and/or disabled.
+///
+/// @param {Color} $form-check-indicator-background-color [#ffffff]
+///   - The background color to be applied on form check-lists indicators.
+///
+/// @param {Color} $form-check-indicator-disabled-background-color [#dddddd]
+///   - The background color to be applied on form check-lists indicators when readonly and/or disabled.
+///
+/// @param {Number} $form-check-indicator-top []
+///   - The top absolute position to be applied on form check-lists indicators.
+///
+/// @param {Number} $form-check-indicator-width [1rem]
+///   - The element width to be applied on form check-lists indicators.
+///
+/// @param {Number} $form-check-indicator-height [1rem]
+///   - The element height to be applied on form check-lists indicators.
+///
+/// @param {Number} $form-check-indicator-border-width [1px]
+///   - The border width to be applied on form check-lists indicators.
+///
+/// @param {Color} $form-check-indicator-border-color [#cccccc]
+///   - The border color to be applied on form check-lists indicators.
+///
+/// @param {Color} $form-check-indicator-hover-border-color [#999999]
+///   - The border color to be applied on form check-lists indicators when hovered.
+///
+/// @param {Color} $form-check-indicator-focus-border-color [#0000b3]
+///   - The border color to be applied on form check-lists indicators when focused.
+///
+/// @param {String} $form-check-indicator-border-style [solid]
+///   - The border style to be applied on form check-lists indicators.
+///
+/// @param {List} $form-check-indicator-transition [background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out]
+///   - The transition properties to be applied on form check-lists indicators.
+///
+/// @param {List} $form-check-indicator-inset-box-shadow [inset 0 1px 1px #00000014]
+///   - The box inner shadow to be applied on form check-lists indicators.
+///
+/// @param {List} $form-check-indicator-focus-box-shadow [0 0 0 3px #00003340]
+///   - The box shadow to be applied on form check-lists indicators when focused.
+///
+/// @example scss - Usage.
+///   .form-element {
+///     @include form-check;
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-element {
+///     position: absolute !important;
+///     clip: rect(1px, 1px, 1px, 1px) !important;
+///     clip-path: inset(50%) !important;
+///     overflow: hidden !important;
+///     ...
+///     white-space: nowrap !important;
+///   }
+///   .form-element ~ label.option {
+///     padding-left: 1.5rem;
+///     position: relative;
+///   }
+///   .form-element ~ label.option::before {
+///     background-color: #eee;
+///     top: 0.25rem;
+///     width: 1rem;
+///     height: 1rem;
+///     border-width: 1px;
+///     ...
+///     display: block;
+///     pointer-events: none;
+///     user-select: none;
+///   }
+///
+/// @requires {variable} enable-shadows
+/// @requires {variable} enable-transitions
+/// @requires {variable} body-base-font-size
+/// @requires {variable} body-base-line-height
+/// @requires {variable} body-base-background-color
+/// @requires {variable} component-horizontal-paddings
+/// @requires {variable} component-state-colors
+/// @requires {variable} component-state-border-colors
+/// @requires {variable} component-state-background-colors
+/// @requires {variable} component-border-width
+/// @requires {variable} component-border-style
+/// @requires {variable} component-border-colors
+/// @requires {variable} component-transitions
+/// @requires {variable} component-box-shadows
+/// @requires {mixin} rem
+/// @requires {mixin} background
+/// @requires {mixin} visually-hidden
+
+@mixin form-check(
+  $transition: $enable-transitions,
+  $shadow: $enable-shadows,
+  $form-check-label-padding-left: map-get($component-horizontal-paddings, 'largest'),
+  $form-check-label-disabled-color: map-get($component-state-colors, 'muted'),
+  $form-check-indicator-background-color: white,
+  $form-check-indicator-disabled-background-color: map-get($component-state-background-colors, 'muted'),
+  $form-check-indicator-top: (($body-base-font-size * $body-base-line-height - $body-base-font-size) / 2),
+  $form-check-indicator-width: $body-base-font-size,
+  $form-check-indicator-height: $body-base-font-size,
+  $form-check-indicator-border-width: $component-border-width,
+  $form-check-indicator-border-color: map-get($component-border-colors, 'default'),
+  $form-check-indicator-hover-border-color: map-get($component-state-border-colors, 'hover'),
+  $form-check-indicator-focus-border-color: map-get($component-state-border-colors, 'focus'),
+  $form-check-indicator-border-style: $component-border-style,
+  $form-check-indicator-transition: map-get($component-transitions, 'input'),
+  $form-check-indicator-inset-box-shadow: map-get($component-box-shadows, 'inset'),
+  $form-check-indicator-focus-box-shadow: map-get($component-box-shadows, 'focus')
+) {
+
+  @include visually-hidden;
+
+  // Label options
+  //
+  ~ label.option {
+    @include rem('padding-left', $form-check-label-padding-left);
+    position: relative;
+
+    // Indicators
+    //
+    &::before {
+      @include background($color: $form-check-indicator-background-color);
+      @include rem('top', $form-check-indicator-top);
+      @include rem('width', $form-check-indicator-width);
+      @include rem('height', $form-check-indicator-height);
+      border: {
+        @include rem('width', $form-check-indicator-border-width);
+        color: $form-check-indicator-border-color;
+        style: $form-check-indicator-border-style;
+      }
+      content: '';
+      position: absolute;
+      left: 0;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+
+      // Conditionally set a `transition`.
+      //
+      @if $transition {
+        transition: $form-check-indicator-transition;
+      }
+
+      // Conditionally set a `box-shadow`.
+      //
+      @if $shadow {
+        box-shadow: $form-check-indicator-inset-box-shadow;
+      }
+    }
+  }
+
+  // Indicators (Hover state)
+  //
+  &:hover ~ label.option::before {
+    border-color: $form-check-indicator-hover-border-color;
+  }
+
+  // Indicators (Focus state)
+  //
+  &:focus ~ label.option::before {
+    border-color: lighten($form-check-indicator-focus-border-color, 25%);
+    outline: none;
+
+    // Conditionally set a `box-shadow`.
+    //
+    @if $shadow {
+      box-shadow: $form-check-indicator-inset-box-shadow, $form-check-indicator-focus-box-shadow;
+    }
+  }
+
+  // Label options (Disabled state)
+  //
+  &:disabled ~ label.option {
+    color: $form-check-label-disabled-color;
+
+    // Indicators (Disabled state)
+    //
+    &::before {
+      @include background($color: $form-check-indicator-disabled-background-color);
+    }
+  }
+}

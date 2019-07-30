@@ -1,0 +1,268 @@
+@charset 'utf-8';
+
+
+/// Buttons
+///
+/// Easily set out default styles for all buttons.
+///
+/// @group library
+///
+/// @param {Bool} $rounded [true]
+///   - Enable or disable the border radius on buttons.
+///
+/// @param {Bool} $transition [true]
+///   - Enable or disable the transitions when buttons state changes.
+///
+/// @param {Bool} $shadow [false]
+///   - Enable or disable the box shadow on buttons.
+///
+/// @param {Number} $button-vertical-padding [0.5rem]
+///   - The top/bottom (vertical) padding size to be applied on buttons.
+///
+/// @param {Number} $button-horizontal-padding [1rem]
+///   - The right/left (horizontal) padding size to be applied on buttons.
+///
+/// @param {Color} $button-color [#000033]
+///   - The text color to be applied on buttons.
+///
+/// @param {Color} $button-hover-color [#000033]
+///   - The text color to be applied on buttons when hovered.
+///
+/// @param {Color} $button-background-color [transparent]
+///   - The background color to be applied on buttons.
+///
+/// @param {Number} $button-border-width [1px]
+///   - The border width to be applied on buttons.
+///
+/// @param {Color} $button-border-color [transparent]
+///   - The border color to be applied on buttons.
+///
+/// @param {String} $button-border-style [solid]
+///   - The border style to be applied on buttons.
+///
+/// @param {Number} $button-border-radius [0.25rem]
+///   - The border radius size to be applied on buttons.
+///
+/// @param {List} $button-transition [color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out]
+///   - The transition properties to be applied on buttons.
+///
+/// @param {List} $button-focus-box-shadow [0 0 0 3px #00003340]
+///   - The box shadow to be applied on buttons when focused.
+///
+/// @param {Color} $button-disabled-opacity [0.65]
+///   - The opacity to be applied on buttons when disabled.
+///
+/// @example scss - Usage.
+///   .button {
+///     @include button;
+///   }
+///
+///   // CSS Output
+///   //
+///   .button {
+///     padding: 0.5rem 1rem;
+///     background-color: transparent;
+///     display: inline-block;
+///     border-width: 1px;
+///     border-color: transparent;
+///     border-style: solid;
+///     color: #003;
+///     font-family: inherit;
+///     ...
+///     white-space: nowrap;
+///     cursor: pointer;
+///     user-select: none;
+///     border-radius: 0.25rem;
+///   }
+///   .button:hover {
+///     color: #003;
+///     text-decoration: none;
+///   }
+///   .button:focus {
+///     outline: none;
+///   }
+///
+/// @requires {variable} enable-rounded
+/// @requires {variable} enable-transitions
+/// @requires {variable} enable-shadows
+/// @requires {variable} body-base-color
+/// @requires {variable} component-vertical-paddings
+/// @requires {variable} component-horizontal-paddings
+/// @requires {variable} component-border-width
+/// @requires {variable} component-border-style
+/// @requires {variable} component-border-radiuses
+/// @requires {variable} component-transitions
+/// @requires {variable} component-box-shadows
+/// @requires {mixin} rem
+/// @requires {mixin} background
+
+@mixin button(
+  $rounded: $enable-rounded,
+  $transition: $enable-transitions,
+  $shadow: $enable-shadows,
+  $button-vertical-padding: map-get($component-vertical-paddings, 'default'),
+  $button-horizontal-padding: map-get($component-horizontal-paddings, 'default'),
+  $button-color: $body-base-color,
+  $button-hover-color: $button-color,
+  $button-background-color: transparent,
+  $button-border-width: $component-border-width,
+  $button-border-color: transparent,
+  $button-border-style: $component-border-style,
+  $button-border-radius: map-get($component-border-radiuses, 'default'),
+  $button-transition: map-get($component-transitions, 'button'),
+  $button-focus-box-shadow: map-get($component-box-shadows, 'focus'),
+  $button-next-element-margin-left: map-get($component-margins, 'smaller'),
+  $button-disabled-opacity: 0.65
+) {
+
+  @include rem('padding', $button-vertical-padding $button-horizontal-padding);
+  @include background($color: $button-background-color);
+  display: inline-block;
+  border: {
+    @include rem('width', $button-border-width);
+    color: $button-border-color;
+    style: $button-border-style;
+  }
+  color: $button-color;
+  font: {
+    family: inherit;
+    size: inherit;
+    weight: inherit;
+  }
+  text: {
+    align: center;
+    decoration: none;
+  }
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+
+  // Manually set `border-radius` to provide an override to the browser default.
+  //
+  @if $rounded {
+    @include rem('border-radius', $button-border-radius);
+  }
+  @else {
+    border-radius: 0; // Reset the browser default.
+  }
+
+  // Conditionally set a `transition`.
+  //
+  @if $transition {
+    transition: $button-transition;
+  }
+
+  // Hover state
+  //
+  &:hover {
+    color: $button-hover-color;
+    text-decoration: none;
+  }
+
+  // Focus state
+  //
+  &:focus {
+    outline: none;
+  }
+
+  // Image type
+  //
+  &[type="image"] {
+    padding: 0 !important;
+    background: none !important;
+    border: 0 none !important;
+  }
+
+  // Any elements when immediately after a button.
+  //
+  + * {
+    @include rem('margin-left', $button-next-element-margin-left);
+  }
+
+  // Disabled
+  //
+  &:disabled {
+    opacity: $button-disabled-opacity;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+
+/// Button variant
+///
+/// Easily set out variant styles on a specific button.
+///
+/// @group library
+///
+/// @param {String} $style
+///   - The expected style to be applied.
+///
+/// @param {Bool} $shadow [false]
+///   - Enable or disable the box shadow on button variants.
+///
+/// @param {Color} $button-variant-color [#eeeeee]
+///   - The text color to be applied on button variants.
+///
+/// @param {Number} $button-variant-darken-pourcentage [15%]
+///   - The darkening percentage to be applied on button variants when hovered.
+///
+/// @example scss - Usage.
+///   .button--primary {
+///     @include button-variant('primary');
+///   }
+///
+///   // CSS Output
+///   //
+///   .button--primary {
+///     background-color: #003;
+///     border-color: #003;
+///     color: #eee;
+///   }
+///   .button--primary:hover {
+///     background-color: #000;
+///     border-color: #000;
+///     color: #eee;
+///   }
+///
+/// @requires {variable} enable-shadows
+/// @requires {variable} component-state-colors
+/// @requires {function} theme-color
+/// @requires {mixin} background
+
+@mixin button-variant(
+  $style,
+  $shadow: $enable-shadows,
+  $button-variant-color: map-get($component-state-colors, 'active'),
+  $button-variant-darken-pourcentage: 15%
+) {
+
+  @if type-of($style) == 'string' and map-has-key($theme-colors, $style) {
+    @include background($color: theme-color($style));
+    border-color: theme-color($style);
+    color: $button-variant-color;
+
+    // Hover state
+    //
+    &:hover {
+      @include background($color: darken(theme-color($style), $button-variant-darken-pourcentage));
+      border-color: darken(theme-color($style), $button-variant-darken-pourcentage);
+      color: $button-variant-color;
+    }
+
+    // Conditionally set a `box-shadow`.
+    //
+    @if $shadow {
+
+      // Focus state
+      //
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(theme-color($style), 0.25);
+      }
+    }
+  }
+  @else {
+    @warn "Unrecognized or missing style: '#{$style}'";
+  }
+}

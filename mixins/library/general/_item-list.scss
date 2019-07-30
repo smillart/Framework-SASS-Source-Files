@@ -1,0 +1,43 @@
+@charset 'utf-8';
+
+
+/// Item list variant
+///
+/// Easily set out variant styles on a specific item list.
+///
+/// @group library
+///
+/// @param {String} $style
+///   - The expected style to be applied.
+///
+/// @example scss - Usage.
+///   .element {
+///     @include item-list-variant('flush');
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     border: 0 none;
+///     border-radius: 0;
+///   }
+///
+/// @requires {variable} enable-rounded
+
+@mixin item-list-variant(
+  $style
+) {
+
+  @if $style == 'flush' {
+    border: 0 none;
+
+    // Conditionally reset the `border-radius`.
+    //
+    @if $enable-rounded {
+      border-radius: 0;
+    }
+  }
+  @else {
+    @warn "Unrecognized or missing style: '#{$style}'";
+  }
+}

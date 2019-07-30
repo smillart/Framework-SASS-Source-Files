@@ -1,0 +1,47 @@
+@charset 'utf-8';
+
+
+/// Headings
+///
+/// Easily set out default styles for all headings.
+///
+/// @group library
+///
+/// @param {Number} $headings-margin-bottom [0.5rem]
+///   - The bottom margin size applied on all headings.
+///
+/// @param {Number} $headings-font-weight [700]
+///   - The font thickness applied on all headings.
+///
+/// @example scss - Usage.
+///   h1 {
+///     @include headings;
+///   }
+///
+///   // CSS Output
+///   //
+///   h1, h2, h3, h4, h5, h6 {
+///     margin-bottom: 0.5rem;
+///     color: inherit;
+///     font-family: inherit;
+///     font-weight: 700;
+///     line-height: 1.2;
+///   }
+///
+/// @requires {variable} component-margins
+/// @requires {variable} component-font-weights
+/// @requires {mixin} rem
+
+@mixin headings(
+  $headings-margin-bottom: map-get($component-margins, 'smaller'),
+  $headings-font-weight: map-get($component-font-weights, 'bold')
+) {
+
+  @include rem('margin-bottom', $headings-margin-bottom);
+  color: inherit;
+  font: {
+    family: inherit;
+    weight: $headings-font-weight;
+  }
+  line-height: 1.2;
+}
