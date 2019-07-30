@@ -16,7 +16,6 @@
 /// Body
 /// Headings
 /// Media
-/// Tables
 
 
 /// Fonts
@@ -54,7 +53,7 @@ $body-base-color: $gray-700 !default;
 ///
 /// @see scss/base/_root.scss
 
-$body-base-background-color: white !default;
+$body-base-background-color: $gray-100 !default;
 
 
 /// The base font family applied on the document body.
@@ -111,6 +110,16 @@ $heading-3-font-size: ($body-base-font-size * 1.75) !default;
 $heading-4-font-size: ($body-base-font-size * 1.5) !default;
 $heading-5-font-size: ($body-base-font-size * 1.25) !default;
 $heading-6-font-size: $body-base-font-size !default;
+
+
+/// The default font weights applied on headings 3 & 4-to-6 types.
+///
+/// @type Number
+///
+/// @see scss/base/_typography.scss
+
+$heading-3-font-weight:      400 !default;
+$heading-4-to-6-font-weight: 300 !default;
 
 
 /// Media
