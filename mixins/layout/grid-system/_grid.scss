@@ -37,8 +37,8 @@
 
   @extend %container-defaults;
   padding: {
-    @include rem(right, ($gutter / 2));
-    @include rem(left, ($gutter / 2));
+    @include rem('right', ($gutter / 2));
+    @include rem('left', ($gutter / 2));
   }
 }
 
@@ -66,7 +66,7 @@
 ///   }
 ///   @media (min-width: 576px) {
 ///     .container {
-///       max-width: 540px;
+///       max-width: 480px;
 ///     }
 ///   }
 ///   @media (min-width: 768px) {
@@ -93,7 +93,7 @@
 
   @each $breakpoint, $container-max-width in $max-widths {
     @include breakpoint-up($breakpoint, $breakpoints) {
-      @include rem(max-width, $container-max-width);
+      @include rem('max-width', $container-max-width);
     }
   }
 }
@@ -132,8 +132,8 @@
 
   @extend %row-defaults;
   margin: {
-    @include rem(right, ($gutter / -2));
-    @include rem(left, ($gutter / -2));
+    @include rem('right', ($gutter / -2));
+    @include rem('left', ($gutter / -2));
   }
 }
 
@@ -174,8 +174,8 @@
 
   @extend %column-defaults;
   padding: {
-    @include rem(right, ($gutter / 2));
-    @include rem(left, ($gutter / 2));
+    @include rem('right', ($gutter / 2));
+    @include rem('left', ($gutter / 2));
   }
 }
 
