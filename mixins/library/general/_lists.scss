@@ -1,23 +1,76 @@
 @charset 'utf-8';
 
 
-/// List variants
+/// Lists
 ///
-/// Easily set out variant styles for all kind of lists.
+/// Easily set out default styles for all lists.
+///
+/// @group library
+///
+/// @param {Number} $lists-padding-left [1.5rem]
+///   - The left padding size applied on all lists.
+///
+/// @param {Number} $lists-margin-bottom [2rem]
+///   - The bottom margin size applied on all lists.
+///
+/// @example scss - Usage.
+///   ul {
+///     @include lists;
+///   }
+///
+///   // CSS Output
+///   //
+///   ul, ol {
+///     padding-left: 1.5rem;
+///     margin-bottom: 2rem;
+///   }
+///   ul ul, ul ol {
+///     margin-bottom: 0;
+///   }
+///
+/// @requires {variable} component-horizontal-paddings
+/// @requires {variable} component-margins
+/// @requires {mixin} rem
+
+@mixin lists(
+  $lists-padding-left: map-get($component-horizontal-paddings, 'largest'),
+  $lists-margin-bottom: map-get($component-margins, 'default')
+) {
+
+  @include rem('padding-left', $lists-padding-left);
+  @include rem('margin-bottom', $lists-margin-bottom);
+
+  // Nested unordered lists
+  //
+  ul {
+    margin-bottom: 0;
+  }
+
+  // Nested ordered lists
+  //
+  ol {
+    margin-bottom: 0;
+  }
+}
+
+
+/// List variant
+///
+/// Easily set out variant styles on a specific list.
 ///
 /// @group library
 ///
 /// @param {String} $style
 ///   - The expected style to be applied.
 ///
-/// @param {Number} $unstyled-padding-left [0]
-///   - The left padding applied on all (un)ordered unstyled lists.
+/// @param {Number} $list-unstyled-padding-left [0]
+///   - The left padding to be applied on the unstyled (un)ordered lists.
 ///
-/// @param {String} $inline-item-vertical-align [top]
-///   - The vertical alignment applied on all inline list items.
+/// @param {String} $list-inline-item-vertical-align [top]
+///   - The vertical alignment to be applied on all inline list items.
 ///
-/// @param {Number} $inline-item-margin-left [map-get($component-margins, 'small')]
-///   - The left margin applied on all inline list items (Excepted the first child).
+/// @param {Number} $list-inline-item-margin-left [1rem]
+///   - The left margin to be applied on all inline list items (Excepted the first child).
 ///
 /// @example scss - Usage.
 ///   .item-list ul {
@@ -42,7 +95,7 @@
 ///     vertical-align: top;
 ///   }
 ///   ul.links.inline > li:not(:first-child) {
-///     margin-left: 0.5rem;
+///     margin-left: 1rem;
 ///   }
 ///
 /// @requires {variable} component-margins
@@ -50,13 +103,13 @@
 
 @mixin list-variant(
   $style,
-  $unstyled-padding-left: 0,
-  $inline-item-vertical-align: top,
-  $inline-item-margin-left: map-get($component-margins, 'small')
+  $list-unstyled-padding-left: 0,
+  $list-inline-item-vertical-align: top,
+  $list-inline-item-margin-left: map-get($component-margins, 'smaller')
 ) {
 
   @if $style == 'unstyled' or $style == 'inline' {
-    @include rem('padding-left', $unstyled-padding-left);
+    @include rem('padding-left', $list-unstyled-padding-left);
     list-style: outside none none;
 
     @if $style == 'inline' {
@@ -65,12 +118,12 @@
       //
       > li {
         display: inline-block;
-        vertical-align: $inline-item-vertical-align;
+        vertical-align: $list-inline-item-vertical-align;
 
         // List items (Immediate children / Excepted the first child)
         //
         &:not(:first-child) {
-          @include rem('margin-left', $inline-item-margin-left);
+          @include rem('margin-left', $list-inline-item-margin-left);
         }
       }
     }

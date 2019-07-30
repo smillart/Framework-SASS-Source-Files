@@ -1,29 +1,29 @@
 @charset 'utf-8';
 
 
-/// Paragraph variants
+/// Paragraph variant
 ///
-/// Easily set out variant styles for all paragraphs.
+/// Easily set out variant styles on a specific paragraph.
 ///
 /// @group library
 ///
 /// @param {String} $style
 ///   - The expected style to be applied.
 ///
-/// @param {Number} $lead-font-size [($body-base-font-size * 1.25)]
+/// @param {Number} $paragraph-lead-font-size [1.25rem]
 ///   - The font size to be applied on the lead (Stand out) paragraphs.
 ///
-/// @param {Number} $lead-font-weight [map-get($component-font-weights, 'light')]
+/// @param {Number} $paragraph-lead-font-weight [300]
 ///   - The font weight to be applied on the lead (Stand out) paragraphs.
 ///
 /// @example scss - Usage.
-///   p.lead {
+///   .element {
 ///     @include paragraph-variant('lead');
 ///   }
 ///
 ///   // CSS Output
 ///   //
-///   p.lead {
+///   .element {
 ///     font-size: 1.25rem;
 ///     font-weight: 300;
 ///   }
@@ -34,14 +34,14 @@
 
 @mixin paragraph-variant(
   $style,
-  $lead-font-size: ($body-base-font-size * 1.25),
-  $lead-font-weight: map-get($component-font-weights, 'light')
+  $paragraph-lead-font-size: ($body-base-font-size * 1.25),
+  $paragraph-lead-font-weight: map-get($component-font-weights, 'light')
 ) {
 
   @if $style == 'lead' {
     font: {
-      @include rem('size', $lead-font-size);
-      weight: $lead-font-weight;
+      @include rem('size', $paragraph-lead-font-size);
+      weight: $paragraph-lead-font-weight;
     }
   }
   @else {
