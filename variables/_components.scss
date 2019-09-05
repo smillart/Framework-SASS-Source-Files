@@ -12,47 +12,11 @@
 
 /// Table of Contents
 ///
-/// Spacing
 /// Components (Spacing)
 /// Components (Borders)
 /// Components (Fonts)
 /// Components (States)
 /// Components (Effects)
-
-
-/// Spacing
-/// ====================================================================================================
-/// Control the default styling of most elements by modifying these variables.
-/// Mostly focused on spacing according to the base font size applied on the document body.
-
-
-/// List of common spacing used by the components.
-///
-/// @type List
-
-$spacer: $body-base-font-size !default;
-$spacers: () !default;
-$spacers: join(
-  (
-    ($spacer * 0.25), // id: 1
-    ($spacer * 0.5),  // id: 2
-    ($spacer * 0.75), // id: 3
-    $spacer,          // id: 4
-    ($spacer * 1.25), // id: 5
-    ($spacer * 1.5),  // id: 6
-    ($spacer * 1.75), // id: 7
-    ($spacer * 2),    // id: 8
-    ($spacer * 2.25), // id: 9
-    ($spacer * 2.5),  // id: 10
-    ($spacer * 2.75), // id: 11
-    ($spacer * 3),    // id: 12
-    ($spacer * 3.25), // id: 13
-    ($spacer * 3.5),  // id: 14
-    ($spacer * 3.75), // id: 15
-    ($spacer * 4)     // id: 16
-  ),
-  $spacers
-);
 
 
 /// Components (Spacing)
@@ -62,31 +26,31 @@ $spacers: join(
 
 /// Map of common vertical padding sizes used by the components.
 ///
+/// @prop {Number} xsmall [0.125rem]
+///   - Extra-small size for the vertical padding rhythm.
+///
 /// @prop {Number} small [0.25rem]
-///   - Small size for the vertical padding rhythm.
+///   - Compact size for the vertical padding rhythm.
 ///
-/// @prop {Number} default [0.5rem]
-///   - Default size for the vertical padding rhythm.
+/// @prop {Number} medium [0.375rem]
+///   - Medium size for the vertical padding rhythm.
 ///
-/// @prop {Number} large [0.75rem]
-///   - Large size for the vertical padding rhythm.
-///
-/// @prop {Number} larger [1rem]
+/// @prop {Number} large [0.5rem]
 ///   - Expanded size for the vertical padding rhythm.
 ///
-/// @prop {Number} largest [1.25rem]
-///   - Extreme size for the vertical padding rhythm.
+/// @prop {Number} xlarge [0.625rem]
+///   - Extra-large size for the vertical padding rhythm.
 ///
 /// @type Map
 
 $component-vertical-paddings: () !default;
 $component-vertical-paddings: map-merge(
   (
-    'small':   nth($spacers, 1),
-    'default': nth($spacers, 2),
-    'large':   nth($spacers, 3),
-    'larger':  nth($spacers, 4),
-    'largest': nth($spacers, 5),
+    'xsmall': 0.125rem,
+    'small':  0.25rem,
+    'medium': 0.375rem,
+    'large':  0.5rem,
+    'xlarge': 0.625rem,
   ),
   $component-vertical-paddings
 );
@@ -94,31 +58,31 @@ $component-vertical-paddings: map-merge(
 
 /// Map of common horizontal padding sizes used by the components.
 ///
-/// @prop {Number} small [0.5rem]
-///   - Small size for the horizontal padding rhythm.
+/// @prop {Number} xsmall [0.25rem]
+///   - Extra-small size for the horizontal padding rhythm.
 ///
-/// @prop {Number} default [0.75rem]
-///   - Default size for the horizontal padding rhythm.
+/// @prop {Number} small [0.5rem]
+///   - Compact size for the horizontal padding rhythm.
+///
+/// @prop {Number} medium [0.75rem]
+///   - Medium size for the horizontal padding rhythm.
 ///
 /// @prop {Number} large [1rem]
-///   - Large size for the horizontal padding rhythm.
-///
-/// @prop {Number} larger [1.25rem]
 ///   - Expanded size for the horizontal padding rhythm.
 ///
-/// @prop {Number} largest [1.5rem]
-///   - Extreme size for the horizontal padding rhythm.
+/// @prop {Number} xlarge [1.25rem]
+///   - Extra-large size for the horizontal padding rhythm.
 ///
 /// @type Map
 
 $component-horizontal-paddings: () !default;
 $component-horizontal-paddings: map-merge(
   (
-    'small':   nth($spacers, 2),
-    'default': nth($spacers, 3),
-    'large':   nth($spacers, 4),
-    'larger':  nth($spacers, 5),
-    'largest': nth($spacers, 6),
+    'xsmall': 0.25rem,
+    'small':  0.5rem,
+    'medium': 0.75rem,
+    'large':  1rem,
+    'xlarge': 1.25rem,
   ),
   $component-horizontal-paddings
 );
@@ -126,26 +90,25 @@ $component-horizontal-paddings: map-merge(
 
 /// Map of common margin sizes used by the components.
 ///
-///
-/// @prop {Number} smallest [0.25rem]
+/// @prop {Number} xxsmall [0.125rem]
 ///   - Smallest size for the margin rhythm.
 ///
-/// @prop {Number} smaller [0.5rem]
-///   - Smaller size for the margin rhythm.
+/// @prop {Number} xsmall [0.25rem]
+///   - Extra-small size for the margin rhythm.
 ///
-/// @prop {Number} small [0.75rem]
-///   - Small size for the margin rhythm.
+/// @prop {Number} small [0.5rem]
+///   - Compact size for the margin rhythm.
 ///
-/// @prop {Number} default [1rem]
+/// @prop {Number} medium [1rem]
 ///   - Default size for the margin rhythm.
 ///
 /// @prop {Number} large [1.5rem]
-///   - Large size for the margin rhythm.
-///
-/// @prop {Number} larger [2rem]
 ///   - Expanded size for the margin rhythm.
 ///
-/// @prop {Number} largest [2.5rem]
+/// @prop {Number} xlarge [2rem]
+///   - Extra-large size for the margin rhythm.
+///
+/// @prop {Number} xxlarge [3rem]
 ///   - Extreme size for the margin rhythm.
 ///
 /// @type Map
@@ -153,13 +116,13 @@ $component-horizontal-paddings: map-merge(
 $component-margins: () !default;
 $component-margins: map-merge(
   (
-    'smallest': nth($spacers, 1),
-    'smaller':  nth($spacers, 2),
-    'small':    nth($spacers, 3),
-    'default':  nth($spacers, 4),
-    'large':    nth($spacers, 6),
-    'larger':   nth($spacers, 8),
-    'largest':  nth($spacers, 10),
+    'xxsmall': 0.125rem,
+    'xsmall':  0.25rem,
+    'small':   0.5rem,
+    'medium':  1rem,
+    'large':   1.5rem,
+    'xlarge':  2rem,
+    'xxlarge': 3rem,
   ),
   $component-margins
 );
@@ -186,16 +149,13 @@ $component-border-style: solid !default;
 
 /// Map of common border color brightnesses used by the components.
 ///
-/// @prop {Color} light [#f8f9fa]
+/// @prop {Color} light [$gray-200]
 ///   - Intense brightness for the border color.
 ///
-/// @prop {Color} default [#ced4da]
-///   - Default brightness for the border color.
-///
-/// @prop {Color} neutral [#868e96]
+/// @prop {Color} neutral [$gray-400]
 ///   - Middle brightness for the border color.
 ///
-/// @prop {Color} dark [#343a40]
+/// @prop {Color} dark [$gray-600]
 ///   - Intense darkness for the border color.
 ///
 /// @type Map
@@ -203,10 +163,9 @@ $component-border-style: solid !default;
 $component-border-colors: () !default;
 $component-border-colors: map-merge(
   (
-    'light':   $gray-100,
-    'default': $gray-400,
-    'neutral': $gray-600,
-    'dark':    $gray-800,
+    'light':   $gray-200,
+    'neutral': $gray-400,
+    'dark':    $gray-600,
   ),
   $component-border-colors
 );
@@ -214,13 +173,13 @@ $component-border-colors: map-merge(
 
 /// Map of common border radius sizes used by the components.
 ///
-/// @prop {Number} small [0.2rem]
-///   - Reduced size for the border radius rounding.
+/// @prop {Number} small [0.125rem]
+///   - Compact size for the border radius rounding.
 ///
-/// @prop {Number} default [0.25rem]
+/// @prop {Number} medium [0.25rem]
 ///   - Default size for the border radius rounding.
 ///
-/// @prop {Number} large [0.3rem]
+/// @prop {Number} large [0.375rem]
 ///   - Expanded size for the border radius rounding.
 ///
 /// @type Map
@@ -228,9 +187,9 @@ $component-border-colors: map-merge(
 $component-border-radiuses: () !default;
 $component-border-radiuses: map-merge(
   (
-    'small':   ($spacer * 0.2),
-    'default': ($spacer * 0.25),
-    'large':   ($spacer * 0.3),
+    'small':  0.125rem,
+    'medium': 0.25rem,
+    'large':  0.375rem,
   ),
   $component-border-radiuses
 );
@@ -249,7 +208,7 @@ $component-border-radiuses: map-merge(
 /// @prop {Number} light [300]
 ///   - Light weight for the font thickness.
 ///
-/// @prop {Number} default [400]
+/// @prop {Number} regular [400]
 ///   - Default weight for the font thickness.
 ///
 /// @prop {Number} medium [500]
@@ -274,7 +233,7 @@ $component-font-weights: map-merge(
   (
     'thin':       100,
     'light':      300,
-    'default':    400,
+    'regular':    400,
     'medium':     500,
     'semi-bold':  600,
     'bold':       700,
@@ -292,25 +251,25 @@ $component-font-weights: map-merge(
 
 /// Map of common text color states used by the components.
 ///
-/// @prop {Color} light [#f8f9fa]
+/// @prop {Color} light [$gray-100]
 ///   - Intense brightness state for the text color.
 ///
-/// @prop {Color} active [#f8f9fa]
-///   - Activated state for the text color.
+/// @prop {Color} active [white]
+///   - Activated state for the text color on contrast background.
 ///
-/// @prop {Color} focus [#f8f9fa]
-///   - Focused state for the text color.
+/// @prop {Color} focus [white]
+///   - Focused state for text color on contrast background.
 ///
-/// @prop {Color} hover [##004c9f]
-///   - Hovered state for the text color.
+/// @prop {Color} hover [darken(theme-color('primary'), 15%)]
+///   - Hovered state for the link color.
 ///
-/// @prop {Color} default [#0071eb]
-///   - Default state for the text color.
+/// @prop {Color} link [theme-color('primary')]
+///   - Default state for the link color.
 ///
-/// @prop {Color} muted [#868e96]
+/// @prop {Color} muted [$gray-600]
 ///   - Discrete state for the text color.
 ///
-/// @prop {Color} dark [#212529]
+/// @prop {Color} dark [$gray-900]
 ///   - Intense darkness state for the text color.
 ///
 /// @type Map
@@ -318,13 +277,13 @@ $component-font-weights: map-merge(
 $component-state-colors: () !default;
 $component-state-colors: map-merge(
   (
-    'light':   $gray-100,
-    'active':  $body-base-background-color,
-    'focus':   $body-base-background-color,
-    'hover':   darken(theme-color('primary'), 15%),
-    'default': theme-color('primary'),
-    'muted':   $gray-600,
-    'dark':    $gray-900,
+    'light':  $gray-100,
+    'active': white,
+    'focus':  white,
+    'hover':  darken(theme-color('primary'), 15%),
+    'link':   theme-color('primary'),
+    'muted':  $gray-600,
+    'dark':   $gray-900,
   ),
   $component-state-colors
 );
@@ -332,22 +291,16 @@ $component-state-colors: map-merge(
 
 /// Map of common background color states used by the components.
 ///
-/// @prop {Color} light [#f8f9fa]
+/// @prop {Color} light [$gray-100]
 ///   - Intense brightness state for the background color.
 ///
-/// @prop {Color} active [#0071eb]
-///   - Activated state for the background color.
-///
-/// @prop {Color} focus [#0071eb]
-///   - Focused state for the background color.
-///
-/// @prop {Color} hover [#dee2e6]
+/// @prop {Color} hover [darken(theme-color('primary'), 7.5%)]
 ///   - Hovered state for the background color.
 ///
-/// @prop {Color} muted [#e9ecef]
+/// @prop {Color} muted [$gray-200]
 ///   - Discrete state for the background color.
 ///
-/// @prop {Color} dark [#212529]
+/// @prop {Color} dark [$gray-800]
 ///   - Intense darkness state for the background color.
 ///
 /// @type Map
@@ -356,11 +309,9 @@ $component-state-background-colors: () !default;
 $component-state-background-colors: map-merge(
   (
     'light':  $gray-100,
-    'active': theme-color('primary'),
-    'focus':  theme-color('primary'),
-    'hover':  $gray-300,
+    'hover':  darken(theme-color('primary'), 7.5%),
     'muted':  $gray-200,
-    'dark':   $gray-900,
+    'dark':   $gray-800,
   ),
   $component-state-background-colors
 );
@@ -368,22 +319,16 @@ $component-state-background-colors: map-merge(
 
 /// Map of common border color states used by the components.
 ///
-/// @prop {Color} light [#f8f9fa]
+/// @prop {Color} light [$gray-200]
 ///   - Intense brightness state for the border color.
 ///
-/// @prop {Color} active [#0071eb]
-///   - Activated state for the border color.
-///
-/// @prop {Color} focus [#80bdff]
-///   - Focused state for the border color.
-///
-/// @prop {Color} hover [#868e96]
+/// @prop {Color} hover [darken(theme-color('primary'), 10%)]
 ///   - Hovered state for the border color.
 ///
-/// @prop {Color} muted [#e9ecef]
+/// @prop {Color} muted [$gray-300]
 ///   - Discrete state for the border color.
 ///
-/// @prop {Color} dark [#212529]
+/// @prop {Color} dark [$gray-900]
 ///   - Intense darkness state for the border color.
 ///
 /// @type Map
@@ -391,11 +336,9 @@ $component-state-background-colors: map-merge(
 $component-state-border-colors: () !default;
 $component-state-border-colors: map-merge(
   (
-    'light':  $gray-100,
-    'active': theme-color('primary'),
-    'focus':  lighten(theme-color('primary'), 10%),
-    'hover':  $gray-600,
-    'muted':  $gray-200,
+    'light':  $gray-200,
+    'hover':  darken(theme-color('primary'), 10%),
+    'muted':  $gray-300,
     'dark':   $gray-900,
   ),
   $component-state-border-colors
@@ -409,19 +352,19 @@ $component-state-border-colors: map-merge(
 
 /// Map of common box shadow properties used by the components.
 ///
-/// @prop {List} small [0 0.125rem 0.25rem rgba(#000, 0.075)]
+/// @prop {List} small [0 0.125rem 0.25rem rgba(black, 0.075)]
 ///   - Reduced length for the box shadow.
 ///
-/// @prop {List} medium [0 0.5rem 1rem rgba(#000, 0.15)]
+/// @prop {List} medium [0 0.5rem 1rem rgba(black, 0.15)]
 ///   - Default length for the box shadow.
 ///
-/// @prop {List} large [0 1rem 3rem rgba(#000, 0.175)]
+/// @prop {List} large [0 1rem 3rem rgba(black, 0.175)]
 ///   - Expanded length for the box shadow.
 ///
-/// @prop {List} inset [inset 0 1px 1px rgba(#000, 0.075)]
+/// @prop {List} inset [inset 0 1px 1px rgba(black, 0.075)]
 ///   - Inner length for the box shadow.
 ///
-/// @prop {List} focus [0 0 0 3px rgba(map-get($component-state-background-colors, 'active'), 0.25)]
+/// @prop {List} focus [0 0 0 3px rgba(theme-color('primary'), 0.25)]
 ///   - Focused state for the box shadow.
 ///
 /// @type Map
@@ -433,7 +376,7 @@ $component-box-shadows: map-merge(
     'medium': 0 0.5rem 1rem rgba(black, 0.15),
     'large':  0 1rem 3rem rgba(black, 0.175),
     'inset':  inset 0 1px 1px rgba(black, 0.075),
-    'focus': 0 0 0 3px rgba(map-get($component-state-background-colors, 'focus'), 0.25),
+    'focus':  0 0 0 3px rgba(theme-color('primary'), 0.25),
   ),
   $component-box-shadows
 );
