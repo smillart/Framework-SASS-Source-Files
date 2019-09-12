@@ -40,8 +40,8 @@ $sidebar-not-visible:           'body.no-sidebars' !default;
 $sidebar-visible:               'body.sidebar' !default;
 $sidebar-one-visible:           'body.one-sidebar' !default;
 $sidebar-both-visible:          'body.two-sidebars' !default;
-$sidebar-navigation-visible:    '#{$sidebar-one-visible}.sidebar-first' !default;
-$sidebar-complementary-visible: '#{$sidebar-one-visible}.sidebar-second' !default;
+$sidebar-navigation-visible:    '#{$sidebar-one-visible}.is-visible--navigation' !default;
+$sidebar-complementary-visible: '#{$sidebar-one-visible}.is-visible--complementary' !default;
 /// Regions
 $regions:                       '.region' !default;
 /// Forms
@@ -119,10 +119,9 @@ $region-header:                 '#{$block-inside-region}-header' !default;
 $region-header-collapsible:     '#{$block-inside-region}-header-collapsible' !default;
 $region-highlighted:            '#{$block-inside-region}-highlighted' !default;
 $region-content:                '#{$block-inside-region}-content' !default;
-$region-navigation:             '#{$block-inside-region}-sidebar-first' !default;
-$region-complementary:          '#{$block-inside-region}-sidebar-second' !default;
-$region-postscript-top:         '#{$block-inside-region}-postscript-top' !default;
-$region-postscript-bottom:      '#{$block-inside-region}-postscript-bottom' !default;
+$region-navigation:             '#{$block-inside-region}-navigation' !default;
+$region-complementary:          '#{$block-inside-region}-complementary' !default;
+$region-postscript-top:         '#{$block-inside-region}-postscript' !default;
 $region-footer:                 '#{$block-inside-region}-footer' !default;
 
 
