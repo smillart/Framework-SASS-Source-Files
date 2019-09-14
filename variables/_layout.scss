@@ -53,11 +53,11 @@
 $grid-breakpoints: () !default;
 $grid-breakpoints: map-merge(
   (
-    xsmall: 0,
-    small:  576px,
-    medium: 768px,
-    large:  992px,
-    xlarge: 1230px,
+    'xsmall': 0,
+    'small':  576px,
+    'medium': 768px,
+    'large':  992px,
+    'xlarge': 1230px,
   ),
   $grid-breakpoints
 );
@@ -86,10 +86,10 @@ $grid-breakpoints: map-merge(
 $container-max-widths: () !default;
 $container-max-widths: map-merge(
   (
-    small:  540px,
-    medium: 750px,
-    large:  990px,
-    xlarge: 1200px,
+    'small':  540px,
+    'medium': 750px,
+    'large':  990px,
+    'xlarge': 1200px,
   ),
   $container-max-widths
 );

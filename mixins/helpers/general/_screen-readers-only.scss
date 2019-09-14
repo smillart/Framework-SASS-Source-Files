@@ -42,7 +42,7 @@
 ///
 /// @example scss - Usage across '@media' context.
 ///   .element {
-///     @include breakpoint-up(medium) {
+///     @include breakpoint-up('medium') {
 ///       @include visually-hidden($extend: false);
 ///     }
 ///   }
@@ -144,7 +144,7 @@
 ///
 /// @example scss - Usage across '@media' context.
 ///   .element {
-///     @include breakpoint-up(medium) {
+///     @include breakpoint-up('medium') {
 ///       @include visually-hidden($extend: false);
 ///       @include focusable($extend: false);
 ///     }
