@@ -10,7 +10,7 @@
 /// @param {Number} $headings-margin-bottom [0.5rem]
 ///   - The bottom margin size applied on all headings.
 ///
-/// @param {Number} $headings-font-weight [700]
+/// @param {Number} $headings-font-weight [500]
 ///   - The font thickness applied on all headings.
 ///
 /// @example scss - Usage.
@@ -24,7 +24,7 @@
 ///     margin-bottom: 0.5rem;
 ///     color: inherit;
 ///     font-family: inherit;
-///     font-weight: 700;
+///     font-weight: 500;
 ///     line-height: 1.2;
 ///   }
 ///
@@ -34,7 +34,7 @@
 
 @mixin headings(
   $headings-margin-bottom: map-get($component-margins, 'small'),
-  $headings-font-weight: map-get($component-font-weights, 'bold')
+  $headings-font-weight: map-get($component-font-weights, 'medium')
 ) {
 
   @include rem('margin-bottom', $headings-margin-bottom);
