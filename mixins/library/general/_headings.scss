@@ -33,7 +33,7 @@
 /// @requires {mixin} rem
 
 @mixin headings(
-  $headings-margin-bottom: map-get($component-margins, 'smaller'),
+  $headings-margin-bottom: map-get($component-margins, 'small'),
   $headings-font-weight: map-get($component-font-weights, 'bold')
 ) {
 
