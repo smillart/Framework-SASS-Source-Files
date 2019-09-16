@@ -10,7 +10,7 @@
 /// @param {Number} $lists-padding-left [1.5rem]
 ///   - The left padding size applied on all lists.
 ///
-/// @param {Number} $lists-margin-bottom [2rem]
+/// @param {Number} $lists-margin-bottom [1rem]
 ///   - The bottom margin size applied on all lists.
 ///
 /// @example scss - Usage.
@@ -22,7 +22,7 @@
 ///   //
 ///   ul, ol {
 ///     padding-left: 1.5rem;
-///     margin-bottom: 2rem;
+///     margin-bottom: 1rem;
 ///   }
 ///   ul ul, ul ol {
 ///     margin-bottom: 0;
@@ -33,8 +33,8 @@
 /// @requires {mixin} rem
 
 @mixin lists(
-  $lists-padding-left: map-get($component-horizontal-paddings, 'largest'),
-  $lists-margin-bottom: map-get($component-margins, 'default')
+  $lists-padding-left: (map-get($component-horizontal-paddings, 'medium') * 2),
+  $lists-margin-bottom: map-get($component-margins, 'medium')
 ) {
 
   @include rem('padding-left', $lists-padding-left);
@@ -105,7 +105,7 @@
   $style,
   $list-unstyled-padding-left: 0,
   $list-inline-item-vertical-align: top,
-  $list-inline-item-margin-left: map-get($component-margins, 'smaller')
+  $list-inline-item-margin-left: map-get($component-margins, 'medium')
 ) {
 
   @if $style == 'unstyled' or $style == 'inline' {
