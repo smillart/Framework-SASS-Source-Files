@@ -44,7 +44,7 @@ $font-family-monospace:  Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier Ne
 ///
 /// @see scss/base/_root.scss
 
-$body-base-color: $gray-700 !default;
+$body-base-color: $gray-800 !default;
 
 
 /// The base background color applied on the document body.
@@ -53,7 +53,7 @@ $body-base-color: $gray-700 !default;
 ///
 /// @see scss/base/_root.scss
 
-$body-base-background-color: $gray-100 !default;
+$body-base-background-color: white !default;
 
 
 /// The base font family applied on the document body.
