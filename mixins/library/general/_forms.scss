@@ -116,7 +116,7 @@
   $form-control-background-color: white,
   $form-control-disabled-background-color: map-get($component-state-background-colors, 'muted'),
   $form-control-border-width: $component-border-width,
-  $form-control-border-color: map-get($component-border-colors, 'neutral'),
+  $form-control-border-color: map-get($component-border-colors, 'dark'),
   $form-control-border-style: $component-border-style,
   $form-control-border-radius: map-get($component-border-radiuses, 'medium'),
   $form-control-border-width-height: ($form-control-border-width * 2),
