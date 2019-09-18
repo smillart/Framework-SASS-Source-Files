@@ -46,9 +46,6 @@
 /// @param {Color} $form-control-border-color [#ced4da]
 ///   - The border color to be applied on form controls.
 ///
-/// @param {Color} $form-control-hover-border-color [#212529]
-///   - The border color to be applied on form controls when hovered.
-///
 /// @param {String} $form-control-border-style [solid]
 ///   - The border style to be applied on form controls.
 ///
@@ -120,7 +117,6 @@
   $form-control-disabled-background-color: map-get($component-state-background-colors, 'muted'),
   $form-control-border-width: $component-border-width,
   $form-control-border-color: map-get($component-border-colors, 'neutral'),
-  $form-control-hover-border-color: map-get($component-state-border-colors, 'dark'),
   $form-control-border-style: $component-border-style,
   $form-control-border-radius: map-get($component-border-radiuses, 'medium'),
   $form-control-border-width-height: ($form-control-border-width * 2),
@@ -163,12 +159,6 @@
   //
   @if $transition {
     transition: $form-control-transition;
-  }
-
-  // Hover state
-  //
-  &:hover {
-    border-color: $form-control-hover-border-color;
   }
 
   // Remove the default caret on `<select>`s in IE10+.
