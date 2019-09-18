@@ -46,7 +46,7 @@
 /// @param {Color} $form-control-border-color [#ced4da]
 ///   - The border color to be applied on form controls.
 ///
-/// @param {Number} $form-control-border-color-darken-pourcentage [15%]
+/// @param {Number} $form-control-border-color-darken-pourcentage [25%]
 ///   - The darkening percentage to be applied on form controls border color.
 ///
 /// @param {String} $form-control-border-style [solid]
@@ -230,6 +230,9 @@
 /// @param {Color} $form-check-indicator-border-color [#ced4da]
 ///   - The border color to be applied on form check-lists indicators.
 ///
+/// @param {Number} $form-check-indicator-border-color-darken-pourcentage [25%]
+///   - The darkening percentage to be applied on form controls border color.
+///
 /// @param {Color} $form-check-indicator-hover-border-color [#343a40]
 ///   - The border color to be applied on form check-lists indicators when hovered.
 ///
@@ -275,6 +278,7 @@
 ///
 /// @requires {variable} enable-shadows
 /// @requires {variable} enable-transitions
+/// @requires {variable} body-base-color
 /// @requires {variable} body-base-font-size
 /// @requires {variable} body-base-line-height
 /// @requires {variable} body-base-background-color
@@ -303,6 +307,7 @@
   $form-check-indicator-height: $body-base-font-size,
   $form-check-indicator-border-width: $component-border-width,
   $form-check-indicator-border-color: map-get($component-border-colors, 'neutral'),
+  $form-check-indicator-border-color-darken-pourcentage: 25%,
   $form-check-indicator-hover-border-color: map-get($component-state-border-colors, 'dark'),
   $form-check-indicator-border-style: $component-border-style,
   $form-check-indicator-transition: map-get($component-transitions, 'input'),
@@ -326,7 +331,7 @@
       @include rem('height', $form-check-indicator-height);
       border: {
         @include rem('width', $form-check-indicator-border-width);
-        color: $form-check-indicator-border-color;
+        color: darken($form-check-indicator-border-color, $form-check-indicator-border-color-darken-pourcentage);
         style: $form-check-indicator-border-style;
       }
       content: '';
@@ -354,6 +359,12 @@
   //
   &:hover ~ label.option::before {
     border-color: $form-check-indicator-hover-border-color;
+  }
+
+  // Indicators (Focus state)
+  //
+  &:focus ~ label.option::before {
+    outline: 1px dotted $body-base-color;
   }
 
   // Label options (Disabled state)
