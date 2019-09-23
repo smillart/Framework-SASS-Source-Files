@@ -261,7 +261,7 @@ Monospace font family.
 * [`$body-base-color`](variables/_base.scss) :  
 The base text color applied on the document body.
 
-*[ `$body-base-background-color`](variables/_base.scss) :  
+* [`$body-base-background-color`](variables/_base.scss) :  
 The base background color applied on the document body.
 
 * [`$body-base-font-family`](variables/_base.scss) :  
