@@ -239,7 +239,7 @@ Enable or disable the browser support to Internet Explorer 10.
 * [`$enable-legacy-support-for-ie11`](variables/_options.scss) :  
 Enable or disable the browser support to Internet Explorer 11.
 
-### Kiso's default palette
+### Default palette
 
 * [`$colors`](variables/_colors.scss) :  
 Map of color scheme.
