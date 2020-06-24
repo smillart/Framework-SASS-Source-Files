@@ -1,7 +1,7 @@
 @charset 'utf-8';
 
 
-/// Font Awesome Free 5.13.0
+/// Font Awesome Free 5.13.1
 ///
 /// You can place Font Awesome icons just about anywhere using the following Sass mixin.
 /// Font Awesome is designed to be used with inline elements and we recommend sticking with
@@ -72,7 +72,7 @@
     $icon: map-get($fa-conversion-map, $icon);
   }
   @else {
-    @error "Cannot convert `#{$icon}` to Font Awesome Free 5.13.0 icon name because it doesn't exist or seems to be an unexpected value.";
+    @error "Cannot convert `#{$icon}` to Font Awesome Free 5.13.1 icon name because it doesn't exist or seems to be an unexpected value.";
   }
 
   @if $position {
