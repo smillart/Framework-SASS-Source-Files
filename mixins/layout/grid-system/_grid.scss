@@ -74,10 +74,19 @@
 ///       max-width: 750px;
 ///     }
 ///   }
-///   ...
+///   @media (min-width: 992px) {
+///     .container {
+///       max-width: 990px;
+///     }
+///   }
 ///   @media (min-width: 1230px) {
 ///     .container {
 ///       max-width: 1200px;
+///     }
+///   }
+///   @media (min-width: 1540px) {
+///     .container {
+///       max-width: 1500px;
 ///     }
 ///   }
 ///
