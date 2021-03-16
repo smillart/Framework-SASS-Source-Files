@@ -10,6 +10,9 @@ Utilize our [*Framework SASS*](README.md) files to take advantage of the followi
 
 #### Functions
 
+* [`spacing($key, $multiplier)`](functions/helpers/general/_spacing.scss) :  
+Retrieve a variation from the "*Spacing*" Sass map.
+
 * [`contains-number($values)`](functions/helpers/general/_contains-number.scss) :  
 Checks if a list contains a number(s).
 
@@ -239,6 +242,14 @@ Enable or disable the browser support to Internet Explorer 10.
 * [`$enable-legacy-support-for-ie11`](variables/_options.scss) :  
 Enable or disable the browser support to Internet Explorer 11.
 
+### Spacing
+
+* [`$spacer`](variables/_spacing.scss) :  
+Default spacing value.
+
+* [`$spacers`](variables/_spacing.scss) :  
+Map of common spacing values.
+
 ### Default palette
 
 * [`$colors`](variables/_colors.scss) :  
@@ -279,7 +290,7 @@ The base text line height applied on the document body.
 * [`$heading-[1-6]-font-size`](variables/_base.scss) :  
 The default font sizes applied on each heading type.
 
-* `$image-folder-path`](variables/_base.scss) :  
+* [`$image-folder-path`](variables/_base.scss) :  
 The default path to the image folder.
 
 * [`$image-fallback-extension`](variables/_base.scss) :  
