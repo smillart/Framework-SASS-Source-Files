@@ -183,8 +183,8 @@
 
   @extend %column-defaults;
   padding: {
-    @include rem('right', ($gutter / 2));
-    @include rem('left', ($gutter / 2));
+    @include rem('right', calc($gutter / 2));
+    @include rem('left', calc($gutter / 2));
   }
 }
 
