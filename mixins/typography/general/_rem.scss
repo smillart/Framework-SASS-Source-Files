@@ -68,7 +68,7 @@
             $rem: append($rem, $value);
           }
           @else {
-            $rem: append($rem, ($val / $root + rem));
+            $rem: append($rem, (calc($val / $root) + rem));
           }
         }
         @else if $unit == 'rem' {
