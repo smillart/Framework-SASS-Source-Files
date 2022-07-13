@@ -18,6 +18,5 @@
   $value
 ) {
 
-  $strip: ($value * 0 + 1);
-  @return calc($value / $strip);
+  @return calc($value / ($value * 0 + 1));
 }
