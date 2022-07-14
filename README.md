@@ -12,7 +12,7 @@ Utilize our  _Sass Framework_  files to  [**take advantage of variables, maps, m
 
 Download and extract the source files into the root of your new sub-theme: `./themes/custom/THEMENAME`. After it has been extracted, the directory should be renamed (if needed) so it reads `./themes/custom/THEMENAME/_sass-framework`.
 
-If for whatever reason you have an additional `Framework-SASS-Source-Files-1.0.1` directory wrapping the first `Framework-SASS-Source-Files-1.0.1` directory (e.g. `./themes/THEMENAME/Framework-SASS-Source-Files-1.0.1/Framework-SASS-Source-Files-1.0.1`), remove the wrapping `Framework-SASS-Source-Files-1.0.1` directory.
+If for whatever reason you have an additional `Framework-SASS-Source-Files-1.0.11` directory wrapping the first `Framework-SASS-Source-Files-1.0.11` directory (e.g. `./themes/THEMENAME/Framework-SASS-Source-Files-1.0.11/Framework-SASS-Source-Files-1.0.11`), remove the wrapping `Framework-SASS-Source-Files-1.0.11` directory.
 
 ### Sass files structure
 
