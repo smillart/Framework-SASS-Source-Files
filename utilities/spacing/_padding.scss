@@ -1,0 +1,48 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'paddings' as *;
+
+
+/// Retrieve a component rhythm from the "Paddings" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $size [medium]
+///   - Padding size key.
+///
+/// @param {String} $orientation [horizontal]
+///   - The expected orientation for both horizontal & vertical axis.
+///     Only `horizontal` (default) or `vertical` are allowed values.
+///
+/// @return {Number}
+///   The REM padding rhythm indexed by '$size', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/spacing';
+///
+///   .element {
+///     padding: spacing.padding('large') {
+///       top: spacing.padding('large', 'vertical');
+///       bottom: spacing.padding('large', 'vertical');
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     padding: 1rem;
+///     padding-top: 0.5rem;
+///     padding-bottom: 0.5rem;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} paddings
+
+@function padding(
+  $size: 'medium',
+  $orientation: 'horizontal'
+) {
+
+  @return map.get($paddings, $orientation, $size);
+}

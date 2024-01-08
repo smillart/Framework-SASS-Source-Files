@@ -1,0 +1,49 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'spacers' as *;
+
+
+/// Retrieve a variation from the "Spacing" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $key [8]
+///   - Spacing key.
+///
+/// @param {Number} $multiplier [false]
+///   - If you want to go further than the default common spacing values provide,
+///     use this parameter to get higher variations. These variations will remain
+///     based on the default `$spacer` value.
+///
+/// @return {Number}
+///   The REM variation indexed by '$key', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/spacing';
+///
+///   .element {
+///     padding: {
+///       top: spacing.get-spacer('6');
+///       bottom: spacing.get-spacer('2', 10);
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     padding-top: 0.75rem;
+///     padding-bottom: 2.5rem;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} spacers
+
+@function spacer(
+  $key: '8',
+  $multiplier: false
+) {
+
+  $spacing: map.get($spacers, $key);
+  @return if($multiplier, $spacing * $multiplier, $spacing);
+}

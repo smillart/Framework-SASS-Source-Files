@@ -1,0 +1,72 @@
+@use 'sass:map';
+@use 'spacer' as get;
+
+
+/// Map of common vertical & horizontal padding sizes used by the components.
+///
+/// @prop {Map} vertical
+///   - Vertical paddings size map.
+///
+/// @prop {Number} vertical.xsmall [0.125rem]
+///   - Extra-small size for the vertical padding rhythm.
+///
+/// @prop {Number} vertical.small [0.25rem]
+///   - Compact size for the vertical padding rhythm.
+///
+/// @prop {Number} vertical.medium [0.375rem]
+///   - Medium size for the vertical padding rhythm.
+///
+/// @prop {Number} vertical.large [0.5rem]
+///   - Expanded size for the vertical padding rhythm.
+///
+/// @prop {Number} vertical.xlarge [0.625rem]
+///   - Extra-large size for the vertical padding rhythm.
+///
+/// @prop {Map} horizontal
+///   - Horizontal paddings size map.
+///
+/// @prop {Number} horizontal.xsmall [0.25rem]
+///   - Extra-small size for the horizontal padding rhythm.
+///
+/// @prop {Number} horizontal.small [0.5rem]
+///   - Compact size for the horizontal padding rhythm.
+///
+/// @prop {Number} horizontal.medium [0.75rem]
+///   - Medium size for the horizontal padding rhythm.
+///
+/// @prop {Number} horizontal.large [1rem]
+///   - Expanded size for the horizontal padding rhythm.
+///
+/// @prop {Number} horizontal.xlarge [1.25rem]
+///   - Extra-large size for the horizontal padding rhythm.
+///
+/// @prop {Number} horizontal.xxlarge [1.5rem]
+///   - Extreme size for the horizontal padding rhythm.
+///
+/// @require {function} map.merge
+/// @require {function} get.spacer
+/// @see {function} spacing.padding
+///
+/// @type Map
+
+$paddings: () !default;
+$paddings: map.merge(
+  (
+    'vertical': (
+      'xsmall': get.spacer('1'),
+      'small': get.spacer('2'),
+      'medium': get.spacer('3'),
+      'large': get.spacer('4'),
+      'xlarge': get.spacer('5'),
+    ),
+    'horizontal': (
+      'xsmall': get.spacer('2'),
+      'small': get.spacer('4'),
+      'medium': get.spacer('6'),
+      'large': get.spacer('8'),
+      'xlarge': get.spacer('10'),
+      'xxlarge': get.spacer('6', 2),
+    ),
+  ),
+  $paddings
+);

@@ -1,10 +1,4 @@
-
-///
-/// @file
-/// Spacing
-///
-/// Control the default styling of most components by modifying these variables.
-///
+@use 'sass:map';
 
 
 /// Default spacing value.
@@ -50,21 +44,24 @@ $spacer: 1rem !default;
 /// @prop {Number} 10 [1.25rem]
 ///   - Assuming 16px as default spacing, this variation egals to 20px.
 ///
+/// @require {function} map.merge
+/// @see {function} spacing.get-spacer
+///
 /// @type Map
 
 $spacers: () !default;
-$spacers: map-merge(
+$spacers: map.merge(
   (
-    '0':  0,
-    '1':  ($spacer * 0.125),
-    '2':  ($spacer * 0.25),
-    '3':  ($spacer * 0.375),
-    '4':  ($spacer * 0.5),
-    '5':  ($spacer * 0.625),
-    '6':  ($spacer * 0.75),
-    '7':  ($spacer * 0.875),
-    '8':  $spacer,
-    '9':  ($spacer * 1.125),
+    '0': 0,
+    '1': ($spacer * 0.125),
+    '2': ($spacer * 0.25),
+    '3': ($spacer * 0.375),
+    '4': ($spacer * 0.5),
+    '5': ($spacer * 0.625),
+    '6': ($spacer * 0.75),
+    '7': ($spacer * 0.875),
+    '8': $spacer,
+    '9': ($spacer * 1.125),
     '10': ($spacer * 1.25),
   ),
   $spacers

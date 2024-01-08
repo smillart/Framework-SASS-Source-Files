@@ -1,0 +1,46 @@
+@use 'sass:map';
+@use 'spacer' as get;
+
+
+/// Map of common margin sizes used by the components.
+///
+/// @prop {Number} xxsmall [0.125rem]
+///   - Smallest size for the margin rhythm.
+///
+/// @prop {Number} xsmall [0.25rem]
+///   - Extra-small size for the margin rhythm.
+///
+/// @prop {Number} small [0.5rem]
+///   - Compact size for the margin rhythm.
+///
+/// @prop {Number} medium [1rem]
+///   - Default size for the margin rhythm.
+///
+/// @prop {Number} large [1.5rem]
+///   - Expanded size for the margin rhythm.
+///
+/// @prop {Number} xlarge [2rem]
+///   - Extra-large size for the margin rhythm.
+///
+/// @prop {Number} xxlarge [3rem]
+///   - Extreme size for the margin rhythm.
+///
+/// @require {function} map.merge
+/// @require {function} get.spacer
+/// @see {function} spacing.margin
+///
+/// @type Map
+
+$margins: () !default;
+$margins: map.merge(
+  (
+    'xxsmall': get.spacer('1'),
+    'xsmall': get.spacer('2'),
+    'small': get.spacer('4'),
+    'medium': get.spacer('8'),
+    'large': get.spacer('6', 2),
+    'xlarge': get.spacer('8', 2),
+    'xxlarge': get.spacer('8', 3),
+  ),
+  $margins
+);

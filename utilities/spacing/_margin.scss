@@ -1,0 +1,42 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'margins' as *;
+
+
+/// Retrieve a component rhythm from the "Margins" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $size [medium]
+///   - Margin size key.
+///
+/// @return {Number}
+///   The REM margin rhythm indexed by '$size', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/spacing';
+///
+///   .element {
+///     margin: {
+///       top: 0;
+///       bottom: spacing.margin('medium');
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     margin-top: 0;
+///     margin-bottom: 1rem;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} margins
+
+@function margin(
+  $size: 'medium'
+) {
+
+  @return map.get($margins, $size);
+}
