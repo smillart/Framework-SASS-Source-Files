@@ -1,0 +1,44 @@
+
+/// Followong variables are used by many mixins to add additional CSS
+/// to support specific versions of IE or specific vendor prefixes.
+///
+/// Enable or disable the browser support to the legacy IE6.
+///
+/// @type Bool
+
+$legacy-support-for-ie6: false !default;
+
+
+/// Enable or disable the browser support to the legacy IE7.
+///
+/// @type Bool
+
+$legacy-support-for-ie7: false !default;
+
+
+/// Enable or disable the browser support to the legacy IE8.
+///
+/// @type Bool
+
+$legacy-support-for-ie8: false !default;
+
+
+/// Enable or disable the browser support to the legacy IE9.
+///
+/// @type Bool
+
+$legacy-support-for-ie9: true !default;
+
+
+/// Enable or disable the browser support to the legacy IE10.
+///
+/// @type Bool
+
+$legacy-support-for-ie10: true !default;
+
+
+/// Enable or disable the browser support to the legacy IE11.
+///
+/// @type Bool
+
+$legacy-support-for-ie11: true !default;
