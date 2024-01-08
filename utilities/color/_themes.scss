@@ -1,0 +1,53 @@
+@use 'sass:map';
+@use 'scheme' as *;
+@use 'grayscale' as *;
+@use 'colors' as *;
+
+
+/// Map of theme color scheme.
+///
+/// @prop {Color} primary [#0071eb]
+///   - The color for "Primary" status.
+///
+/// @prop {Color} secondary [#868e96]
+///   - The color for "Secondary" status.
+///
+/// @prop {Color} success [#218739]
+///   - The color for "Success" status.
+///
+/// @prop {Color} info [#187699]
+///   - The color for "Information" status.
+///
+/// @prop {Color} warning [#c05702]
+///   - The color for "Warning" status.
+///
+/// @prop {Color} danger [#dc3545]
+///   - The color for "Danger" status.
+///
+/// @prop {Color} light [#f8f9fa]
+///   - The color for "Light" status.
+///
+/// @prop {Color} dark [#343a40]
+///   - The color for "Dark" status.
+///
+/// @require {function} map.merge
+/// @require {function} scheme
+/// @require {function} grayscale
+/// @see {function} color.theme
+///
+/// @type Map
+
+$themes: () !default;
+$themes: map.merge(
+  (
+    'primary': scheme('blue'),
+    'secondary': grayscale('600'),
+    'success': scheme('green'),
+    'info': scheme('cyan'),
+    'warning': scheme('orange'),
+    'danger': scheme('red'),
+    'light': grayscale('100'),
+    'dark': grayscale('800'),
+  ),
+  $themes
+);

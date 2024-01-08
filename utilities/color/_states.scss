@@ -1,0 +1,56 @@
+@use 'sass:map';
+@use 'sass:color';
+@use 'scheme' as *;
+@use 'theme' as *;
+@use 'grayscale' as *;
+
+
+/// Map of common text color states used by the components.
+///
+/// @prop {Color} light [#f8f9fa]
+///   - Intense brightness state for the text color.
+///
+/// @prop {Color} link [#0071eb]
+///   - Default state for the link color.
+///
+/// @prop {Color} visited [#6f42c1]
+///   - Visited state for the link color.
+///
+/// @prop {Color} hover [#0060c8]
+///   - Hovered state for the link color.
+///
+/// @prop {Color} focus [#0060c8]
+///   - Focused state for text color on contrast background.
+///
+/// @prop {Color} active [white]
+///   - Activated state for the text color on contrast background.
+///
+/// @prop {Color} muted [#868e96]
+///   - Discrete state for the text color.
+///
+/// @prop {Color} dark [#212529]
+///   - Intense darkness state for the text color.
+///
+/// @require {function} map.merge
+/// @require {function} color.scale
+/// @require {function} scheme
+/// @require {function} theme
+/// @require {function} grayscale
+/// @see {function} color.state
+///
+/// @type Map
+
+$color-states: () !default;
+$color-states: map.merge(
+  (
+    'light': grayscale('100'),
+    'link': theme('primary'),
+    'visited': scheme('purple'),
+    'hover': color.scale(theme('primary'), $lightness: -15%),
+    'focus': color.scale(theme('primary'), $lightness: -15%),
+    'active': white,
+    'muted': grayscale('600'),
+    'dark': grayscale('900'),
+  ),
+  $color-states
+);
