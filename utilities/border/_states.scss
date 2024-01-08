@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../color' as _color;
+
+
+/// Map of common border color states used by the components.
+///
+/// @prop {Color} light [#e9ecef]
+///   - Intense brightness state for the border color.
+///
+/// @prop {Color} hover [#0060c8]
+///   - Hovered state for the border color.
+///
+/// @prop {Color} focus [#3194ff]
+///   - Focused state for the border color.
+///
+/// @prop {Color} active [#004fa5]
+///   - Activated state for the border color.
+///
+/// @prop {Color} checked [#0071eb]
+///   - Checked state for the border color.
+///
+/// @prop {Color} muted [#dee2e6]
+///   - Discrete state for the border color.
+///
+/// @prop {Color} dark [#212529]
+///   - Intense darkness state for the border color.
+///
+/// @require {function} map.merge
+/// @require {function} color.scale
+/// @require {function} _color.theme
+/// @require {function} _color.grayscale
+/// @see {function} border.state
+///
+/// @type Map
+
+$border-states: () !default;
+$border-states: map.merge(
+  (
+    'light': _color.grayscale('200'),
+    'hover': color.scale(_color.theme('primary'), $lightness: -15%),
+    'focus': color.scale(_color.theme('primary'), $lightness: 25%),
+    'active': color.scale(_color.theme('primary'), $lightness: -30%),
+    'checked': _color.theme('primary'),
+    'muted': _color.grayscale('300'),
+    'dark': _color.grayscale('900'),
+  ),
+  $border-states
+);

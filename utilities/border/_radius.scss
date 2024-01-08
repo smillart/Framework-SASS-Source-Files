@@ -1,0 +1,38 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'radiuses' as *;
+
+
+/// Retrieve a border radius size from the "Border radiuses" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $size [medium]
+///   - Border radius size key.
+///
+/// @return {Number}
+///   The REM border radius indexed by '$size', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/border';
+///
+///   .element {
+///     border-radius: border.radius('small');
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     border-radius: 0.125rem;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} radiuses
+
+@function radius(
+  $size: 'medium'
+) {
+
+  @return map.get($radiuses, $size);
+}

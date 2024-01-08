@@ -1,0 +1,47 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'states' as *;
+
+
+/// Retrieve a border color state from the "Colors states" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $state [hover]
+///   - Border color state key.
+///
+/// @return {Color}
+///   The HEX color code indexed by '$state', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/border';
+///
+///   .element {
+///
+///     &:hover,
+///     &:focus {
+///       border-bottom: {
+///         width: 0.125rem;
+///         color: border.state('hover');
+///       }
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .element:hover,
+///   .element:focus {
+///     border-bottom-width: 0.125rem;
+///     border-bottom-color: #0060c8;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} border-states
+
+@function state(
+  $state: 'hover'
+) {
+
+  @return map.get($border-states, $state);
+}

@@ -1,0 +1,30 @@
+@use 'sass:map';
+@use '../spacing';
+
+
+/// Map of common border radius sizes used by the components.
+///
+/// @prop {Number} small [0.125rem]
+///   - Compact size for the border radius rounding.
+///
+/// @prop {Number} medium [0.25rem]
+///   - Default size for the border radius rounding.
+///
+/// @prop {Number} large [0.375rem]
+///   - Expanded size for the border radius rounding.
+///
+/// @require {function} map.merge
+/// @require {function} spacing.get-spacer
+/// @see {function} border.radius
+///
+/// @type Map
+
+$radiuses: () !default;
+$radiuses: map.merge(
+  (
+    'small': spacing.get-spacer('1'),
+    'medium': spacing.get-spacer('2'),
+    'large': spacing.get-spacer('3'),
+  ),
+  $radiuses
+);

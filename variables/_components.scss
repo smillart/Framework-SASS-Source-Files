@@ -12,7 +12,6 @@
 
 /// Table of Contents
 ///
-/// Components (Borders)
 /// Components (Fonts)
 /// Components (States)
 /// Components (Effects)
@@ -24,71 +23,6 @@
 
 
 
-/// Components (Borders)
-/// ====================================================================================================
-/// Define common width, style, color and radius for borders.
-
-
-/// The common border width used by the components.
-///
-/// @type Number
-
-$component-border-width: 1px !default;
-
-
-/// The common border style used by the components.
-///
-/// @type String
-
-$component-border-style: solid !default;
-
-
-/// Map of common border color brightnesses used by the components.
-///
-/// @prop {Color} light [$gray-200]
-///   - Intense brightness for the border color.
-///
-/// @prop {Color} neutral [$gray-400]
-///   - Middle brightness for the border color.
-///
-/// @prop {Color} dark [$gray-600]
-///   - Intense darkness for the border color.
-///
-/// @type Map
-
-$component-border-colors: () !default;
-$component-border-colors: map-merge(
-  (
-    'light':   $gray-200,
-    'neutral': $gray-400,
-    'dark':    $gray-600,
-  ),
-  $component-border-colors
-);
-
-
-/// Map of common border radius sizes used by the components.
-///
-/// @prop {Number} small [0.125rem]
-///   - Compact size for the border radius rounding.
-///
-/// @prop {Number} medium [0.25rem]
-///   - Default size for the border radius rounding.
-///
-/// @prop {Number} large [0.375rem]
-///   - Expanded size for the border radius rounding.
-///
-/// @type Map
-
-$component-border-radiuses: () !default;
-$component-border-radiuses: map-merge(
-  (
-    'small':  spacing('1'), // 2px
-    'medium': spacing('2'), // 4px
-    'large':  spacing('3'), // 6px
-  ),
-  $component-border-radiuses
-);
 
 
 /// Components (Fonts)
