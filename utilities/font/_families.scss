@@ -1,0 +1,24 @@
+@use 'sass:map';
+
+
+/// Map of default font families.
+///
+/// @prop {List} sans-serif [(-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif)]
+///   - Default "Sans-serif" font family.
+///
+/// @prop {List} monospace [(Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace)]
+///   - Default "Monospace" font family.
+///
+/// @require {function} map.merge
+/// @see {function} font.family
+///
+/// @type Map
+
+$families: () !default;
+$families: map.merge(
+  (
+    'sans-serif': (-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif),
+    'monospace': (Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace),
+  ),
+  $families
+);

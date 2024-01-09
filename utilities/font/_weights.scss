@@ -1,0 +1,48 @@
+@use 'sass:map';
+
+
+/// Map of common font thicknesses used by the components.
+///
+/// @prop {Number} thin [100]
+///   - Extra light weight for the font thickness.
+///
+/// @prop {Number} light [300]
+///   - Light weight for the font thickness.
+///
+/// @prop {Number} regular [400]
+///   - Default weight for the font thickness.
+///
+/// @prop {Number} medium [500]
+///   - Medium weight for the font thickness.
+///
+/// @prop {Number} semi-bold [600]
+///   - Middle weight for the font thickness.
+///
+/// @prop {Number} bold [700]
+///   - Heavy weight for the font thickness.
+///
+/// @prop {Number} extra-bold [800]
+///   - Strong weight for the font thickness.
+///
+/// @prop {Number} black [900]
+///   - Strongest weight for the font thickness.
+///
+/// @require {function} map.merge
+/// @see {function} font.weight
+///
+/// @type Map
+
+$weights: () !default;
+$weights: map.merge(
+  (
+    'thin': 100,
+    'light': 300,
+    'regular': 400,
+    'medium': 500,
+    'semi-bold': 600,
+    'bold': 700,
+    'extra-bold': 800,
+    'black': 900,
+  ),
+  $weights
+);
