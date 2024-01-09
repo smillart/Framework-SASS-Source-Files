@@ -1,0 +1,15 @@
+@charset 'utf-8';
+
+
+/// Font Awesome "Solid" Icons properties.
+///
+/// @group utilities
+///
+/// @see {mixin} awesome.icon
+
+%icon-solid-defaults {
+  font: {
+    family: 'Font Awesome 6 Free';
+    weight: 900;
+  }
+}

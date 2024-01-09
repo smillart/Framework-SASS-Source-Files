@@ -1,0 +1,20 @@
+@charset 'utf-8';
+
+
+/// Font Awesome Icons default properties.
+///
+/// @group utilities
+///
+/// @see {mixin} awesome.icon
+
+%icon-defaults {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font: {
+    style: normal;
+    variant: normal;
+  }
+  text-rendering: auto;
+  line-height: 1;
+}
