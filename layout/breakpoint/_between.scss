@@ -1,0 +1,65 @@
+@charset 'utf-8';
+@use 'min' as lower;
+@use 'max' as upper;
+@use 'breakpoints' as *;
+
+
+/// Breakpoints are defined as a map of (name: minimum width),
+/// order from small to large. The map defined in the `breakpoints.$breakpoints`
+/// global variable is used as the `$breakpoints` argument by default
+/// when no argument is provided.
+
+
+/// Generate Media Query that spans multiple breakpoint widths.
+///
+/// Makes the '@content' apply between the min and max breakpoints.
+///
+/// @group layout
+///
+/// @param {String} $lower
+///   - Name of the minimum breakpoint.
+///
+/// @param {String} $upper
+///   - Name of the maximum breakpoint.
+///
+/// @param {Map} $breakpoints [('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)]
+///   - Map of all breakpoints to search in.
+///
+/// @content
+///   Any CSS properties that are included in the '@include' directive will be
+///   output within the `@media` declaration.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/breakpoint';
+///
+///   .element {
+///     @include breakpoint.between('small', 'large', ('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)) {
+///       ...
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   @media (min-width: 576px) and (max-width: 1229px) {
+///     .element {
+///       ...
+///     }
+///   }
+///
+/// @require {function} lower.min
+/// @require {function} upper.max
+/// @require {variable} breakpoints
+
+@mixin between(
+  $lower,
+  $upper,
+  $breakpoints: $breakpoints
+) {
+
+  $min: lower.min($lower, $breakpoints);
+  $max: upper.max($upper, $breakpoints);
+
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}

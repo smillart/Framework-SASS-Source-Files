@@ -1,0 +1,42 @@
+@charset 'utf-8';
+@use 'next' as name;
+@use 'min' as lower;
+@use 'breakpoints' as *;
+
+
+/// Breakpoints are defined as a map of (name: minimum width),
+/// order from small to large. The map defined in the `breakpoints.$breakpoints`
+/// global variable is used as the `$breakpoints` argument by default
+/// when no argument is provided.
+
+
+/// Retreive the maximum breakpoint width.
+///
+/// @group layout
+///
+/// @param {String} $name
+///   - The name of the reference breakpoint.
+///
+/// @param {Map} $breakpoints [('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)]
+///   - Map of all breakpoints to search in.
+///
+/// @return {Number | Null}
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/breakpoint';
+///
+///   $maximum: breakpoint.max('large', ('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px));
+///   => 1199px
+///
+/// @require {function} name.next
+/// @require {function} lower.min
+/// @require {variable} breakpoints
+
+@function max(
+  $name,
+  $breakpoints: $breakpoints
+) {
+
+  $next: name.next($name, $breakpoints);
+  @return if($next, lower.min($next, $breakpoints) - 1px, null);
+}

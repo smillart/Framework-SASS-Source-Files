@@ -1,0 +1,45 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'sass:list';
+@use 'breakpoints' as *;
+
+
+/// Breakpoints are defined as a map of (name: minimum width),
+/// order from small to large. The map defined in the `breakpoints.$breakpoints`
+/// global variable is used as the `$breakpoints` argument by default
+/// when no argument is provided.
+
+
+/// Retreive the name of the next breakpoint.
+///
+/// @group layout
+///
+/// @param {String} $name
+///   - The name of the reference breakpoint.
+///
+/// @param {Map} $breakpoints [('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)]
+///   - Map of all breakpoints to search in.
+///
+/// @return {String | Null}
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/breakpoint';
+///
+///   $next: breakpoint.next('small', ('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px));
+///   => 'medium'
+///
+/// @require {function} map.keys
+/// @require {function} list.index
+/// @require {function} list.length
+/// @require {function} list.nth
+/// @require {variable} breakpoints
+
+@function next(
+  $name,
+  $breakpoints: $breakpoints
+) {
+
+  $breakpoint-names: map.keys($breakpoints);
+  $n: list.index($breakpoint-names, $name);
+  @return if($n < list.length($breakpoint-names), list.nth($breakpoint-names, $n + 1), null);
+}

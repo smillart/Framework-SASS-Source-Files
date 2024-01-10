@@ -1,0 +1,64 @@
+@charset 'utf-8';
+@use 'max' as breakpoint;
+@use 'breakpoints' as *;
+
+
+/// Breakpoints are defined as a map of (name: minimum width),
+/// order from small to large. The map defined in the `breakpoints.$breakpoints`
+/// global variable is used as the `$breakpoints` argument by default
+/// when no argument is provided.
+
+
+/// Generate Media Query of at most the maximum breakpoint width.
+///
+/// No query for the largest (xxlarge) breakpoint, makes the '@content'
+/// apply to the given breakpoint and narrower.
+///
+/// @group layout
+///
+/// @param {String} $name
+///   - The name of the reference breakpoint.
+///
+/// @param {Map} $breakpoints [('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)]
+///   - Map of all breakpoints to search in.
+///
+/// @content
+///   Any CSS properties that are included in the '@include' directive will be
+///   output within the `@media` declaration.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/breakpoint';
+///
+///   .element {
+///     @include breakpoint.down('large', ('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)) {
+///       ...
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   @media (max-width: 1229px) {
+///     .element {
+///       ...
+///     }
+///   }
+///
+/// @require {function} breakpoint.max
+/// @require {variable} breakpoints
+
+@mixin down(
+  $name,
+  $breakpoints: $breakpoints
+) {
+
+  $max: breakpoint.max($name, $breakpoints);
+
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
