@@ -1,0 +1,61 @@
+@use '../../utilities/color';
+@use '../../utilities/font';
+
+
+/// The base text color applied on the document body.
+///
+/// @require {function} color.grayscale
+/// @see {mixin} body.styles
+///
+/// @type Color
+
+$base-color: color.grayscale('800') !default;
+
+
+/// The base background color applied on the document body.
+///
+/// @see {mixin} body.styles
+///
+/// @type Color
+
+$base-background-color: white !default;
+
+
+/// The base font family applied on the document body.
+///
+/// @require {function} font.family
+/// @see {mixin} body.styles
+///
+/// @type List
+
+$base-font-family: font.family('sans-serif') !default;
+
+
+/// The base font size applied on the document body.
+/// Assumes the browser default, typically `16px`.
+///
+/// @see {mixin} body.styles
+/// @see {variable} font-sizes
+///
+/// @type Number
+
+$base-font-size: 1rem !default;
+
+
+/// The base font weight applied on the document body.
+///
+/// @require {function} font.weight
+/// @see {mixin} body.styles
+///
+/// @type Number
+
+$base-font-weight: font.weight('regular') !default;
+
+
+/// The base text line height applied on the document body.
+///
+/// @see {mixin} body.styles
+///
+/// @type Number
+
+$base-line-height: 1.5 !default;
