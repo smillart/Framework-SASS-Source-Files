@@ -1,0 +1,53 @@
+@use 'sass:map';
+@use 'colors' as *;
+
+
+/// Map of shades of gray.
+///
+/// @prop {Color} 100 [#f8f9fa]
+///   - The gray swatch "100".
+///
+/// @prop {Color} 200 [#e9ecef]
+///   - The gray swatch "200".
+///
+/// @prop {Color} 300 [#dee2e6]
+///   - The gray swatch "300".
+///
+/// @prop {Color} 400 [#ced4da]
+///   - The gray swatch "400".
+///
+/// @prop {Color} 500 [#adb5bd]
+///   - The gray swatch "500".
+///
+/// @prop {Color} 600 [#868e96]
+///   - The gray swatch "600".
+///
+/// @prop {Color} 700 [#495057]
+///   - The gray swatch "700".
+///
+/// @prop {Color} 800 [#343a40]
+///   - The gray swatch "800".
+///
+/// @prop {Color} 900 [#212529]
+///   - The gray swatch "900".
+///
+/// @require {function} map.merge
+/// @see {function} color.grayscale
+///
+/// @type Map
+
+$grayscales: () !default;
+$grayscales: map.merge(
+  (
+    '100': $gray-100,
+    '200': $gray-200,
+    '300': $gray-300,
+    '400': $gray-400,
+    '500': $gray-500,
+    '600': $gray-600,
+    '700': $gray-700,
+    '800': $gray-800,
+    '900': $gray-900,
+  ),
+  $grayscales
+);
