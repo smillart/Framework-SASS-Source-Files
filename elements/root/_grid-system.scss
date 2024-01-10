@@ -1,0 +1,52 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../layout/grid/containers' as *;
+@use '../../layout/grid/columns' as *;
+@use '../../options/enable/css' as *;
+
+
+/// Root grid system
+///
+/// Generate default CSS layout variables for the grid system.
+///
+/// @group elements
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/root';
+///
+///   :root {
+///     @include root.grid-system;
+///   }
+///
+///   // CSS Output
+///   //
+///   :root {
+///     --grid-container-small: 33.75rem;
+///     --grid-container-medium: 46.875rem;
+///     --grid-container-large: 61.875rem;
+///     --grid-container-xlarge: 75rem;
+///     --grid-container-xxlarge: 93.75rem;
+///     --grid-columns: 12;
+///   }
+///
+/// @require {function} units.rem
+/// @require {variable} containers
+/// @require {variable} columns
+/// @require {variable} css-variables
+
+@mixin grid-system {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+
+    // Default maximum widths of container for different screen sizes.
+    //
+    @each $size, $value in $containers {
+      --grid-container-#{$size}: #{units.rem($value)};
+    }
+
+    // Default number of columns.
+    //
+    --grid-columns: #{$columns};
+  }
+}
