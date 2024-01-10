@@ -1,0 +1,180 @@
+@use '../../utilities/border';
+@use '../../utilities/color';
+@use '../../utilities/effect';
+@use '../../utilities/spacing';
+@use '../../options/enable/effects' as *;
+@use '../body/base' as *;
+
+
+/// BUTTON OPTIONS
+///
+/// Enable/disable by default the border radius on buttons.
+///
+/// @require {variable} rounded
+/// @see {mixin} button.styles
+///
+/// @type Bool
+
+$button-enable-rounded: $rounded !default;
+
+
+/// Enable/disable by default the text wrapping on buttons.
+///
+/// @see {mixin} button.styles
+///
+/// @type Bool
+
+$button-enable-text-wrapping: false !default;
+
+
+/// Enable/disable by default the transitions when buttons state changes.
+///
+/// @require {variable} transitions
+/// @see {mixin} button.theme
+///
+/// @type Bool
+
+$button-enable-transitions: $transitions !default;
+
+
+/// BUTTON PADDINGS
+///
+/// The default top/bottom (vertical) padding size to be applied on buttons.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} button.styles
+///
+/// @type Number
+
+$button-vertical-padding: spacing.padding('medium', 'vertical') !default;
+
+
+/// The default right/left (horizontal) padding size to be applied on buttons.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} button.styles
+///
+/// @type Number
+
+$button-horizontal-padding: spacing.padding('medium') !default;
+
+
+/// The default font size to be applied on buttons.
+///
+/// @see {mixin} button.styles
+///
+/// @type String | Number
+
+$button-font-size: inherit !default;
+
+
+/// The default font weight to be applied on buttons.
+///
+/// @see {mixin} button.styles
+///
+/// @type String | Number
+
+$button-font-weight: inherit !default;
+
+
+/// The default text color to be applied on buttons.
+///
+/// @require {variable} base-color
+/// @see {mixin} button.styles
+///
+/// @type Color
+
+$button-color: $base-color !default;
+
+
+/// BUTTON BORDERS
+///
+/// The default border width to be applied on buttons.
+///
+/// @see {mixin} button.styles
+///
+/// @type Number
+
+$button-border-width: 1px !default;
+
+
+/// The default border color to be applied on buttons.
+///
+/// @see {mixin} button.styles
+///
+/// @type Color
+
+$button-border-color: transparent !default;
+
+
+/// The default border radius size to be applied on buttons.
+///
+/// @require {function} border.radius
+/// @see {mixin} button.styles
+///
+/// @type Number
+
+$button-border-radius: border.radius('medium') !default;
+
+
+/// The default left margin size to be applied on any elements when immediately
+/// after a button.
+///
+/// @require {function} spacing.margin
+/// @see {mixin} button.styles
+///
+/// @type Number
+
+$button-next-element-margin-left: spacing.margin('xsmall') !default;
+
+
+/// The default opacity to be applied on buttons when disabled.
+///
+/// @see {mixin} button.styles
+///
+/// @type Number
+
+$button-disabled-opacity: 0.65 !default;
+
+
+/// THEMED BUTTONS
+///
+/// The default text color to be applied on themed buttons.
+///
+/// @require {function} color.state
+/// @see {mixin} button.theme
+/// @see {mixin} button.outline
+///
+/// @type Color
+
+$button-theme-color: color.state('active') !default;
+
+
+/// The default darkening percentage to be applied on themed button when hovered.
+///
+/// @see {mixin} button.theme
+/// @see {mixin} button.outline
+///
+/// @type Number
+
+$button-theme-hover-darken-pourcentage: 15% !default;
+
+
+/// The default darkening percentage to be applied on themed button when pressed.
+///
+/// @see {mixin} button.theme
+/// @see {mixin} button.outline
+///
+/// @type Number
+
+$button-theme-active-darken-pourcentage: 30% !default;
+
+
+/// The default transition properties to be applied on themed buttons.
+///
+/// @require {function} effect.transition
+/// @see {placeholder} button-defaults
+///
+/// @type List
+
+$button-theme-transition: effect.transition('button') !default;

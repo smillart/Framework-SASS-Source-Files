@@ -1,0 +1,168 @@
+@charset 'utf-8';
+@use 'sass:meta';
+@use 'sass:color';
+@use '../../utilities/color' as _color;
+@use '../../utilities/background';
+@use '../../utilities/border';
+@use '../../options/enable/css' as *;
+@use 'buttons' as *;
+
+
+/// Outline themed button styles
+///
+/// Easily set out theme color outline (without background images
+/// and colors) styles on a specific button.
+///
+/// @group elements
+///
+/// @param {String} $theme [primary]
+///   - The theme color’s name to be applied on the outline themed button.
+///     Only the "Theme color scheme" Sass map values are allowed.
+///
+/// @param {Color} $color [false]
+///   - The text color to be applied on the outline themed button.
+///
+/// @param {Number} $hover-darken-pourcentage [15%]
+///   - The darkening percentage to be applied on themed button when hovered.
+///
+/// @param {Number} $active-darken-pourcentage [30%]
+///   - The darkening percentage to be applied on themed button when pressed.
+///
+/// @param {Bool} $transitions [true]
+///   - Enable/disable the transitions when the button state changes.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @throw
+///   Unrecognized or missing '#{$theme}' key in the 'Theme color scheme' Sass map.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/button';
+///
+///   .button {
+///     @include button.styles;
+///
+///     &--outline-primary {
+///       @include button.outline('primary');
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .button {
+///     ...
+///   }
+///   ...
+///   .button--outline-primary {
+///     transition:
+///       color 0.15s ease-in-out,
+///       background-color 0.15s ease-in-out,
+///       border-color 0.15s ease-in-out;
+///   }
+///   .button--outline-primary {
+///     color: #0071eb;
+///     border-color: #0071eb;
+///   }
+///   .button--outline-primary:hover {
+///     color: white;
+///     background-color: #0060c8;
+///     border-color: #0060c8;
+///   }
+///   .button--outline-primary:active {
+///     color: white;
+///     background-color: #004fa5;
+///     border-color: #004fa5;
+///   }
+///
+/// @require {function} meta.type-of
+/// @require {function} color.scale
+/// @require {function} _color.theme
+/// @require {function} _color.state
+/// @require {function} background.state
+/// @require {function} border.state
+/// @require {placeholder} button-defaults
+/// @require {variable} button-enable-transitions
+/// @require {variable} button-theme-color
+/// @require {variable} button-theme-hover-darken-pourcentage
+/// @require {variable} button-theme-active-darken-pourcentage
+/// @require {variable} css-variables
+
+@mixin outline(
+  $theme: 'primary',
+  $color: false,
+  $hover-darken-pourcentage: $button-theme-hover-darken-pourcentage,
+  $active-darken-pourcentage: $button-theme-active-darken-pourcentage,
+  $transitions: $button-enable-transitions,
+  $css-variables: $css-variables
+) {
+
+  // Get the theme color to be apply on the outline themed button.
+  @if meta.type-of($theme) == 'string' and _color.theme($theme) {
+
+    // Set the text color to be apply on the themed outline button.
+    $color: if($color, $color, _color.theme($theme));
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --button-color: #{$color};
+      --button-border-color: #{_color.theme($theme)};
+    }
+    @else {
+      color: $color;
+      border-color: _color.theme($theme);
+    }
+
+    // Hover state.
+    //
+    &:hover {
+
+      // Set the color to be apply on the themed outline button when hovered.
+      $hover-color: if(_color.state('#{$theme}-outline-hover'), _color.state('#{$theme}-outline-hover'), $button-theme-color);
+      $hover-background-color: if(background.state('#{$theme}-outline-hover'), background.state('#{$theme}-outline-hover'), color.scale(_color.theme($theme), $lightness: -($hover-darken-pourcentage)));
+      $hover-border-color: if(border.state('#{$theme}-outline-hover'), border.state('#{$theme}-outline-hover'), color.scale(_color.theme($theme), $lightness: -($hover-darken-pourcentage)));
+
+      // Note: Custom variable values only support SassScript inside `#{}`.
+      @if $css-variables {
+        --button-color: #{$hover-color};
+        --button-background-color: #{$hover-background-color};
+        --button-border-color: #{$hover-border-color};
+      }
+      @else {
+        color: $hover-color;
+        background-color: $hover-background-color;
+        border-color: $hover-border-color;
+      }
+    }
+
+    // Active state.
+    //
+    &:active {
+
+      // Set the color to be apply on the themed outline button when pressed.
+      $active-color: if(_color.state('#{$theme}-outline-active'), _color.state('#{$theme}-outline-active'), $button-theme-color);
+      $active-background-color: if(background.state('#{$theme}-outline-active'), background.state('#{$theme}-outline-active'), color.scale(_color.theme($theme), $lightness: -($active-darken-pourcentage)));
+      $active-border-color: if(border.state('#{$theme}-outline-active'), border.state('#{$theme}-outline-active'), color.scale(_color.theme($theme), $lightness: -($active-darken-pourcentage)));
+
+      // Note: Custom variable values only support SassScript inside `#{}`.
+      @if $css-variables {
+        --button-color: #{$active-color};
+        --button-background-color: #{$active-background-color};
+        --button-border-color: #{$active-border-color};
+      }
+      @else {
+        color: $active-color;
+        background-color: $active-background-color;
+        border-color: $active-border-color;
+      }
+    }
+  }
+  @else {
+    @error "Unrecognized or missing '#{$theme}' key in the 'Theme color scheme' Sass map.";
+  }
+
+  // Conditionally set a `transition`.
+  @if $transitions {
+    @extend %button-defaults;
+  }
+}
