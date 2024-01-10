@@ -1,0 +1,13 @@
+@charset 'utf-8';
+@use 'visually-hidden' as a11y;
+
+
+/// Content to screen readers default properties.
+///
+/// @group helpers
+///
+/// @require {mixin} a11y.visually-hidden
+
+%visually-hidden-defaults {
+  @include a11y.visually-hidden($extend: false);
+}

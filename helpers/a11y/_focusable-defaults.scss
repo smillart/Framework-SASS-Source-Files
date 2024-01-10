@@ -1,0 +1,13 @@
+@charset 'utf-8';
+@use 'focusable' as a11y;
+
+
+/// Focused content default properties.
+///
+/// @group helpers
+///
+/// @require {mixin} a11y.focusable
+
+%focusable-defaults {
+  @include a11y.focusable($extend: false);
+}
