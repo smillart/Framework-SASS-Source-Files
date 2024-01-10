@@ -1,0 +1,14 @@
+@charset 'utf-8';
+@use 'forms' as *;
+
+
+/// Form control default properties.
+///
+/// @group elements
+///
+/// @require {variable} form-element-theme-transition
+/// @see {mixin} form.theme
+
+%form-defaults {
+  transition: $form-element-theme-transition;
+}

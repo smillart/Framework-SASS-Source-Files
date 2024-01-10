@@ -1,0 +1,117 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'forms' as *;
+
+
+/// Form control styles
+///
+/// Easily inject specific styles for all form controls.
+///
+/// @group elements
+///
+/// @param {Number} $vertical-padding [0.375rem]
+///   - The top/bottom (vertical) padding size to be applied on form controls.
+///
+/// @param {Number} $horizontal-padding [0.75rem]
+///   - The right/left (horizontal) padding size to be applied on form controls.
+///
+/// @param {Number} $font-size [1rem]
+///   - The font size to be applied on form controls.
+///
+/// @param {Number} $font-weight [400]
+///   - The font weight to be applied on form controls.
+///
+/// @param {Number} $line-height [1.5]
+///   - The text line height to be applied on form controls.
+///
+/// @param {Color} $placeholder-color [#697581]
+///   - The text color to be applied for placeholders on form elements.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/form';
+///
+///   .form {
+///
+///     &-text,
+///     &-select,
+///     &-textarea {
+///       @include form.styles;
+///       @include form.control;
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-text,
+///   .form-select,
+///   .form-textarea {
+///     ...
+///     display: block;
+///     padding: 0.375rem 0.75rem;
+///     width: 100%;
+///     font-family: inherit;
+///     font-size: 1rem;
+///     font-weight: 400;
+///     line-height: 1.5;
+///     background-clip: padding-box;
+///   }
+///   ...
+///   .form-text::placeholder,
+///   .form-select::placeholder,
+///   .form-textarea::placeholder {
+///     color: #697581;
+///     opacity: 1;
+///   }
+///
+/// @require {function} units.rem
+/// @require {variable} form-control-vertical-padding
+/// @require {variable} form-control-horizontal-padding
+/// @require {variable} form-control-font-size
+/// @require {variable} form-control-font-weight
+/// @require {variable} form-control-line-height
+/// @require {variable} form-control-placeholder-color
+/// @require {variable} css-variables
+
+@mixin control(
+  $vertical-padding: $form-control-vertical-padding,
+  $horizontal-padding: $form-control-horizontal-padding,
+  $font-size: $form-control-font-size,
+  $font-weight: $form-control-font-weight,
+  $line-height: $form-control-line-height,
+  $placeholder-color: $form-control-placeholder-color,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --form-control-vertical-padding: #{units.rem($vertical-padding)};
+    --form-control-horizontal-padding: #{units.rem($horizontal-padding)};
+    --form-control-font-size: #{units.rem($font-size)};
+    --form-control-font-weight: #{$font-weight};
+    --form-control-line-height: #{units.rem($line-height)};
+    --form-control-placeholder-color: #{$placeholder-color};
+  }
+
+  display: block;
+  padding: if($css-variables, var(--form-control-vertical-padding) var(--form-control-horizontal-padding), units.rem($vertical-padding $horizontal-padding));
+  width: 100%;
+  font: {
+    family: inherit;
+    size: if($css-variables, var(--form-control-font-size), units.rem($font-size));
+    weight: if($css-variables, var(--form-control-font-weight), $font-weight);
+  }
+  line-height: if($css-variables, var(--form-control-line-height), units.rem($line-height));
+  background-clip: padding-box;
+
+  // Placeholder
+  //
+  &::placeholder {
+    color: if($css-variables, var(--form-control-placeholder-color), $placeholder-color);
+    // Override Firefox's unusual default opacity.
+    opacity: 1;
+  }
+}

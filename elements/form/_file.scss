@@ -1,0 +1,151 @@
+@charset 'utf-8';
+@use 'sass:color';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use '../button/button-defaults' as *;
+@use 'forms' as *;
+
+
+/// Form file uploads styles
+///
+/// Easily inject specific styles for all form file uploads.
+///
+/// @group elements
+///
+/// @param {Number} $selector-button-vertical-padding [0.375rem]
+///   - The top/bottom (vertical) padding size to be applied on form file input buttons.
+///
+/// @param {Number} $selector-button-horizontal-padding [0.75rem]
+///   - The right/left (horizontal) padding size to be applied on form file input buttons.
+///
+/// @param {Number} $selector-button-border-inline-end-width [1px]
+///   - The border (inline end) width to be applied on file input buttons.
+///
+/// @param {Color} $selector-button-color [#343a40]
+///   - The text color to be applied on form file input buttons.
+///
+/// @param {Color} $selector-button-background-color [#f8f9fa]
+///   - The background color to be applied on file input buttons.
+///
+/// @param {Bool} $transitions [true]
+///   - Enable/disable the transitions when the file input buttons state changes.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/form';
+///
+///   .form-file {
+///     @include form.styles;
+///     @include form.control;
+///     @include form.file;
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-file::file-selector-button {
+///     transition:
+///       color 0.15s ease-in-out,
+///       background-color 0.15s ease-in-out,
+///       border-color 0.15s ease-in-out;
+///   }
+///   .form-file {
+///     ...
+///     overflow: hidden;
+///   }
+///   .form-file::file-selector-button {
+///     padding: 0.375rem 0.75rem;
+///     margin: -0.375rem -0.75rem;
+///     margin-inline-end: 0.75rem;
+///     color: #343a40;
+///     background-color: #f8f9fa;
+///     pointer-events: none;
+///     appearance: button;
+///     font: inherit;
+///     border-width: 0;
+///     border-color: inherit;
+///     border-style: solid;
+///     border-inline-end-width: 1px;
+///     border-radius: 0;
+///   }
+///   .form-file:hover:not(:disabled):not([readonly])::file-selector-button {
+///     background-color: #e9edf0;
+///   }
+///
+/// @require {function} color.scale
+/// @require {function} units.rem
+/// @require {placeholder} button-defaults
+/// @require {variable} form-element-enable-transitions
+/// @require {variable} form-control-vertical-padding
+/// @require {variable} form-control-horizontal-padding
+/// @require {variable} form-element-border-width
+/// @require {variable} form-file-selector-button-color
+/// @require {variable} form-file-selector-button-background-color
+/// @require {variable} css-variables
+
+@mixin file(
+  $selector-button-vertical-padding: $form-control-vertical-padding,
+  $selector-button-horizontal-padding: $form-control-horizontal-padding,
+  $selector-button-border-inline-end-width: $form-element-border-width,
+  $selector-button-color: $form-file-selector-button-color,
+  $selector-button-background-color: $form-file-selector-button-background-color,
+  $transitions: $form-element-enable-transitions,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --form-file-selector-button-vertical-padding: #{units.rem($selector-button-vertical-padding)};
+    --form-file-selector-button-horizontal-padding: #{units.rem($selector-button-horizontal-padding)};
+    --form-file-selector-button-border-inline-end-width: #{units.rem($selector-button-border-inline-end-width)};
+    --form-file-selector-button-color: #{$selector-button-color};
+    --form-file-selector-button-background-color: #{$selector-button-background-color};
+  }
+
+  // Prevent pseudo element button overlap.
+  overflow: hidden;
+
+  // File input buttons theming
+  //
+  &::file-selector-button {
+    padding: if($css-variables, var(--form-file-selector-button-vertical-padding) var(--form-file-selector-button-horizontal-padding), units.rem($selector-button-vertical-padding $selector-button-horizontal-padding));
+    margin: if($css-variables, calc(var(--form-file-selector-button-vertical-padding) * -1) calc(var(--form-file-selector-button-horizontal-padding) * -1), units.rem((-$selector-button-vertical-padding) (-$selector-button-horizontal-padding))) {
+      inline-end: if($css-variables, var(--form-file-selector-button-horizontal-padding), units.rem($selector-button-horizontal-padding));
+    }
+    color: if($css-variables, var(--form-file-selector-button-color), $selector-button-color);
+    background-color: if($css-variables, var(--form-file-selector-button-background-color), $selector-button-background-color);
+    pointer-events: none;
+    appearance: button;
+    font: inherit;
+    border: {
+      width: 0;
+      color: inherit;
+      style: solid;
+      inline-end-width: if($css-variables, var(--form-file-selector-button-border-inline-end-width), units.rem($selector-button-border-inline-end-width));
+      // stylelint-disable-line property-disallowed-list
+      radius: 0;
+    }
+
+    // Conditionally set a `transition`.
+    @if $transitions {
+      @extend %button-defaults;
+    }
+  }
+
+  // Hover state (Exepted when read-only and disabled).
+  //
+  &:hover:not(:disabled):not([readonly])::file-selector-button {
+
+    // Set the background color to be apply on the file input buttons when hovered.
+    $selector-button-hover-background-color: color.scale($selector-button-background-color, $lightness: -5%);
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --form-file-selector-button-background-color: #{$selector-button-hover-background-color};
+    }
+    @else {
+      background-color: $selector-button-hover-background-color;
+    }
+  }
+}

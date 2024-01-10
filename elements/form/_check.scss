@@ -1,0 +1,204 @@
+@charset 'utf-8';
+@use 'sass:list';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use '../../utilities/background/images' as *;
+@use 'forms' as *;
+
+
+/// Form check-list styles
+///
+/// Easily inject specific styles for all (un)limited check-list type.
+///
+/// @group elements
+///
+/// @param {Bool | String} $checkbox-checked-background-image-name [false]
+///   - The file name of the background image to be used as checkbox indicator (when checked).
+///
+/// @param {String} $checkbox-checked-background-image-extension ['png']
+///   - The file extension (ex: png, jpg, svg...) of the background image to be used
+///     as checkbox indicator (when checked).
+///
+/// @param {String} $checkbox-checked-background-image-path ['../../images']
+///   - The folder path of the background image to be used as checkbox indicator (when checked).
+///
+/// @param {Bool | Color} $radio-checked-background-image-color [false]
+///   - The image color to be used as form radio indicator (when checked).
+///
+/// @param {Length | String} $checked-background-size [contain]
+///   - The size of the background image to be used as form check-list indicator (when checked).
+///
+/// @param {Number} $size [1rem]
+///   - The size (width/height) to be applied on form check-list types.
+///
+/// @param {Number} $margin-right [0.25rem]
+///   - The right margin size to be applied on form check-list types.
+///
+/// @param {Number} $line-height [1.5]
+///   - The text line height to be applied on form check-list types.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/form';
+///
+///   .form {
+///
+///     &-checkbox {
+///       @include form.styles;
+///       @include form.check(
+///         $checkbox-checked-background-image-name: 'ckeck'
+///       );
+///       ...
+///     }
+///
+///     &-radio {
+///       @include form.styles;
+///       @include form.check(
+///         $radio-checked-background-image-color: white
+///       );
+///       ...
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-checkbox {
+///     ...
+///     background-repeat: no-repeat;
+///     background-position: center;
+///     display: inline-block;
+///     margin-right: 0.25rem;
+///     margin-bottom: 0.25rem;
+///     width: 1rem;
+///     height: 1rem;
+///     vertical-align: middle;
+///     print-color-adjust: exact;
+///   }
+///   .form-checkbox[type=checkbox]:checked {
+///     background-image: url(../../../images/icons/check.svg);
+///     background-size: 0.625rem 0.625rem;
+///   }
+///   .form-radio {
+///     ...
+///     background-repeat: no-repeat;
+///     background-position: center;
+///     display: inline-block;
+///     margin-right: 0.25rem;
+///     margin-bottom: 0.25rem;
+///     width: 1rem;
+///     height: 1rem;
+///     vertical-align: middle;
+///     print-color-adjust: exact;
+///   }
+///   .form-radio[type=radio]:checked {
+///     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='white'/></svg>");
+///     background-size: contain;
+///   }
+///
+/// @require {function} list.nth
+/// @require {function} units.rem
+/// @require {variable} image-folder-path
+/// @require {variable} image-fallback-extension
+/// @require {variable} form-control-font-size
+/// @require {variable} form-control-line-height
+/// @require {variable} form-check-margin-right
+/// @require {variable} form-check-radio-checked-background-image-color
+/// @require {variable} form-check-checked-background-size
+/// @require {variable} css-variables
+
+@mixin check(
+  $checkbox-checked-background-image-name: false,
+  $checkbox-checked-background-image-extension: $image-fallback-extension,
+  $checkbox-checked-background-image-path: $image-folder-path,
+  $radio-checked-background-image-color: false,
+  $checked-background-size: $form-check-checked-background-size,
+  $size: $form-control-font-size,
+  $line-height: $form-control-line-height,
+  $margin-right: $form-check-margin-right,
+  $margin-bottom: calc((list.nth(units.rem($line-height), 1) * 1rem - list.nth(units.rem($size), 1)) * 0.5),
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --form-check-width: #{units.rem($size)};
+    --form-check-height: #{units.rem($size)};
+    --form-check-margin-right: #{units.rem($margin-right)};
+    --form-check-margin-bottom: #{units.rem($margin-bottom)};
+  }
+  @else {
+    background: {
+      repeat: no-repeat;
+      position: center;
+    }
+  }
+
+  display: inline-block;
+  margin: {
+    right: if($css-variables, var(--form-check-margin-right), units.rem($margin-right));
+    bottom: if($css-variables, var(--form-check-margin-bottom), units.rem($margin-bottom));
+  }
+  width: if($css-variables, var(--form-check-width), units.rem($size));
+  height: if($css-variables, var(--form-check-height), units.rem($size));
+  vertical-align: middle;
+  // Keep themed appearance for print.
+  print-color-adjust: exact;
+
+  // Checkboxes
+  //
+  &[type="checkbox"] {
+
+    // Checkboxes (Checked state)
+    //
+    &:checked {
+
+      @if $checkbox-checked-background-image-name {
+
+        // Use a background image to prevent screen readers from announcing the text.
+        $checkbox-checked-background-image: url(#{$checkbox-checked-background-image-path}/#{$checkbox-checked-background-image-name}.#{$checkbox-checked-background-image-extension});
+
+        // Note: Custom variable values only support SassScript inside `#{}`.
+        @if $css-variables {
+          --form-element-background-image: #{$checkbox-checked-background-image};
+          --form-element-background-size: #{units.rem($checked-background-size)};
+        }
+        @else {
+          background: {
+            image: $checkbox-checked-background-image;
+            size: units.rem($checked-background-size);
+          }
+        }
+      }
+    }
+  }
+
+  // Radios
+  //
+  &[type="radio"] {
+
+    // Checkboxes (Checked state)
+    //
+    &:checked {
+
+      @if $radio-checked-background-image-color {
+
+        // Use a background image to prevent screen readers from announcing the text.
+        $radio-checked-background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{$radio-checked-background-image-color}'/></svg>");
+
+        // Note: Custom variable values only support SassScript inside `#{}`.
+        @if $css-variables {
+          --form-element-background-image: #{$radio-checked-background-image};
+          --form-element-background-size: #{units.rem($checked-background-size)};
+        }
+        @else {
+          background: {
+            image: $radio-checked-background-image;
+            size: units.rem($checked-background-size);
+          }
+        }
+      }
+    }
+  }
+}
