@@ -1,0 +1,38 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'transitions' as *;
+
+
+/// Retrieve a transition property from the "Transitions" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $key [all]
+///   - Transition property key.
+///
+/// @return {List}
+///   The list transition property indexed by '$key', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/effect';
+///
+///   .element {
+///     transition: effect.transition('all');
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     transition: all 0.2s ease-in-out;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} transitions
+
+@function transition(
+  $key: 'neutral'
+) {
+
+  @return map.get($transitions, $key);
+}

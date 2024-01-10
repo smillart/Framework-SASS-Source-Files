@@ -1,0 +1,47 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../spacing';
+@use '../color' as _color;
+
+
+/// Map of common shadow properties used by the components.
+///
+/// @prop {Map} box
+///   - Box shadow properties map.
+///
+/// @prop {List} box.small [0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)]
+///   - Reduced length for the box shadow.
+///
+/// @prop {List} box.medium [0 0.5rem 1rem rgba(0, 0, 0, 0.15)]
+///   - Default length for the box shadow.
+///
+/// @prop {List} box.large [0 1rem 3rem rgba(0, 0, 0, 0.175)]
+///   - Expanded length for the box shadow.
+///
+/// @prop {List} box.inset [inset 0 1px 1px rgba(0, 0, 0, 0.075)]
+///   - Inner length for the box shadow.
+///
+/// @prop {List} box.focus [0 0 0 3px rgba(0, 113, 235, 0.25)]
+///   - Focused state for the box shadow.
+///
+/// @require {function} map.merge
+/// @require {function} color.change
+/// @require {function} spacing.get-spacer
+/// @require {function} _color.theme
+/// @see {function} effect.shadow
+///
+/// @type Map
+
+$shadows: () !default;
+$shadows: map.merge(
+  (
+    'box': (
+      'small': 0 spacing.get-spacer('1') spacing.get-spacer('2') color.change(black, $alpha: 0.075),
+      'medium': 0 spacing.get-spacer('4') spacing.get-spacer('8') color.change(black, $alpha: 0.15),
+      'large': 0 spacing.get-spacer('8') spacing.get-spacer('8', 3) color.change(black, $alpha: 0.175),
+      'inset': inset 0 1px 1px color.change(black, $alpha: 0.075),
+      'focus': 0 0 0 3px color.change(_color.theme('primary'), $alpha: 0.25),
+    ),
+  ),
+  $shadows
+);
