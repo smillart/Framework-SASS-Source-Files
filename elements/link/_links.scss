@@ -1,0 +1,49 @@
+@use '../../utilities/color';
+
+
+/// The default state for the link color.
+///
+/// @require {function} color.state
+/// @see {mixin} link.styles
+///
+/// @type Color
+
+$link-color: color.state('link') !default;
+
+
+/// The hovered state for the link color.
+///
+/// @require {function} color.state
+/// @see {mixin} link.styles
+///
+/// @type Color
+
+$link-hover-color: color.state('hover') !default;
+
+
+/// The visited state for the link color.
+///
+/// @require {function} color.state
+/// @see {mixin} link.styles
+///
+/// @type Color
+
+$link-visited-color: color.state('visited') !default;
+
+
+/// The default decoration for the link.
+///
+/// @see {mixin} link.styles
+///
+/// @type String
+
+$link-text-decoration: none !default;
+
+
+/// The hovered decoration for the link.
+///
+/// @see {mixin} link.styles
+///
+/// @type String
+
+$link-hover-text-decoration: underline !default;

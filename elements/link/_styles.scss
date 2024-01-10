@@ -1,0 +1,107 @@
+@charset 'utf-8';
+@use '../../options/enable/css' as *;
+@use 'links' as *;
+
+
+/// Link styles
+///
+/// Easily inject default styles for the text links.
+///
+/// @group elements
+///
+/// @param {Color} $color [#0071eb]
+///   - The default state for the link color.
+///
+/// @param {Color} $hover-color [#0060c8]
+///   - The hovered state for the link color.
+///
+/// @param {Color} $visited-color [#6f42c1]
+///   - The visited state for the link color.
+///
+/// @param {Color} $text-decoration [none]
+///   - The default decoration for the link.
+///
+/// @param {Color} $hover-text-decoration [underline]
+///   - The hovered decoration for the link.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/link';
+///
+///   a[href] {
+///     @include link.styles(
+///       $color: #05f,
+///       $hover-text-decoration: null
+///     );
+///     margin: 0 -1px 0;
+///   }
+///
+///   // CSS Output
+///   //
+///   a[href] {
+///     color: #05f;
+///     text-decoration: none;
+///     margin: 0 -1px 0;
+///   }
+///   a[href]:hover {
+///     color: #0060c8;
+///   }
+///   a[href]:visited {
+///     color: #6f42c1;
+///   }
+///
+/// @require {variable} link-color
+/// @require {variable} link-hover-color
+/// @require {variable} link-visited-color
+/// @require {variable} link-text-decoration
+/// @require {variable} link-hover-text-decoration
+/// @require {variable} css-variables
+
+@mixin styles(
+  $color: $link-color,
+  $hover-color: $link-hover-color,
+  $visited-color: $link-visited-color,
+  $text-decoration: $link-text-decoration,
+  $hover-text-decoration: $link-hover-text-decoration,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --link-color: #{$color};
+    --link-text-decoration: #{$text-decoration};
+  }
+
+  color: if($css-variables, var(--link-color), $color);
+  text-decoration: if($css-variables, var(--link-text-decoration), $text-decoration);
+
+  // Hover state
+  //
+  &:hover {
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --link-color: #{$hover-color};
+      --link-text-decoration: #{$hover-text-decoration};
+    }
+    @else {
+      color: $hover-color;
+      text-decoration: $hover-text-decoration;
+    }
+  }
+
+  // Visited state
+  //
+  &:visited {
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --link-color: #{$visited-color};
+    }
+    @else {
+      color: $visited-color;
+    }
+  }
+}
