@@ -1,0 +1,38 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'selectors' as *;
+
+
+/// Retreive a CSS selector from the "CSS selectors" Sass map.
+///
+/// @group helpers
+///
+/// @param {String} $selector
+///   - Selector's key.
+///
+/// @return {String}
+///   The CSS selector indexed by '$selector', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/helpers/css';
+///
+///   #{css.selector('elements')} {
+///     display: block;
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     display: block;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} selectors
+
+@function selector(
+  $selector
+) {
+
+  @return map.get($selectors, $selector);
+}
