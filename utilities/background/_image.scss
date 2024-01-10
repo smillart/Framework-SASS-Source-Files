@@ -1,35 +1,37 @@
 @charset 'utf-8';
+@use 'images' as *;
+@use '../../helpers/units';
 
 
 /// Mixin for background images with retina fallback.
 ///
-/// @group helpers
+/// @group utilities
 ///
 /// @param {Color | Bool} $color [false]
 ///   - Specifies the background color to be used.
 ///
-/// @param {String | Bool} $image [false]
+/// @param {String | Bool} $name [false]
 ///   - Specifies the file name of the background image to be used.
 ///
-/// @param {Length | String | Bool} $image-size [false]
+/// @param {Length | String | Bool} $size [false]
 ///   - Specifies the size of the background image.
 ///
-/// @param {String} $image-path [$image-folder-path]
+/// @param {String} $folder-path ['../../images']
 ///   - Specifies the folder path to the background image to be used.
 ///
-/// @param {String} $image-extension [$image-fallback-extension]
+/// @param {String} $fallback-extension ['png']
 ///   - Specifies the file extension of the background image to be used (ex: png, jpg, svg...).
 ///
-/// @param {String} $image-repeat [no-repeat]
+/// @param {String} $repeat [no-repeat]
 ///   - Specifies how to repeat the background image.
 ///
-/// @param {List} $image-position [center center]
+/// @param {List} $position [center center]
 ///   - Specifies the position (offsets from bottom and/or right edges) of the background image.
 ///
-/// @param {Bool} $retina-fallback [$enable-retina-fallback]
+/// @param {Bool} $retina-fallback [false]
 ///   - Specifies the use or not use of the retina fallback.
 ///
-/// @param {String} $retina-suffix [$image-retina-suffix]
+/// @param {String} $retina-suffix ['@2x']
 ///   - Specifies the suffix for image with retina fallback.
 ///
 /// @param {Length | String} $retina-width [auto]
@@ -38,18 +40,20 @@
 /// @param {Length | String} $retina-height [auto]
 ///   - Specifies the image height using retina fallback.
 ///
-/// @example scss
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/utilities/background';
+///
 ///   .bg-color {
-///     @include background($color: #fff);
+///     @include background.image($color: #fff);
 ///   }
 ///   .bg-image {
-///     @include background($image: 'my-picture', $image-extension: 'jpg', $image-position: left top);
+///     @include background.image($name: 'my-picture', $fallback-extension: 'jpg', $position: left top);
 ///   }
 ///   .bg-image-cover {
-///     @include background($image: 'my-wallpaper', $image-size: cover);
+///     @include background.image($name: 'my-wallpaper', $size: cover);
 ///   }
 ///   .bg-image-retina {
-///     @include background($image-path: '../../images/icons', $image: 'download', $retina-fallback: true, $retina-width: 300px, $retina-height: 60px);
+///     @include background.image($folder-path: '../../images/icons', $name: 'download', $retina-fallback: true, $retina-width: 300px, $retina-height: 60px);
 ///   }
 ///
 ///   // CSS Output
@@ -80,48 +84,44 @@
 ///     }
 ///   }
 ///
-/// @requires {variable} image-folder-path
-/// @requires {variable} image-retina-suffix
-/// @requires {variable} image-fallback-extension
-/// @requires {variable} image-retina-media-query
-/// @requires {variable} enable-retina-fallback
-/// @requires {mixin} rem
+/// @require {mixin} units.rem
+/// @require {function} units.rem
+/// @require {variable} image-folder-path
+/// @require {variable} image-retina-suffix
+/// @require {variable} image-fallback-extension
+/// @require {variable} image-retina-fallback
+/// @require {variable} image-retina-media-query
 
-@mixin background(
+@mixin image(
   $color: false,
-  $image: false,
-  $image-size: false,
-  $image-path: $image-folder-path,
-  $image-extension: $image-fallback-extension,
-  $image-repeat: no-repeat,
-  $image-position: center center,
-  $retina-fallback: $enable-retina-fallback,
+  $name: false,
+  $size: false,
+  $folder-path: $image-folder-path,
+  $fallback-extension: $image-fallback-extension,
+  $repeat: no-repeat,
+  $position: center center,
+  $retina-fallback: $image-retina-fallback,
   $retina-suffix: $image-retina-suffix,
   $retina-width: auto,
   $retina-height: auto
 ) {
 
   background: {
+    color: if($color, $color, null);
 
-    @if $color {
-      color: $color;
-    }
-
-    @if $image {
-      @include rem('position', $image-position);
-      image: url(#{$image-path}/#{$image}.#{$image-extension});
-      repeat: $image-repeat;
-      @if $image-size {
-        @include rem('size', $image-size);
-      }
+    @if $name {
+      @include units.rem('position', $position);
+      image: url(#{$folder-path}/#{$name}.#{$fallback-extension});
+      repeat: $repeat;
+      size: if($size, units.rem($size), null);
     }
   }
 
-  @if $image and $retina-fallback {
+  @if $name and $retina-fallback {
     @media #{$image-retina-media-query} {
       background: {
-        @include rem('size', $retina-width $retina-height);
-        image: url(#{$image-path}/#{$image}#{$retina-suffix}.#{$image-extension});
+        @include units.rem('size', $retina-width $retina-height);
+        image: url(#{$folder-path}/#{$name}#{$retina-suffix}.#{$fallback-extension});
       }
     }
   }

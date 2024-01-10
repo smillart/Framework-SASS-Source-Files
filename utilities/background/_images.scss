@@ -1,0 +1,46 @@
+
+/// Media global settings
+///
+/// Enable or disable the retina fallback for images.
+///
+/// @see {mixin} background.image
+///
+/// @type Bool
+
+$image-retina-fallback: false !default;
+
+
+/// The default path to the image folder.
+///
+/// @see {mixin} background.image
+///
+/// @type String
+
+$image-folder-path: '../../images' !default;
+
+
+/// The default file extension for images.
+///
+/// @see {mixin} background.image
+///
+/// @type String
+
+$image-fallback-extension: 'png' !default;
+
+
+/// The retina display media query string.
+///
+/// @see {mixin} background.image
+///
+/// @type String
+
+$image-retina-media-query: 'only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx)';
+
+
+/// The default suffix for images with retina fallback.
+///
+/// @see {mixin} background.image
+///
+/// @type String
+
+$image-retina-suffix: '@2x';

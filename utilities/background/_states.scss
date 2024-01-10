@@ -1,0 +1,45 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../color' as _color;
+
+
+/// Map of common background color states used by the components.
+///
+/// @prop {Color} light [#f8f9fa]
+///   - Intense brightness state for the background color.
+///
+/// @prop {Color} hover [#0060c8]
+///   - Hovered state for the background color.
+///
+/// @prop {Color} active [#004fa5]
+///   - Activated state for the background color.
+///
+/// @prop {Color} checked [#0071eb]
+///   - Checked state for the background color.
+///
+/// @prop {Color} muted [#e9ecef]
+///   - Discrete state for the background color.
+///
+/// @prop {Color} dark [#343a40]
+///   - Intense darkness state for the background color.
+///
+/// @require {function} map.merge
+/// @require {function} color.scale
+/// @require {function} _color.theme
+/// @require {function} _color.grayscale
+/// @see {function} background.state
+///
+/// @type Map
+
+$background-states: () !default;
+$background-states: map.merge(
+  (
+    'light': _color.grayscale('100'),
+    'hover': color.scale(_color.theme('primary'), $lightness: -15%),
+    'active': color.scale(_color.theme('primary'), $lightness: -30%),
+    'checked': _color.theme('primary'),
+    'muted': _color.grayscale('200'),
+    'dark': _color.grayscale('800'),
+  ),
+  $background-states
+);

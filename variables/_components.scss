@@ -1,18 +1,3 @@
-
-///
-/// @file
-/// Components rule variables
-///
-/// Font, spacing, borders, box model and more... for common elements.
-///
-/// General variable structure:
-/// Variable format should follow the `$component-modifier-state-property` order.
-///
-
-
-/// Table of Contents
-///
-/// Components (States)
 /// Components (Effects)
 
 
@@ -24,79 +9,6 @@
 
 
 
-
-
-/// Components (States)
-/// ====================================================================================================
-/// Define common default, light/dark, hover, focus and active states.
-
-
-/// Map of common text color states used by the components.
-///
-/// @prop {Color} light [$gray-100]
-///   - Intense brightness state for the text color.
-///
-/// @prop {Color} active [white]
-///   - Activated state for the text color on contrast background.
-///
-/// @prop {Color} focus [white]
-///   - Focused state for text color on contrast background.
-///
-/// @prop {Color} hover [darken(theme-color('primary'), 15%)]
-///   - Hovered state for the link color.
-///
-/// @prop {Color} link [theme-color('primary')]
-///   - Default state for the link color.
-///
-/// @prop {Color} muted [$gray-600]
-///   - Discrete state for the text color.
-///
-/// @prop {Color} dark [$gray-900]
-///   - Intense darkness state for the text color.
-///
-/// @type Map
-
-$component-state-colors: () !default;
-$component-state-colors: map-merge(
-  (
-    'light':  $gray-100,
-    'active': white,
-    'focus':  white,
-    'hover':  darken(theme-color('primary'), 15%),
-    'link':   theme-color('primary'),
-    'muted':  $gray-600,
-    'dark':   $gray-900,
-  ),
-  $component-state-colors
-);
-
-
-/// Map of common background color states used by the components.
-///
-/// @prop {Color} light [$gray-100]
-///   - Intense brightness state for the background color.
-///
-/// @prop {Color} hover [darken(theme-color('primary'), 7.5%)]
-///   - Hovered state for the background color.
-///
-/// @prop {Color} muted [$gray-200]
-///   - Discrete state for the background color.
-///
-/// @prop {Color} dark [$gray-800]
-///   - Intense darkness state for the background color.
-///
-/// @type Map
-
-$component-state-background-colors: () !default;
-$component-state-background-colors: map-merge(
-  (
-    'light':  $gray-100,
-    'hover':  darken(theme-color('primary'), 7.5%),
-    'muted':  $gray-200,
-    'dark':   $gray-800,
-  ),
-  $component-state-background-colors
-);
 
 
 /// Map of common border color states used by the components.
