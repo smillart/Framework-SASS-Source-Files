@@ -1,0 +1,60 @@
+@use '../../utilities/spacing';
+
+/// The default left padding size applied on all lists.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} list.styles
+///
+/// @type Number
+
+$list-padding-left: spacing.padding('xxlarge') !default;
+
+
+/// The default bottom margin size applied on all lists.
+///
+/// @require {function} spacing.margin
+/// @see {mixin} list.styles
+///
+/// @type Number
+
+$list-margin-bottom: spacing.margin('medium') !default;
+
+
+/// The default left padding applied on unstyled lists.
+///
+/// @see {mixin} list.unstyled
+///
+/// @type Number
+
+$list-unstyled-padding-left: 0 !default;
+
+
+/// The default left padding applied on both inline/inline block lists.
+///
+/// @see {mixin} list.inline
+/// @see {mixin} list.inline-block
+///
+/// @type Number
+
+$list-inline-padding-left: 0 !default;
+
+
+/// The default vertical alignment applied on inline list items.
+///
+/// @see {mixin} list.inline-block
+///
+/// @type String
+
+$list-inline-block-item-vertical-align: top !default;
+
+
+/// The default left margin applied on both inline/inline-block list items.
+/// (Except the first child).
+///
+/// @require {function} spacing.margin
+/// @see {mixin} list.inline
+/// @see {mixin} list.inline-block
+///
+/// @type Number
+
+$list-inline-item-margin-left: spacing.margin('medium') !default;

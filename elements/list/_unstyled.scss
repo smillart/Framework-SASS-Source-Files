@@ -1,0 +1,66 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'lists' as *;
+
+
+/// Unstyled lists
+///
+/// Easily unstyle a specific list.
+///
+/// @group elements
+///
+/// @param {Number} $padding-left [0]
+///   - The left padding applied on unstyled lists.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/list';
+///
+///   ul, ol {
+///     @include list.styles;
+///
+///     .item-list & {
+///       @include list.unstyled;
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   ul, ol {
+///     ...
+///   }
+///   .item-list ul,
+///   .item-list ol {
+///     padding-left: 0;
+///     list-style-position: outside;
+///     list-style-image: none;
+///     list-style-type: "";
+///   }
+///
+/// @require {mixin} units.rem
+/// @require {function} units.rem
+/// @require {variable} list-unstyled-padding-left
+/// @require {variable} css-variables
+
+@mixin unstyled(
+  $padding-left: $list-unstyled-padding-left,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --list-padding-left: #{units.rem($padding-left)};
+  }
+  @else {
+    @include units.rem('padding-left', $padding-left);
+  }
+
+  list-style: {
+    position: outside;
+    image: none;
+    type: '';
+  }
+}
