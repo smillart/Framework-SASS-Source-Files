@@ -1,4 +1,5 @@
 @charset 'utf-8';
+@use '../../options/enable/legacy' as *;
 
 
 /// Provides an easy way to include a clearfix for containing floats.
@@ -22,8 +23,10 @@
 ///     in a '@media' block or not.
 ///
 /// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/helpers/float';
+///
 ///   .element {
-///     @include clearfix;
+///     @include float.clearfix;
 ///   }
 ///
 ///   // CSS Output
@@ -35,9 +38,11 @@
 ///   }
 ///
 /// @example scss - Usage across '@media' context.
+///   @use '[root_path]/_sass-framework/helpers/float';
+///
 ///   .element {
-///     @include breakpoint-up('medium') {
-///       @include clearfix($extend: false);
+///     @include breakpoint.up('medium') {
+///       @include float.clearfix($extend: false);
 ///     }
 ///   }
 ///
@@ -51,25 +56,24 @@
 ///     }
 ///   }
 ///
-/// @requires {placeholder} clearfix-defaults
-/// @requires {variable} enable-extend-directive
-/// @requires {variable} enable-legacy-support-for-ie6
-/// @requires {variable} enable-legacy-support-for-ie7
+/// @require {placeholder} clearfix-defaults
+/// @require {variable} legacy-support-for-ie6
+/// @require {variable} legacy-support-for-ie7
 
 @mixin clearfix(
-  $extend: $enable-extend-directive
+  $extend: true
 ) {
 
   @if $extend {
     @extend %clearfix-defaults;
   }
   @else {
-    
-    @if ($enable-legacy-support-for-ie6 or $enable-legacy-support-for-ie7) {
+
+    @if ($legacy-support-for-ie6 or $legacy-support-for-ie7) {
       *position: relative;
       *zoom: 1;
     }
-    
+
     // After selector
     //
     &::after {
