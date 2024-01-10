@@ -1,0 +1,159 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'tables' as *;
+
+
+/// Table styles
+///
+/// Easily inject default styles for data tables.
+///
+/// @group elements
+///
+/// @param {Number} $margin-bottom [1rem]
+///   - The bottom margin size applied on data tables.
+///
+/// @param {String | Color} $background-color [transparent]
+///   - The background color applied on data tables.
+///
+/// @param {Number} $nested-margin-bottom [0]
+///   - The bottom margin size applied on nested data tables.
+///
+/// @param {Color} $nested-background-color [white]
+///   - The background color applied on nested data tables.
+///
+/// @param {Number} $cell-padding [0.5rem]
+///   - The padding size applied on data table cells.
+///
+/// @param {Color} $caption-color [#868e96]
+///   - The text color applied on data table captions.
+///
+/// @param {Number} $caption-padding-top [0.5rem]
+///   - The top padding size applied on data table captions.
+///
+/// @param {Number} $caption-padding-bottom [0.5rem]
+///   - The bottom padding size applied on data table captions.
+///
+/// @param {String} $caption-side [bottom]
+///   - The side position applied on data table captions.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/table';
+///
+///   table {
+///     @include table.styles;
+///   }
+///
+///   // CSS Output
+///   //
+///   table {
+///     margin-bottom: 1rem;
+///     background-color: transparent;
+///   }
+///   table table {
+///     margin-bottom: 0;
+///     background-color: white;
+///   }
+///   table th,
+///   table td {
+///     padding: 0.5rem;
+///   }
+///   table caption {
+///     padding-top: 0.5rem;
+///     padding-bottom: 0.5rem;
+///     color: #868e96;
+///     caption-side: bottom;
+///   }
+///
+/// @require {function} units.rem
+/// @require {variable} table-margin-bottom
+/// @require {variable} table-background-color
+/// @require {variable} table-nested-margin-bottom
+/// @require {variable} table-nested-background-color
+/// @require {variable} table-cell-padding
+/// @require {variable} table-caption-color
+/// @require {variable} table-caption-padding-top
+/// @require {variable} table-caption-padding-bottom
+/// @require {variable} table-caption-side
+/// @require {variable} css-variables
+
+@mixin styles(
+  $margin-bottom: $table-margin-bottom,
+  $background-color: $table-background-color,
+  $nested-margin-bottom: $table-nested-margin-bottom,
+  $nested-background-color: $table-nested-background-color,
+  $cell-padding: $table-cell-padding,
+  $caption-color: $table-caption-color,
+  $caption-padding-top: $table-caption-padding-top,
+  $caption-padding-bottom: $table-caption-padding-bottom,
+  $caption-side: $table-caption-side,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --table-margin-bottom: #{units.rem($margin-bottom)};
+    --table-background-color: #{$background-color};
+    --table-border-width: 0;
+    --table-border-top-width: 0;
+    --table-border-right-width: 0;
+    --table-border-bottom-width: 0;
+    --table-border-color: unset;
+    --table-nested-margin-bottom: #{units.rem($nested-margin-bottom)};
+    --table-nested-background-color: #{$nested-background-color};
+    --table-cell-padding: #{units.rem($cell-padding)};
+    --table-cell-background-color: unset;
+  }
+
+  margin-bottom: if($css-variables, var(--table-margin-bottom), units.rem($margin-bottom));
+  background-color: if($css-variables, var(--table-background-color), $background-color);
+  border: {
+    width: if($css-variables, var(--table-border-width), null);
+    color: if($css-variables, var(--table-border-color), null);
+    style: if($css-variables, solid, null);
+  }
+
+  // Nested tables
+  //
+  table {
+    margin-bottom: if($css-variables, var(--table-nested-margin-bottom), units.rem($nested-margin-bottom));
+    background-color: if($css-variables, var(--table-nested-background-color), $nested-background-color);
+  }
+
+  // Table bodies
+  //
+  tbody {
+    border: {
+      width: if($css-variables, var(--table-border-top-width) 0 0, null);
+      color: if($css-variables, var(--table-border-color), null);
+      style: if($css-variables, solid, null);
+    }
+  }
+
+  // Table cells
+  //
+  th,
+  td {
+    padding: if($css-variables, var(--table-cell-padding), units.rem($cell-padding));
+    background-color: if($css-variables, var(--table-cell-background-color), null);
+    border: {
+      width: if($css-variables, 0 var(--table-border-right-width) var(--table-border-bottom-width) 0, null);
+      color: if($css-variables, var(--table-border-color), null);
+      style: if($css-variables, solid, null);
+    }
+  }
+
+  // Table captions
+  //
+  caption {
+    padding: {
+      top: units.rem($caption-padding-top);
+      bottom: units.rem($caption-padding-bottom);
+    }
+    color: $caption-color;
+    caption-side: $caption-side;
+  }
+}

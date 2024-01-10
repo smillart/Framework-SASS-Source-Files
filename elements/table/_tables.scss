@@ -1,0 +1,122 @@
+@use '../../utilities/spacing';
+@use '../../utilities/color';
+@use '../../utilities/background';
+@use '../../utilities/border';
+@use '../body/base' as *;
+
+
+/// The default bottom margin size applied on data tables.
+///
+/// @require {function} spacing.margin
+/// @see {mixin} table.styles
+///
+/// @type Number
+
+$table-margin-bottom: spacing.margin('medium') !default;
+
+
+/// The default background color applied on data tables.
+///
+/// @see {mixin} table.styles
+///
+/// @type String | Color
+
+$table-background-color: transparent !default;
+
+
+/// The default border width applied on (bordered) data tables.
+///
+/// @see {mixin} table.bordered
+///
+/// @type Number
+
+$table-border-width: 1px !default;
+
+
+/// The default border color applied on (bordered) data tables.
+///
+/// @require {function} border.color
+/// @see {mixin} table.bordered
+///
+/// @type String | Color
+
+$table-border-color: border.color('neutral') !default;
+
+
+/// The default bottom margin size applied on nested data tables.
+///
+/// @see {mixin} table.styles
+///
+/// @type Number
+
+$table-nested-margin-bottom: 0 !default;
+
+
+/// The default background color applied on nested data tables.
+///
+/// @require {variable} base-background-color
+/// @see {mixin} table.styles
+///
+/// @type Color
+
+$table-nested-background-color: $base-background-color !default;
+
+
+/// The default padding size applied on data table cells.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} table.styles
+///
+/// @type Number
+
+$table-cell-padding: spacing.padding('large', 'vertical') !default;
+
+
+/// The default background color applied on data table rows (cells) when striped/hovered.
+///
+/// @require {function} background.state
+/// @see {mixin} table.striped
+/// @see {mixin} table.hoverable
+///
+/// @type Color
+
+$table-cell-background-color: background.state('muted') !default;
+
+
+/// The default text color applied on data table captions.
+///
+/// @require {function} color.state
+/// @see {mixin} table.styles
+///
+/// @type Color
+
+$table-caption-color: color.grayscale('700') !default;
+
+
+/// The default top padding size applied on data table captions.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} table.styles
+///
+/// @type Number
+
+$table-caption-padding-top: spacing.padding('large', 'vertical') !default;
+
+
+/// The default bottom padding size applied on data table captions.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} table.styles
+///
+/// @type Number
+
+$table-caption-padding-bottom: spacing.padding('large', 'vertical') !default;
+
+
+/// The default side position applied on data table captions.
+///
+/// @see {mixin} table.styles
+///
+/// @type String
+
+$table-caption-side: bottom !default;

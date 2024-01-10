@@ -1,0 +1,117 @@
+@charset 'utf-8';
+@use 'sass:meta';
+@use 'sass:map';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'flow-rules' as *;
+@use 'tables' as *;
+
+
+/// Table bordered styles
+///
+/// Add borders all around the table and/or between all the rows/columns.
+///
+/// @group elements
+///
+/// @param {String} $flow [both]
+///   - The orientation flow applied on bordered data tables.
+///     Only `both` (default), `row` or `column` are allowed values.
+///
+/// @param {Number} $border-width [1px]
+///   - The border width applied on data table cells.
+///
+/// @param {Color} $border-color [#ced4da]
+///   - The border color applied on data table cells.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @throw
+///   Cannot convert "#{$flow}" to orientation flow to be apply on bordered data tables because it seems to be an unexpected value.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/table';
+///
+///   table {
+///     @include table.styles;
+///     @include table.bordered(
+///       $flow: row
+///     );
+///   }
+///
+///   // CSS Output
+///   //
+///   table thead th {
+///     border-bottom-width: 0.125rem;
+///     border-bottom-color: #ced4da;
+///     border-bottom-style: solid;
+///   }
+///   table tbody th, table td {
+///     border-bottom-width: 1px;
+///     border-bottom-color: #ced4da;
+///     border-bottom-style: solid;
+///   }
+///   table tbody + tbody {
+///     border-top-width: 0.125rem;
+///     border-top-color: #ced4da;
+///     border-top-style: solid;
+///   }
+///
+/// @require {function} units.rem
+/// @require {function} meta.type-of
+/// @require {function} map.has-key
+/// @require {function} map.get
+/// @require {variable} flow-rules
+/// @require {variable} table-border-width
+/// @require {variable} table-border-color
+/// @require {variable} css-variables
+
+@mixin bordered(
+  $flow: both,
+  $border-width: $table-border-width,
+  $border-color: $table-border-color,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --table-border-color: #{$border-color};
+  }
+
+  // Get the elements/properties list to be apply on bordered data tables according
+  // to the orientation flow.
+  @if meta.type-of($flow) == 'string' and map.has-key($flow-rules, $flow) {
+
+    // Store retrieved CSS rules in a local variable.
+    $rules: map.get($flow-rules, $flow);
+
+    // Loop through all different table elements (Table headers, table bodies
+    // and table cells) and apply expected properties.
+    //
+    @each $selector, $border-side, $thick in $rules {
+
+      // Set the correct border width.
+      $border-side-width: if($thick, calc($border-width * 2), $border-width);
+
+      // Table elements
+      //
+      #{$selector} {
+
+        // Note: Custom variable values only support SassScript inside `#{}`.
+        @if $css-variables {
+          --table-#{$border-side}-width: #{units.rem($border-side-width)};
+        }
+        @else {
+          #{$border-side}: {
+            width: units.rem($border-side-width);
+            color: $border-color;
+            style: solid;
+          }
+        }
+      }
+    }
+  }
+  @else {
+    @error "Cannot convert "#{$flow}" to orientation flow to be apply on bordered data tables because it seems to be an unexpected value.";
+  }
+}

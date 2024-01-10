@@ -1,0 +1,55 @@
+@charset 'utf-8';
+@use '../../options/enable/css' as *;
+@use 'tables' as *;
+
+
+/// Hoverable table rows effect
+///
+/// Enable a hover state on table rows within a `<tbody>`.
+///
+/// @group elements
+///
+/// @param {Color} $cell-hover-background-color [#e9ecef]
+///   - The background color applied on data table rows (cells) when hovered.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/table';
+///
+///   table {
+///     @include table.styles;
+///     @include table.hoverable;
+///   }
+///
+///   // CSS Output
+///   //
+///   table {
+///     ...
+///   }
+///   table > tbody > tr:hover > * {
+///     background-color: #e9ecef;
+///   }
+///
+/// @require {variable} table-cell-background-color
+/// @require {variable} css-variables
+
+@mixin hoverable(
+  $cell-hover-background-color: $table-cell-background-color,
+  $css-variables: $css-variables
+) {
+
+  // Table cells (Direct body rows) (Hover state)
+  //
+  > tbody > tr:hover > * {
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --table-cell-background-color: #{$cell-hover-background-color};
+    }
+    @else {
+      background-color: $cell-hover-background-color;
+    }
+  }
+}
