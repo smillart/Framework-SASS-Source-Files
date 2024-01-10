@@ -1,4 +1,6 @@
 @charset 'utf-8';
+@use 'sass:meta';
+@use 'sass:map';
 
 
 /// Flexbox Layout
@@ -7,9 +9,9 @@
 /// and more with a full suite of flexbox utilities.
 /// Note: For the children properties, custom add CSS may be necessary.
 ///
-/// @group layout
+/// @group utilities
 ///
-/// @param {Bool | List} $aligns [false]
+/// @param {Bool | List} $aligns [left stretch]
 ///   - The expected values for defining the row alignment along/across
 ///     both horizontal & vertical axis.
 ///     - Horizontally: left (default), right, center, justify and distribute.
@@ -19,9 +21,14 @@
 ///   - This is the shorthand 'flex-direction' and 'flex-wrap' properties,
 ///     which together define the flex container's main and cross axes.
 ///
+/// @throw
+///   Cannot convert '#{$align}' to flexbox syntax because it does not seem to be an expected value.
+///
 /// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/utilities/display';
+///
 ///   .d-flex {
-///     @include flex(justify middle);
+///     @include display.flex(justify middle);
 ///   }
 ///
 ///   // CSS Output
@@ -34,60 +41,60 @@
 ///     align-items: center;
 ///   }
 ///
-/// @requires {function} type-of
-/// @requires {function} map-has-key
-/// @requires {function} map-get
+/// @require {function} meta.type-of
+/// @require {function} map.has-key
+/// @require {function} map.get
 
 @mixin flex(
-  $aligns: false,
+  $aligns: left stretch,
   $flow: row wrap
 ) {
 
   // Define some reusable flexbox container properties.
-  $alignment-main-axis:  justify-content;
+  $alignment-main-axis: justify-content;
   $alignment-cross-axis: align-items;
 
   // Define the map of 'flexbox syntax' conversion allowed values.
-  $conversion-map: (
+  $conversions: (
     'left': (
       'property': $alignment-main-axis,
-      'value':    flex-start,
+      'value': flex-start,
     ),
     'right': (
       'property': $alignment-main-axis,
-      'value':    flex-end,
+      'value': flex-end,
     ),
     'center': (
       'property': $alignment-main-axis,
-      'value':    center,
+      'value': center,
     ),
     'justify': (
       'property': $alignment-main-axis,
-      'value':    space-between,
+      'value': space-between,
     ),
     'distribute': (
       'property': $alignment-main-axis,
-      'value':    space-around,
+      'value': space-around,
     ),
     'stretch': (
       'property': $alignment-cross-axis,
-      'value':    stretch,
+      'value': stretch,
     ),
     'top': (
       'property': $alignment-cross-axis,
-      'value':    flex-start,
+      'value': flex-start,
     ),
     'middle': (
       'property': $alignment-cross-axis,
-      'value':    center,
+      'value': center,
     ),
     'bottom': (
       'property': $alignment-cross-axis,
-      'value':    flex-end,
+      'value': flex-end,
     ),
     'baseline': (
       'property': $alignment-cross-axis,
-      'value':    baseline,
+      'value': baseline,
     ),
   );
 
@@ -95,19 +102,16 @@
   display: flex;
   flex-flow: $flow;
 
-  @if $aligns {
-    
-    @each $align in $aligns {
+  @each $align in $aligns {
 
-      @if type-of($align) == 'string' and map-has-key($conversion-map, $align) {
-        $alignments: map-get($conversion-map, $align);
-        $property: map-get($alignments, 'property');
-        $value: map-get($alignments, 'value');
-        #{$property}: $value;
-      }
-      @else {
-        @error "Cannot convert `#{$align}` to flexbox syntax because it doesn't seem to be an expected value.";
-      }
+    @if meta.type-of($align) == 'string' and map.has-key($conversions, $align) {
+      $alignments: map.get($conversions, $align);
+      $property: map.get($alignments, 'property');
+      $value: map.get($alignments, 'value');
+      #{$property}: $value;
+    }
+    @else {
+      @error "Cannot convert '#{$align}' to flexbox syntax because it does not seem to be an expected value.";
     }
   }
 }
