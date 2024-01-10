@@ -1,0 +1,58 @@
+@charset 'utf-8';
+@use '../../options/enable/css' as *;
+
+
+/// Reset grid row.
+///
+/// Remove the negative margin from default grid row, then the horizontal padding
+/// from all immediate children columns elements (to prevent runaway style inheritance).
+///
+/// @group layout
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .no-gutters {
+///     @include grid.make-row-reset;
+///   }
+///
+///   // CSS Output
+///   //
+///   .no-gutters {
+///     margin-right: 0;
+///     margin-left: 0;
+///   }
+///   .no-gutters > * {
+///     padding-right: 0;
+///     padding-left: 0;
+///   }
+///
+/// @require {variable} css-variables
+
+@mixin row-reset(
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --grid-gutter-width: 0;
+  }
+  @else {
+    margin: {
+      right: 0;
+      left: 0;
+    }
+
+    // All immediate children columns element
+    //
+    > * {
+      padding: {
+        right: 0;
+        left: 0;
+      }
+    }
+  }
+}

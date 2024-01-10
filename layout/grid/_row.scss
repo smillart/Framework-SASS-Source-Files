@@ -1,0 +1,55 @@
+@charset 'utf-8';
+@use 'gutter-width' as *;
+@use '../../options/enable/css' as *;
+@use '../../helpers/units';
+
+
+/// Generate a row (wrapper) for a series of columns.
+///
+/// @group layout
+///
+/// @param {Number} $gutter [40px]
+///   - Width value of the gutters.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .row {
+///     @include grid.make-row(20px);
+///   }
+///
+///   // CSS Output
+///   //
+///   .row {
+///     display: flex;
+///     flex-wrap: wrap;
+///   }
+///   .row {
+///     margin-right: -0.625rem;
+///     margin-left: -0.625rem;
+///   }
+///
+/// @require {function} units.rem
+/// @require {placeholder} row-defaults
+/// @require {variable} gutter-width
+/// @require {variable} css-variables
+
+@mixin row(
+  $gutter: $gutter-width,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --grid-gutter-width: #{units.rem($gutter)};
+  }
+
+  @extend %row-defaults;
+  margin: {
+    right: if($css-variables, calc(var(--grid-gutter-width) / -2), units.rem(calc($gutter / -2)));
+    left: if($css-variables, calc(var(--grid-gutter-width) / -2), units.rem(calc($gutter / -2)));
+  }
+}

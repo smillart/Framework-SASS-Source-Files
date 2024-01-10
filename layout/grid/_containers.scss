@@ -1,0 +1,38 @@
+@use 'sass:map';
+
+
+/// Grid containers
+///
+/// Define the maximum width of `.container` for different screen sizes.
+///
+/// @prop {Number} small [540px]
+///   - Maximum container width for small devices.
+///
+/// @prop {Number} medium [750px]
+///   - Maximum container width for medium devices.
+///
+/// @prop {Number} large [990px]
+///   - Maximum container width for large devices.
+///
+/// @prop {Number} xlarge [1200px]
+///   - Maximum container width for extra large devices.
+///
+/// @prop {Number} xxlarge [1500px]
+///   - Maximum container width for wide devices.
+///
+/// @require {function} map.merge
+/// @see {mixin} grid.make-container-max-widths
+///
+/// @type Map
+
+$containers: () !default;
+$containers: map.merge(
+  (
+    'small': 540px,
+    'medium': 750px,
+    'large': 990px,
+    'xlarge': 1200px,
+    'xxlarge': 1500px,
+  ),
+  $containers
+);

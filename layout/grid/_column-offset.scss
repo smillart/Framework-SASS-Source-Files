@@ -1,0 +1,53 @@
+@charset 'utf-8';
+@use 'sass:math';
+@use '../../options/enable/css' as *;
+@use 'columns' as *;
+
+
+/// Move columns to the right by increasing the left margin
+/// of a column by * columns.
+///
+/// @group layout
+///
+/// @param {Number} $size
+///   - Number of columns to offset.
+///
+/// @param {Number} $columns [12]
+///   - Number of columns in the grid.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .offset-3 {
+///     @include grid.make-column-offset(3);
+///   }
+///
+///   // CSS Output
+///   //
+///   .offset-3 {
+///     margin-left: 25%;
+///   }
+///
+/// @require {function} math.div
+/// @require {function} math.percentage
+/// @require {variable} columns
+/// @require {variable} css-variables
+
+@mixin column-offset(
+  $size,
+  $columns: $columns,
+  $css-variables: $css-variables
+) {
+
+  $percentage: math.percentage(math.div($size, $columns));
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --grid-column-offset: #{$percentage};
+  }
+
+  margin-left: if($css-variables, var(--grid-column-offset), $percentage);
+}

@@ -1,0 +1,23 @@
+@charset 'utf-8';
+@use 'gutter-width' as *;
+@use 'column-defaults' as *;
+@use '../../options/enable/css' as *;
+@use '../../helpers/units';
+
+
+/// Grid column (Next, apply the paddings) default properties.
+///
+/// @group layout
+///
+/// @require {function} units.rem
+/// @require {placeholder} column-defaults
+/// @require {variable} gutter-width
+/// @require {variable} css-variables
+
+%column-ready-defaults {
+  @extend %column-defaults;
+  padding: {
+    right: if($css-variables, calc(var(--grid-gutter-width) / 2), units.rem(calc($gutter-width / 2)));
+    left: if($css-variables, calc(var(--grid-gutter-width) / 2), units.rem(calc($gutter-width / 2)));
+  }
+}

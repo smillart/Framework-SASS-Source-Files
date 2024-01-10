@@ -1,0 +1,86 @@
+@charset 'utf-8';
+@use 'containers' as *;
+@use '../breakpoint/breakpoints' as *;
+@use '../breakpoint';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+
+
+/// For each breakpoint, define the maximum width of the container in a media query.
+///
+/// @group layout
+///
+/// @param {Map} $containers [('small': 540px, 'medium': 750px, 'large': 990px, 'xlarge': 1200px, 'xxlarge': 1500px)]
+///   - Map of all container maximum widths.
+///
+/// @param {Map} $breakpoints [('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)]
+///   - Map of all breakpoints to search in.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .container {
+///     ...
+///     @include grid.make-container-max-widths;
+///   }
+///
+///   // CSS Output
+///   //
+///   .container {
+///     ...
+///   }
+///   @media (min-width: 576px) {
+///     .container {
+///       max-width: 33.75rem;
+///     }
+///   }
+///   @media (min-width: 768px) {
+///     .container {
+///       max-width: 46.875rem;
+///     }
+///   }
+///   @media (min-width: 992px) {
+///     .container {
+///       max-width: 61.875rem;
+///     }
+///   }
+///   @media (min-width: 1230px) {
+///     .container {
+///       max-width: 75rem;
+///     }
+///   }
+///   @media (min-width: 1540px) {
+///     .container {
+///       max-width: 93.75rem;
+///     }
+///   }
+///
+/// @require {mixin} units.rem
+/// @require {mixin} breakpoint.up
+/// @require {function} units.rem
+/// @require {variable} containers
+/// @require {variable} breakpoints
+/// @require {variable} css-variables
+
+@mixin container-max-widths(
+  $containers: $containers,
+  $breakpoints: $breakpoints,
+  $css-variables: $css-variables
+) {
+
+  @each $breakpoint, $container-max-width in $containers {
+    @include breakpoint.up($breakpoint, $breakpoints) {
+
+      // Note: Custom variable values only support SassScript inside `#{}`.
+      @if $css-variables {
+        --grid-container-max-width: var(--grid-container-#{$breakpoint});
+      }
+      @else {
+        @include units.rem('max-width', $container-max-width);
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+@charset 'utf-8';
+@use 'sass:math';
+@use '../../options/enable/css' as *;
+@use 'columns' as *;
+
+
+/// Generate specific width that span multiple columns.
+///
+/// @group layout
+///
+/// @param {Number} $size [false]
+///   - Number of columns to span.
+///
+/// @param {Number} $columns [12]
+///   - Number of columns in the grid.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .column {
+///     @include grid.make-column;
+///   }
+///   .column-5 {
+///     @include grid.make-column(5);
+///   }
+///
+///   // CSS Output
+///   //
+///   .column {
+///     flex: 1 1 0;
+///     max-width: 100%;
+///   }
+///   .column-5 {
+///     flex: 0 0 41.6666666667%;
+///     max-width: 41.6666666667%;
+///   }
+///
+/// @require {function} math.div
+/// @require {function} math.percentage
+/// @require {variable} columns
+/// @require {variable} css-variables
+///
+/// 1. Add a 'max-width' to ensure content within each column does not blow out
+///    the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+///    do not appear to require this.
+
+@mixin column(
+  $size: false,
+  $columns: $columns,
+  $css-variables: $css-variables
+) {
+
+  @if $size {
+    $percentage: math.percentage(math.div($size, $columns));
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --grid-column-width: #{$percentage};
+    }
+
+    flex: 0 0 if($css-variables, var(--grid-column-width), $percentage);
+    max-width: if($css-variables, var(--grid-column-width), $percentage); // 1
+  }
+  @else {
+    flex: 1 1 0;
+    max-width: 100%; // 1
+  }
+}

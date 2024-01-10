@@ -1,0 +1,58 @@
+@charset 'utf-8';
+@use 'gutter-width' as *;
+@use '../../options/enable/css' as *;
+@use '../../helpers/units';
+
+
+/// Make the element grid-ready (applying everything but the width).
+///
+/// @group layout
+///
+/// @param {Number} $gutter [40px]
+///   - Width value of the gutters.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .column {
+///     @include grid.make-column-ready(20px);
+///     ...
+///   }
+///
+///   // CSS Output
+///   //
+///   .column {
+///     position: relative;
+///     width: 100%;
+///     min-height: 1px;
+///   }
+///   .column {
+///     padding-right: 0.625rem;
+///     padding-left: 0.625rem;
+///     ...
+///   }
+///
+/// @require {function} units.rem
+/// @require {placeholder} column-defaults
+/// @require {variable} gutter-width
+/// @require {variable} css-variables
+
+@mixin column-ready(
+  $gutter: $gutter-width,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --grid-gutter-width: #{units.rem($gutter)};
+  }
+
+  @extend %column-defaults;
+  padding: {
+    right: if($css-variables, calc(var(--grid-gutter-width) / 2), units.rem(calc($gutter / 2)));
+    left: if($css-variables, calc(var(--grid-gutter-width) / 2), units.rem(calc($gutter / 2)));
+  }
+}
