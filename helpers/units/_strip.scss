@@ -1,0 +1,29 @@
+@charset 'utf-8';
+@use 'sass:math';
+
+
+/// Strips the units from a value.
+///
+/// @group helpers
+///
+/// @param {Number} $number
+///   - The number to strip of its unit.
+///
+/// @return {Number}
+///   The number unitless.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/helpers/units';
+///
+///   $root: units.strip(16px);
+///   => 16
+///
+/// @require {function} math.div
+
+@function strip(
+  $number
+) {
+
+  $strip: $number * 0 + 1;
+  @return math.div($number, $strip);
+}

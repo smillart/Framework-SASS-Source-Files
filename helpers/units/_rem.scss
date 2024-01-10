@@ -1,0 +1,159 @@
+@charset 'utf-8';
+@use 'sass:math';
+@use 'sass:list';
+@use 'sass:meta';
+@use 'strip' as units;
+@use '../../options/enable/legacy' as *;
+
+
+/// Function to convert "px" to "rem" value.
+///
+/// REM stands for root em. Basically, instead of being relative to the font-size of its
+/// direct parent, it's relative to the font-size defined for the html element.
+///
+/// @group helpers
+///
+/// @param {*} $values
+///   - Accepts either "px" or "rem" as an input value. Also accepts multiple values,
+///     like "10px 20px" (for padding or margin as an example).
+///
+/// @param {Number} $root [16px]
+///   - The browser default (16 pixels) font-size.
+///
+/// @param {Bool} $fallback [false]
+///   - Enable/disable the browser support to the legacy IE8 which will return
+///     "px" as an output value.
+///
+/// @return {Number}
+///   The "rem" value related to the font-size defined for the html element.
+///   (or "px" value if fallback enabled)
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/helpers/units';
+///
+///   .element {
+///     padding {
+///       top: units.rem(15px);
+///       bottom: 0;
+///     }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     padding-top: 0.9375rem;
+///     padding-bottom: 0;
+///   }
+///
+/// @require {function} math.is-unitless
+/// @require {function} math.unit
+/// @require {function} math.div
+/// @require {function} list.append
+/// @require {function} meta.type-of
+/// @require {function} units.strip
+
+@function rem(
+  $values,
+  $root: 16px,
+  $fallback: false
+) {
+
+  $px: ();
+  $rem: ();
+
+  @if not math.is-unitless($root) {
+    $root: units.strip($root);
+  }
+
+  @if $values {
+
+    @each $value in $values {
+
+      @if $value == 0 or meta.type-of($value) != 'number' {
+        $px: list.append($px, $value);
+        $rem: list.append($rem, $value);
+      }
+      @else {
+        $unit: math.unit($value);
+        $val: units.strip($value);
+
+        @if $unit == 'px' {
+          $px: list.append($px, $value);
+
+          @if $val == 1 or $val == -1 {
+            $rem: list.append($rem, $value);
+          }
+          @else {
+            $rem: list.append($rem, math.div($val, $root) * 1rem);
+          }
+        }
+        @else if $unit == 'rem' {
+          $px: list.append($px, ($val * $root) * 1px);
+          $rem: list.append($rem, $value);
+        }
+        @else {
+          $px: list.append($px, $value);
+          $rem: list.append($rem, $value);
+        }
+      }
+    }
+  }
+
+  @return if($fallback, $px, $rem);
+}
+
+
+/// Generate CSS property with the "px/rem" value which is relative to the font-size
+/// defined for the html element.
+///
+/// REM stands for root em. Basically, instead of being relative to the font-size of its
+/// direct parent, it's relative to the font-size defined for the html element.
+///
+/// @group helpers
+///
+/// @param {String} $property
+///   - Accepts (almost) any property as an input, not only "font-size".
+///
+/// @param {*} $values
+///   - Accepts either "px" or "rem" as an input value. Also accepts multiple values,
+///     like "10px 20px" (for padding or margin as an example).
+///
+/// @param {Number} $root [16px]
+///   - The browser default (16 pixels) font-size.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/units/rem';
+///
+///   .element {
+///     @include units.rem('padding-right', 15px);
+///     @include units.rem('padding-left', 15px);
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     padding-right: 15px; // Fallback for IE8.
+///     padding-right: 0.9375rem;
+///     padding-left: 15px; // Fallback for IE8.
+///     padding-left: 0.9375rem;
+///   }
+///
+/// @require {function} rem
+/// @require {variable} legacy-support-for-ie8
+
+@mixin rem(
+  $property,
+  $values,
+  $root: 16px
+) {
+
+  $px: rem($values: $values, $root: $root, $fallback: true);
+  $rem: rem($values: $values, $root: $root);
+
+  @if $px == $rem {
+    #{$property}: $rem;
+  }
+  @else {
+    #{$property}: if($legacy-support-for-ie8, $px, null); // Fallback for IE8.
+    #{$property}: $rem;
+  }
+}
