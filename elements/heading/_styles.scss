@@ -1,0 +1,74 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'headings' as *;
+
+
+/// Heading styles
+///
+/// Easily inject default styles for all headings.
+///
+/// @group elements
+///
+/// @param {Number} $margin-bottom [0.5rem]
+///   - The bottom margin size applied on all headings.
+///
+/// @param {Number} $font-weight [500]
+///   - The font thickness applied on all headings.
+///
+/// @param {Number} $line-height [1.2]
+///   - The text line height applied on all headings.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/heading';
+///
+///   h1, h2, h3, h4, h5, h6 {
+///     @include heading.styles(
+///       $margin-bottom: 32px,
+///       $font-weight: 700
+///     );
+///   }
+///
+///   // CSS Output
+///   //
+///   h1, h2, h3, h4, h5, h6 {
+///     margin-bottom: 2rem;
+///     color: inherit;
+///     font-family: inherit;
+///     font-weight: 700;
+///     line-height: 1.2;
+///   }
+///
+/// @require {mixin} units.rem
+/// @require {variable} heading-margin-bottom
+/// @require {variable} heading-font-weight
+/// @require {variable} heading-line-height
+/// @require {variable} css-variables
+
+@mixin styles(
+  $margin-bottom: $heading-margin-bottom,
+  $font-weight: $heading-font-weight,
+  $line-height: $heading-line-height,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --heading-margin-bottom: #{units.rem($margin-bottom)};
+    --heading-font-weight: #{$font-weight};
+    --heading-font-size: inherit;
+    --heading-line-height: #{units.rem($line-height)};
+  }
+
+  margin-bottom: if($css-variables, var(--heading-margin-bottom), units.rem($margin-bottom));
+  color: inherit;
+  font: {
+    size: if($css-variables, var(--heading-font-size), null);
+    family: inherit;
+    weight: if($css-variables, var(--heading-font-weight), $font-weight);
+  }
+  line-height: if($css-variables, var(--heading-line-height), units.rem($line-height));
+}

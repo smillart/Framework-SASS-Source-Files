@@ -1,0 +1,31 @@
+@use '../../utilities/font';
+@use '../../utilities/spacing';
+
+
+/// The default bottom margin size applied on all headings.
+///
+/// @require {function} spacing.margin
+/// @see {mixin} heading.styles
+///
+/// @type Number
+
+$heading-margin-bottom: spacing.margin('small') !default;
+
+
+/// The default font thickness applied on all headings.
+///
+/// @require {function} font.weight
+/// @see {mixin} heading.styles
+///
+/// @type Number
+
+$heading-font-weight: font.weight('medium') !default;
+
+
+/// The default text line height applied on all headings.
+///
+/// @see {mixin} heading.styles
+///
+/// @type Number
+
+$heading-line-height: 1.2 !default;
