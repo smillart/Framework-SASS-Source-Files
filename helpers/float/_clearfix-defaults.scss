@@ -1,0 +1,13 @@
+@charset 'utf-8';
+@use 'clearfix' as float;
+
+
+/// Float clearing default properties.
+///
+/// @group helpers
+///
+/// @require {mixin} float.clearfix
+
+%clearfix-defaults {
+  @include float.clearfix($extend: false);
+}

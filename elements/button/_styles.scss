@@ -1,0 +1,206 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../utilities/color';
+@use '../../options/enable/css' as *;
+@use 'buttons' as *;
+
+
+/// Button styles
+///
+/// Easily inject default styles for all buttons.
+///
+/// @group elements
+///
+/// @param {Bool} $rounded [true]
+///   - Enable/disable the border radius on buttons.
+///
+/// @param {Bool} $text-wrapping [false]
+///   - Enable/disable the text wrapping on buttons.
+///
+/// @param {Number} $vertical-padding [0.375rem]
+///   - The top/bottom (vertical) padding size to be applied on buttons.
+///
+/// @param {Number} $horizontal-padding [0.75rem]
+///   - The right/left (horizontal) padding size to be applied on buttons.
+///
+/// @param {String | Number} $font-size [inherit]
+///   - The font size to be applied on buttons.
+///
+/// @param {String | Number} $font-weight [inherit]
+///   - The font weight to be applied on buttons.
+///
+/// @param {Color} $color [#343a40]
+///   - The text color to be applied on buttons.
+///
+/// @param {Number} $border-width [1px]
+///   - The border width to be applied on buttons.
+///
+/// @param {Color} $border-color [transparent]
+///   - The border color to be applied on buttons.
+///
+/// @param {Number} $border-radius [0.25rem]
+///   - The border radius size to be applied on buttons.
+///
+/// @param {Number} $next-element-margin-left [0.25rem]
+///   - The left margin size to be applied on any elements when immediately after a button.
+///
+/// @param {Number} $disabled-opacity [0.65]
+///   - The opacity to be applied on buttons when disabled.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/button';
+///
+///   .button {
+///     @include button.styles;
+///   }
+///
+///   // CSS Output
+///   //
+///   .button {
+///     display: inline-block;
+///     padding: 0.375rem 0.75rem;
+///     font-family: inherit;
+///     font-size: inherit;
+///     font-weight: inherit;
+///     color: #343a40;
+///     background-color: transparent;
+///     text-align: center;
+///     text-decoration: none;
+///     vertical-align: middle;
+///     user-select: none;
+///     white-space: nowrap;
+///     border-width: 1px;
+///     border-color: transparent;
+///     border-style: solid;
+///     border-radius: 0.25rem;
+///   }
+///   .button:disabled,
+///   .button.disabled {
+///     opacity: 0.65;
+///     box-shadow: none;
+///     cursor: not-allowed;
+///   }
+///   .button + * {
+///     margin-left: 0.25rem;
+///   }
+///   .button[type=image] {
+///     padding: 0 !important;
+///     background: none !important;
+///     border: 0 none !important;
+///   }
+///   .button[role=button] {
+///     cursor: default;
+///   }
+///
+/// @require {mixin} units.rem
+/// @require {function} color.state
+/// @require {variable} button-enable-rounded
+/// @require {variable} button-enable-text-wrapping
+/// @require {variable} button-vertical-padding
+/// @require {variable} button-horizontal-padding
+/// @require {variable} button-font-size
+/// @require {variable} button-font-weight
+/// @require {variable} button-color
+/// @require {variable} button-border-width
+/// @require {variable} button-border-color
+/// @require {variable} button-border-radius
+/// @require {variable} button-next-element-margin-left
+/// @require {variable} button-disabled-opacity
+/// @require {variable} css-variables
+
+@mixin styles(
+  $rounded: $button-enable-rounded,
+  $text-wrapping: $button-enable-text-wrapping,
+  $vertical-padding: $button-vertical-padding,
+  $horizontal-padding: $button-horizontal-padding,
+  $font-size: $button-font-size,
+  $font-weight: $button-font-weight,
+  $color: $button-color,
+  $border-width: $button-border-width,
+  $border-color: $button-border-color,
+  $border-radius: $button-border-radius,
+  $next-element-margin-left: $button-next-element-margin-left,
+  $disabled-opacity: $button-disabled-opacity,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --button-vertical-padding: #{units.rem($vertical-padding)};
+    --button-horizontal-padding: #{units.rem($horizontal-padding)};
+    --button-font-size: #{units.rem($font-size)};
+    --button-font-weight: #{$font-weight};
+    --button-color: #{$color};
+    --button-background-color: transparent;
+    --button-border-width: #{units.rem($border-width)};
+    --button-border-color: #{$border-color};
+    --button-border-radius: #{units.rem($border-radius)};
+    --button-disabled-opacity: #{$disabled-opacity};
+  }
+
+  display: inline-block;
+  padding: if($css-variables, var(--button-vertical-padding) var(--button-horizontal-padding), units.rem($vertical-padding $horizontal-padding));
+  font: {
+    family: inherit;
+    size: if($css-variables, var(--button-font-size), units.rem($font-size));
+    weight: if($css-variables, var(--button-font-weight), $font-weight);
+  }
+  color: if($css-variables, var(--button-color), $color);
+  background-color: if($css-variables, var(--button-background-color), transparent);
+  text: {
+    align: center;
+    decoration: none;
+  }
+  vertical-align: middle;
+  user-select: none;
+  // If you don’t want the button text to wrap.
+  white-space: if($text-wrapping, null, nowrap);
+  border: {
+    width: if($css-variables, var(--button-border-width), units.rem($border-width));
+    color: if($css-variables, var(--button-border-color), $border-color);
+    style: solid;
+    // Manually set `border-radius` to provide an override/reset to the browser default.
+    $border-radius: if($css-variables, var(--button-border-radius), units.rem($border-radius));
+    radius: if($rounded, $border-radius, 0);
+  }
+
+  // Disabled state.
+  //
+  &:disabled,
+  &.disabled {
+    opacity: if($css-variables, var(--button-disabled-opacity), $disabled-opacity);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  // Any elements when immediately after a button.
+  //
+  + * {
+    @include units.rem('margin-left', $next-element-margin-left);
+  }
+
+  // Image type.
+  //
+  &[type="image"] {
+    padding: 0 !important;
+    background: none !important;
+    border: 0 none !important;
+  }
+
+  // This mixin is designed to be used with button type elements. However, you
+  // can also use it with `<a>` (link type) elements (though some browsers may
+  // apply a slightly different rendering).
+  //
+  // When using this mixin with `<a>` elements that are used to trigger in-page
+  // functionality (like collapsing content), rather than linking to new pages or
+  // sections within the current page, these links should be given a `role="button"`
+  // to appropriately convey their purpose to Assistive Technologies (AT) and
+  // therefore use the expected cursor style for buttons.
+  //
+  &[role="button"] {
+    cursor: default;
+  }
+}

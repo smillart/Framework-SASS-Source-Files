@@ -1,0 +1,42 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'weights' as *;
+
+
+/// Retrieve a font thickness from the "Font weights" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $thickness [regular]
+///   - Font thickness key.
+///
+/// @return {Number}
+///   The font weight indexed by '$thickness', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/font';
+///
+///   .element {
+///     font: {
+///       family: inherit;
+///       weight: font.weight('regular');
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     font-family: inherit;
+///     font-weight: 400;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} weights
+
+@function weight(
+  $thickness: 'regular'
+) {
+
+  @return map.get($weights, $thickness);
+}

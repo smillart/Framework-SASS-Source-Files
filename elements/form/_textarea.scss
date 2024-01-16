@@ -1,0 +1,59 @@
+@charset 'utf-8';
+@use 'sass:list';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'forms' as *;
+
+
+/// Form textarea styles
+///
+/// Easily inject specific styles for all form textareas.
+///
+/// @group elements
+///
+/// @param {Number} $min-height [2.375rem]
+///   - The minimum height to be applied on form textareas to make sure
+///     they don't shrink too much when resized.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/form';
+///
+///   .form-textarea {
+///     @include form.styles;
+///     @include form.control;
+///     @include form.textarea;
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-textarea {
+///     ...
+///     margin: 0;
+///     height: auto;
+///     min-height: 2.375rem;
+///   }
+///
+/// @require {function} list.nth
+/// @require {function} units.rem
+/// @require {variable} form-control-vertical-padding
+/// @require {variable} form-control-line-height
+/// @require {variable} form-element-border-width
+/// @require {variable} css-variables
+
+@mixin textarea(
+  $min-height: calc(list.nth(units.rem($form-control-line-height), 1) * 1rem + list.nth(units.rem(calc($form-control-vertical-padding * 2)), 1) + list.nth(units.rem(calc($form-element-border-width * 2)), 1)),
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --form-textarea-min-height: #{units.rem($min-height)};
+  }
+
+  margin: 0;
+  height: auto;
+  min-height: if($css-variables, var(--form-textarea-min-height), units.rem($min-height));
+}

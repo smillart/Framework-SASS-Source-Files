@@ -1,0 +1,15 @@
+@charset 'utf-8';
+
+
+/// Font Awesome "Regular" Icons properties.
+///
+/// @group utilities
+///
+/// @see {mixin} awesome.icon
+
+%icon-regular-defaults {
+  font: {
+    family: 'Font Awesome 6 Free';
+    weight: 400;
+  }
+}

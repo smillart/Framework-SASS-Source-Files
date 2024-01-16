@@ -1,0 +1,41 @@
+@use 'sass:map';
+
+
+/// Map of the CSS rules applied on bordered data tables.
+///
+/// @prop {List} row
+///   - List of elements/properties list for between all the table rows.
+///
+/// @prop {List} column
+///   - List of elements/properties list for between all the table columns.
+///
+/// @prop {List} both
+///   - List of elements/properties list for all around the table.
+///
+/// @require {function} map.merge
+///
+/// @type Map
+
+$flow-rules: () !default;
+$flow-rules: map.merge(
+  (
+    'row': (
+      'thead th' 'border-bottom' true,
+      'tbody th, td' 'border-bottom' false,
+      'tbody + tbody' 'border-top' true,
+    ),
+    'column': (
+      'tr th:first-child' 'border-right' true,
+      'thead tr th:not(:first-child), td' 'border-right' false,
+    ),
+    'both': (
+      '&' 'border' false,
+      'thead th' 'border-bottom' true,
+      'tbody th, td' 'border-bottom' false,
+      'tr th:first-child' 'border-right' true,
+      'thead tr th:not(:first-child), td' 'border-right' false,
+      'tbody + tbody' 'border-top' true,
+    ),
+  ),
+  $flow-rules
+);

@@ -1,0 +1,50 @@
+@charset 'utf-8';
+@use '../../options/enable/css' as *;
+@use 'columns' as *;
+
+
+/// Easily control the visual order of your columns.
+///
+/// @group layout
+///
+/// @param {Number} $position
+///   - Position of the column to reordered. Quickly order
+///     first one element by applying order: -1.
+///
+/// @param {Number} $columns [12]
+///   - Number of columns in the grid.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .order-7 {
+///     @include grid.make-column-order(7);
+///   }
+///
+///   // CSS Output
+///   //
+///   .order-7 {
+///     order: 7;
+///   }
+///
+/// @require {variable} columns
+/// @require {variable} css-variables
+
+@mixin column-order(
+  $position,
+  $columns: $columns,
+  $css-variables: $css-variables
+) {
+
+  $position: if($position <= $columns, $position, $columns);
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --grid-column-order: #{$position};
+  }
+
+  order: if($css-variables, var(--grid-column-order), $position);
+}

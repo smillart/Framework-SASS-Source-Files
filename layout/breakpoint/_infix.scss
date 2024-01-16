@@ -1,0 +1,42 @@
+@charset 'utf-8';
+@use 'min' as breakpoint;
+@use 'breakpoints' as *;
+
+
+/// Breakpoints are defined as a map of (name: minimum width),
+/// order from small to large. The map defined in the `breakpoints.$breakpoints`
+/// global variable is used as the `$breakpoints` argument by default
+/// when no argument is provided.
+
+
+/// Retreive a blank string if smallest (xsmall) breakpoint,
+/// otherwise returns the name with a dash infront.
+///
+/// @group layout
+///
+/// @param {String} $name
+///   - The name of the reference breakpoint.
+///
+/// @param {Map} $breakpoints [('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)]
+///   - Map of all breakpoints to search in.
+///
+/// @return {String}
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/breakpoint';
+///
+///   $infix: breakpoint.infix('xsmall', ('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px));
+///   => ''  (Returns a blank string)
+///   $infix: breakpoint.infix('small', ('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px));
+///   => '-small'
+///
+/// @require {function} breakpoint.min
+/// @require {variable} breakpoints
+
+@function infix(
+  $name,
+  $breakpoints: $breakpoints
+) {
+
+  @return if(breakpoint.min($name, $breakpoints) == null, '', '-#{$name}');
+}

@@ -1,0 +1,44 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'colors' as *;
+
+
+/// Retrieve a border color brightness from the "Border colors" Sass map.
+///
+/// @group utilities
+///
+/// @param {String} $brightness [neutral]
+///   - Border color brightness key.
+///
+/// @return {Color}
+///   The HEX color code indexed by '$brightness', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/border';
+///
+///   .element {
+///     border: {
+///       width: 1px;
+///       style: solid;
+///       color: border.color('dark');
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .element {
+///     border-width: 1px;
+///     border-style: solid;
+///     border-color: #868e96;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} colors
+
+@function color(
+  $brightness: 'neutral'
+) {
+
+  @return map.get($colors, $brightness);
+}

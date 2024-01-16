@@ -1,0 +1,224 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'forms' as *;
+
+
+/// Form element styles
+///
+/// Easily inject default styles for all form elements.
+///
+/// @group elements
+///
+/// @param {Bool} $rounded [true]
+///   - Enable/disable the border radius on form elements.
+///
+/// @param {Bool} $native-appearance [false]
+///   - Enable/disable the native appearance of form elements.
+///
+/// @param {Color} $color [#343a40]
+///   - The text color to be applied on form elements.
+///
+/// @param {Color} $background-color [transparent]
+///   - The background color to be applied on form elements.
+///
+/// @param {Number} $border-width [1px]
+///   - The border width to be applied on form elements.
+///
+/// @param {Color} $border-color [transparent]
+///   - The border color to be applied on form elements.
+///
+/// @param {Number} $border-radius [0.25rem]
+///   - The border radius size to be applied on form elements.
+///
+/// @param {Color} $disabled-color [#868e96]
+///   - The text color to be applied on form elements when disabled.
+///
+/// @param {Color} $disabled-background-color [#e9ecef]
+///   - The background color to be applied on form elements when readonly and/or disabled.
+///
+/// @param {Color} $disabled-border-color [#dee2e6]
+///   - The border color to be applied on form elements when readonly and/or disabled.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/form';
+///
+///   .form {
+///
+///     &-text,
+///     &-select,
+///     &-checkbox,
+///     &-radio {
+///       @include form.styles;
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-text,
+///   .form-select,
+///   .form-checkbox,
+///   .form-radio {
+///     appearance: none;
+///     color: #343a40;
+///     background-color: transparent;
+///     border-width: 1px;
+///     border-color: transparent;
+///     border-style: solid;
+///     border-radius: 0.25rem;
+///   }
+///   ...
+///   .form-text.disabled,
+///   .form-select.disabled,
+///   .form-checkbox.disabled,
+///   .form-radio.disabled,
+///   .form-text:disabled,
+///   .form-select:disabled,
+///   .form-checkbox:disabled,
+///   .form-radio:disabled,
+///   .form-text[readonly],
+///   .form-select[readonly],
+///   .form-checkbox[readonly],
+///   .form-radio[readonly] {
+///     background-color: #e9ecef;
+///     border-color: #dee2e6;
+///   }
+///   .form-text.disabled,
+///   .form-select.disabled,
+///   .form-checkbox.disabled,
+///   .form-radio.disabled,
+///   .form-text:disabled,
+///   .form-select:disabled,
+///   .form-checkbox:disabled,
+///   .form-radio:disabled {
+///     cursor: not-allowed;
+///     opacity: 0.5;
+///     filter: none;
+///   }
+///   ...
+///   .form-text[readonly],
+///   .form-select[readonly],
+///   .form-checkbox[readonly],
+///   .form-radio[readonly] {
+///     opacity: 1;
+///   }
+///
+/// @require {function} units.rem
+/// @require {variable} form-element-enable-rounded
+/// @require {variable} form-element-enable-native-appearance
+/// @require {variable} form-element-color
+/// @require {variable} form-element-background-color
+/// @require {variable} form-element-border-width
+/// @require {variable} form-element-border-color
+/// @require {variable} form-element-border-radius
+/// @require {variable} form-element-disabled-color
+/// @require {variable} form-element-disabled-background-color
+/// @require {variable} form-element-disabled-border-color
+/// @require {variable} css-variables
+
+@mixin styles(
+  $rounded: $form-element-enable-rounded,
+  $native-appearance: $form-element-enable-native-appearance,
+  $color: $form-element-color,
+  $background-color: $form-element-background-color,
+  $border-width: $form-element-border-width,
+  $border-color: $form-element-border-color,
+  $border-radius: $form-element-border-radius,
+  $disabled-color: $form-element-disabled-color,
+  $disabled-background-color: $form-element-disabled-background-color,
+  $disabled-border-color: $form-element-disabled-border-color,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --form-element-color: #{$color};
+    --form-element-background-color: #{$background-color};
+    --form-element-background-image: unset;
+    --form-element-background-repeat: no-repeat;
+    --form-element-background-position: center;
+    --form-element-background-size: unset;
+    --form-element-border-width: #{units.rem($border-width)};
+    --form-element-border-color: #{$border-color};
+    --form-element-border-radius: #{units.rem($border-radius)};
+  }
+
+  // Fix appearance for date inputs in Safari.
+  appearance: if($native-appearance, null, none);
+  color: if($css-variables, var(--form-element-color), $color);
+  background: {
+    color: if($css-variables, var(--form-element-background-color), $background-color);
+    image: if($css-variables, var(--form-element-background-image), null);
+    repeat: if($css-variables, var(--form-element-background-repeat), null);
+    position: if($css-variables, var(--form-element-background-position), null);
+    size: if($css-variables, var(--form-element-background-size), null);
+  }
+  border: {
+    width: if($css-variables, var(--form-element-border-width), units.rem($border-width));
+    color: if($css-variables, var(--form-element-border-color), $border-color);
+    style: solid;
+    // Manually set `border-radius` to provide an override/reset to the browser default.
+    // Note: This has no effect on `<select>`s in some browsers, due to the limited
+    // stylability of `<select>`s in CSS.
+    $border-radius: if($css-variables, var(--form-element-border-radius), units.rem($border-radius));
+    radius: if($rounded, $border-radius, 0);
+  }
+
+  // Radios
+  //
+  &[type="radio"] {
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --form-element-border-radius: 50%;
+    }
+    @else {
+      // Force `border-radius` to the (cercle) browser default.
+      border-radius: 50%;
+    }
+  }
+
+  // Disabled and read-only inputs
+  //
+  &.disabled,
+  &:disabled,
+  &[readonly] {
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --form-element-background-color: #{$disabled-background-color};
+      --form-element-border-color: #{$disabled-border-color};
+    }
+    @else {
+      background-color: $disabled-background-color;
+      border-color: $disabled-border-color;
+    }
+  }
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    filter: none;
+
+    // Label options
+    //
+    ~ label {
+
+      // Note: Custom variable values only support SassScript inside `#{}`.
+      @if $css-variables {
+        --form-element-label-color: #{$disabled-color};
+      }
+      @else {
+        color: $disabled-color;
+      }
+    }
+  }
+  &[readonly] {
+
+    // iOS fix for unreadable disabled content.
+    opacity: 1;
+  }
+}

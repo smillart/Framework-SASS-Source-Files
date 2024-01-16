@@ -1,0 +1,10 @@
+@use 'sass:map';
+
+
+/// Map of default component CSS selectors.
+///
+/// @see {function} css.selector
+///
+/// @type Map
+
+$selectors: () !default;

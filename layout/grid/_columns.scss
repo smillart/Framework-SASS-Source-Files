@@ -1,0 +1,12 @@
+
+/// Grid columns
+///
+/// Set the number of columns.
+///
+/// @see {mixin} grid.make-column
+/// @see {mixin} grid.make-column-offset
+/// @see {mixin} grid.make-column-order
+///
+/// @type Number
+
+$columns: 12 !default;

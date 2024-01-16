@@ -1,0 +1,49 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'font-sizes' as *;
+
+
+/// Retrieve a font size from the "Heading common font sizes" Sass map.
+///
+/// @group elements
+///
+/// @param {String} $heading [h6]
+///   - Heading element key.
+///
+/// @return {Number}
+///   The font size indexed by '$heading', or 'null'
+///   if the map doesn't contain the given key.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/elements/heading';
+///
+///   h1 {
+///     font-size: heading.font-size('h1');
+///   }
+///   h2 {
+///     font-size: heading.font-size('h2');
+///     margin-bottom: 1.5rem;
+///   }
+///
+///   // CSS Output
+///   //
+///   h1, h2, h3, h4, h5, h6 {
+///     ...
+///   }
+///   h1 {
+///     font-size: 2.5rem;
+///   }
+///   h2 {
+///     font-size: 2rem;
+///     margin-bottom: 1.5rem;
+///   }
+///
+/// @require {function} map.get
+/// @require {variable} font-sizes
+
+@function font-size(
+  $heading: 'h6'
+) {
+
+  @return map.get($font-sizes, $heading);
+}

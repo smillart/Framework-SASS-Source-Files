@@ -1,0 +1,36 @@
+@use 'sass:map';
+
+
+/// Map of common transition properties used by the components.
+///
+/// @prop {List} all [all 0.2s ease-in-out]
+///   - Default properties for component transition.
+///
+/// @prop {List} fade [opacity 0.15s linear]
+///   - Fade effect properties for component transition.
+///
+/// @prop {List} collapse [height 0.35s ease]
+///   - Collapse effect properties for component transition.
+///
+/// @prop {List} button [(color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out)]
+///   - Transition properties for buttons.
+///
+/// @prop {List} input [(background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out)]
+///   - Transition properties for input form elements.
+///
+/// @require {function} map.merge
+/// @see {function} effect.transition
+///
+/// @type Map
+
+$transitions: () !default;
+$transitions: map.merge(
+  (
+    'all': all 0.2s ease-in-out,
+    'fade': opacity 0.15s linear,
+    'collapse': height 0.35s ease,
+    'button': (color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out),
+    'input': (background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out),
+  ),
+  $transitions
+);

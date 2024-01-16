@@ -1,0 +1,88 @@
+@charset 'utf-8';
+@use '../../options/enable/css' as *;
+@use '../../utilities/color/schemes' as *;
+@use '../../utilities/color/grayscales' as *;
+@use '../../utilities/color/themes' as *;
+@use '../../utilities/color/states' as *;
+
+
+/// Root colors
+///
+/// Generate default CSS variables for full colors, grays, and theme colors.
+///
+/// @group elements
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/root';
+///
+///   :root {
+///     @include root.colors;
+///   }
+///
+///   // CSS Output
+///   //
+///   :root {
+///     --blue: #005a9c;
+///     --indigo: #6610f2;
+///     --purple: #6f42c1;
+///     --pink: #e01a76;
+///     --red: #c00;
+///     ...
+///     --gray-100: #f8f9fa;
+///     --gray-200: #e9ecef;
+///     --gray-300: #dee2e6;
+///     --gray-400: #ced4da;
+///     --gray-500: #adb5bd;
+///     ...
+///     --primary: #005a9c;
+///     --secondary: #868e96;
+///     --success: #218739;
+///     --info: #187699;
+///     --warning: #c05702;
+///     ...
+///     --state-light: #f8f9fa;
+///     --state-link: #0071eb;
+///     --state-visited: #6f42c1;
+///     --state-hover: #0060c8;
+///     --state-focus: white;
+///     --state-active: white;
+///     --state-muted: #868e96;
+///     --state-dark: #212529;
+///   }
+///
+/// @require {variable} schemes
+/// @require {variable} grayscales
+/// @require {variable} themes
+/// @require {variable} states
+/// @require {variable} css-variables
+
+@mixin colors {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+
+    // Default color scheme.
+    //
+    @each $color, $value in $schemes {
+      --#{$color}: #{$value};
+    }
+
+    // Default shades of gray.
+    //
+    @each $color, $value in $grayscales {
+      --gray-#{$color}: #{$value};
+    }
+
+    // Default theme color scheme.
+    //
+    @each $color, $value in $themes {
+      --#{$color}: #{$value};
+    }
+
+    // Default text color states used by the components.
+    //
+    @each $state, $value in $color-states {
+      --state-#{$state}: #{$value};
+    }
+  }
+}

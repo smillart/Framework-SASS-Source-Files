@@ -1,0 +1,11 @@
+
+/// Background direction value.
+///
+/// The default direction of the background when no
+/// argument is provided to the background-gradient() mixin.
+///
+/// @see {mixin} background.gradient
+///
+/// @type Number
+
+$direction: 180deg !default;

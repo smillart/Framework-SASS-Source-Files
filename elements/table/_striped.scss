@@ -1,0 +1,70 @@
+@charset 'utf-8';
+@use '../../options/enable/css' as *;
+@use 'tables' as *;
+
+
+/// Striped table rows/columns styles
+///
+/// Add zebra-striping to any table row (or column).
+///
+/// @group elements
+///
+/// @param {String} $flow [row]
+///   - The orientation flow applied on striped data tables.
+///     Only `row` (default) or `column` are allowed values.
+///
+/// @param {String} $order [odd]
+///   - The order applied on striped data tables.
+///     Only `odd` (default) or `even` are allowed values.
+///
+/// @param {Color} $cell-background-color [#e9ecef]
+///   - The background color applied on data table rows (cells) when striped.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/table';
+///
+///   table {
+///     @include table.styles;
+///     @include table.striped;
+///   }
+///
+///   // CSS Output
+///   //
+///   table {
+///     ...
+///   }
+///   table > tbody > tr:nth-of-type(odd) > * {
+///     background-color: #e9ecef;
+///   }
+///
+/// @require {variable} table-cell-background-color
+/// @require {variable} css-variables
+
+@mixin striped(
+  $flow: row,
+  $order: odd,
+  $cell-background-color: $table-cell-background-color,
+  $css-variables: $css-variables
+) {
+
+  // Set the correct orientation flow to be applied on striped data tables.
+  $row-selector: '> tbody > tr:nth-of-type(#{$order}) > *';
+  $column-selector: '> :not(caption) > tr > :nth-child(#{$order})';
+  $flow-selector: if(type-of($flow) == 'string' and $flow == 'column', $column-selector, $row-selector);
+
+  // Table (body) row cells (Row/Column striped)
+  //
+  #{$flow-selector} {
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --table-cell-background-color: #{$cell-background-color};
+    }
+    @else {
+      background-color: $cell-background-color;
+    }
+  }
+}

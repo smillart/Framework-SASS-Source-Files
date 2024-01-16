@@ -1,0 +1,78 @@
+@charset 'utf-8';
+@use 'min' as lower;
+@use 'max' as upper;
+@use 'up' as *;
+@use 'down' as *;
+@use 'breakpoints' as *;
+
+
+/// Breakpoints are defined as a map of (name: minimum width),
+/// order from small to large. The map defined in the `breakpoints.$breakpoints`
+/// global variable is used as the `$breakpoints` argument by default
+/// when no argument is provided.
+
+
+/// Generate Media Query between the breakpoint’s minimum and maximum widths.
+///
+/// No minimum for the smallest (xsmall) breakpoint, and no maximum for the largest (xxlarge) one.
+/// Makes the '@content' apply only to the given breakpoint, not viewports any wider or narrower.
+///
+/// @group layout
+///
+/// @param {String} $name
+///   - The name of the reference breakpoint.
+///
+/// @param {Map} $breakpoints [('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)]
+///   - Map of all breakpoints to search in.
+///
+/// @content
+///   Any CSS properties that are included in the '@include' directive will be
+///   output within the `@media` declaration.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/breakpoint';
+///
+///   .element {
+///     @include breakpoint.only('small', ('xsmall': 0, 'small': 576px, 'medium': 768px, 'large': 992px, 'xlarge': 1230px, 'xxlarge': 1540px)) {
+///       ...
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   @media (min-width: 576px) and (max-width: 767px) {
+///     .element {
+///       ...
+///     }
+///   }
+///
+/// @require {function} lower.min
+/// @require {function} upper.max
+/// @require {mixin} up
+/// @require {mixin} down
+/// @require {variable} breakpoints
+
+@mixin only(
+  $name,
+  $breakpoints: $breakpoints
+) {
+
+  $min: lower.min($name, $breakpoints);
+  $max: upper.max($name, $breakpoints);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  }
+  @else if $max == null {
+    @include up($name, $breakpoints) {
+      @content;
+    }
+  }
+  @else if $min == null {
+    @include down($name, $breakpoints) {
+      @content;
+    }
+  }
+}

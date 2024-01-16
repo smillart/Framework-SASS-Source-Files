@@ -1,0 +1,35 @@
+@charset 'utf-8';
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:math';
+
+
+/// Test if `$value` is a valid direction.
+///
+/// @group utilities
+///
+/// @param {String | Number} $value
+///   - The value to test.
+///
+/// @return {Bool}
+///   - Is the direction valid?
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/background/direction';
+///
+///   $is-valid = direction.is-valid('to right');
+///   => true
+///
+/// @requires {function} list.index
+/// @requires {function} meta.type-of
+/// @requires {function} math.unit
+
+@function valid(
+  $value
+) {
+
+  $is-keyword: list.index(('to top' 'to top right' 'to right top' 'to right' 'to bottom right' 'to right bottom' 'to bottom' 'to bottom left' 'to left bottom' 'to left' 'to left top' 'to top left'), $value);
+  $is-angle: meta.type-of($value) == 'number' and list.index('deg' 'grad' 'turn' 'rad', math.unit($value));
+
+  @return $is-keyword or $is-angle;
+}

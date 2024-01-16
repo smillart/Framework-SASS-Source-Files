@@ -1,0 +1,16 @@
+@charset 'utf-8';
+@use 'buttons' as *;
+
+
+/// Button default properties.
+///
+/// @group elements
+///
+/// @require {variable} button-theme-transition
+/// @see {mixin} button.theme
+/// @see {mixin} button.outline
+/// @see {mixin} form.file
+
+%button-defaults {
+  transition: $button-theme-transition;
+}

@@ -1,0 +1,13 @@
+
+/// Grid gutter width
+///
+/// Specify the width of the gutters.
+///
+/// @see {mixin} grid.make-container
+/// @see {mixin} grid.make-row
+/// @see {mixin} grid.make-column-ready
+/// @see {placeholder} grid.column-ready-defaults
+///
+/// @type Number
+
+$gutter-width: 40px !default;

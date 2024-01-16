@@ -1,0 +1,74 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'lists' as *;
+
+
+/// Inline lists
+///
+/// Easily set out a specific list inline.
+///
+/// @group elements
+///
+/// @param {Number} $item-margin-left [1rem]
+///   - The left margin applied on inline list items (Except the first child).
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/list';
+///
+///   ul, ol {
+///     @include list.styles;
+///
+///     .breadcrumb & {
+///       @include list.unstyled;
+///       @include list.inline;
+///     }
+///   }
+///
+///   // CSS Output
+///   //
+///   ul, ol {
+///     ...
+///   }
+///   .breadcrumb ul,
+///   .breadcrumb ol {
+///     ...
+///   }
+///   .breadcrumb ul > li,
+///   .breadcrumb ol > li {
+///     display: inline;
+///   }
+///   .breadcrumb ul > li:not(:first-child),
+///   .breadcrumb ol > li:not(:first-child) {
+///     margin-left: 1rem;
+///   }
+///
+/// @require {function} units.rem
+/// @require {variable} list-inline-item-margin-left
+/// @require {variable} css-variables
+
+@mixin inline(
+  $item-margin-left: $list-inline-item-margin-left,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --list-item-not-first-child-margin-left: #{units.rem($item-margin-left)};
+  }
+
+  // List items (Immediate children)
+  //
+  > li {
+    display: inline;
+
+    // List items (Immediate children / Except the first child)
+    //
+    &:not(:first-child) {
+      margin-left: if($css-variables, null, units.rem($item-margin-left));
+    }
+  }
+}

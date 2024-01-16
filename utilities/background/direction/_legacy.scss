@@ -1,0 +1,57 @@
+@charset 'utf-8';
+@use 'sass:map';
+@use 'valid';
+
+
+/// Convert a direction to legacy syntax.
+///
+/// @group utilities
+///
+/// @param {String | Number} $value
+///   - The value to convert.
+///
+/// @return {String | Number}
+///   - The direction converted to legacy syntax.
+///
+/// @throw
+///   Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be a direction.
+///
+/// @example scss - Default usage.
+///   @use '[root_path]/_sass-framework/utilities/background/direction';
+///
+///   $legacy-syntax = direction.legacy('to top right');
+///   => bottom left
+///
+/// @require {function} valid
+/// @require {function} map.has-key
+/// @require {function} map.get
+
+@function legacy(
+  $value
+) {
+
+  @if valid($value) == false {
+    @error "Cannot convert '#{$value}' to legacy syntax because it doesn't seem to be a direction.";
+  }
+
+  $conversions: (
+    'to top': bottom,
+    'to top right': bottom left,
+    'to right top': left bottom,
+    'to right': left,
+    'to bottom right': top left,
+    'to right bottom': left top,
+    'to bottom': top,
+    'to bottom left': top right,
+    'to left bottom': right top,
+    'to left': right,
+    'to left top': right bottom,
+    'to top left': bottom right,
+  );
+
+  @if map.has-key($conversions, $value) {
+    @return map.get($conversions, $value);
+  }
+
+  @return 90deg - $value;
+}

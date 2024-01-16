@@ -1,0 +1,15 @@
+@charset 'utf-8';
+
+
+/// Font Awesome "Brands" Icons properties.
+///
+/// @group utilities
+///
+/// @see {mixin} awesome.icon
+
+%icon-brands-defaults {
+  font: {
+    family: 'Font Awesome 6 Brands';
+    weight: 400;
+  }
+}

@@ -1,0 +1,13 @@
+@charset 'utf-8';
+
+
+/// Grid row default properties.
+///
+/// @group layout
+///
+/// @see {mixin} grid.make-row
+
+%row-defaults {
+  display: flex;
+  flex-wrap: wrap;
+}

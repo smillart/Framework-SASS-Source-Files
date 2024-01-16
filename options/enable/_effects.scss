@@ -1,0 +1,20 @@
+
+/// Enable or disable the border radius on components.
+///
+/// @type Bool
+
+$rounded: true !default;
+
+
+/// Enable or disable the box shadow on components.
+///
+/// @type Bool
+
+$shadows: false !default;
+
+
+/// Enable or disable the transitions when components state changes.
+///
+/// @type Bool
+
+$transitions: true !default;

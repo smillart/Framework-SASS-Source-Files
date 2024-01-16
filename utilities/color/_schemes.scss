@@ -1,0 +1,63 @@
+@use 'sass:map';
+@use 'grayscale' as *;
+@use 'colors' as *;
+
+
+/// Map of default color scheme.
+///
+/// @prop {Color} blue [#0071eb]
+///   - The default "Blue" color (Contrast ratio: 4.6:1).
+///
+/// @prop {Color} indigo [#6610f2]
+///   - The default "Indigo" color (Contrast ratio: 7.2:1).
+///
+/// @prop {Color} purple [#6f42c1]
+///   - The default "Purple" color (Contrast ratio: 6.5:1).
+///
+/// @prop {Color} pink [#e01a76]
+///   - The default "Pink" color (Contrast ratio: 4.6:1).
+///
+/// @prop {Color} red [#dc3545]
+///   - The default "Red" color (Contrast ratio: 4.5:1).
+///
+/// @prop {Color} orange [#c05702]
+///   - The default "Orange" color (Contrast ratio: 4.6:1).
+///
+/// @prop {Color} green [#218739]
+///   - The default "Green" color (Contrast ratio: 4.6:1).
+///
+/// @prop {Color} teal [#008081]
+///   - The default "Teal" color (Contrast ratio: 4.8:1).
+///
+/// @prop {Color} cyan [#187699]
+///   - The default "Cyan" color (Contrast ratio: 5.1:1).
+///
+/// @prop {Color} gray [#495057]
+///   - The default "Gray" color (Contrast ratio: 8.2:1).
+///
+/// @prop {Color} gray-dark [#212529]
+///   - The default "Dark gray" color (Contrast ratio: 15.4:1).
+///
+/// @require {function} map.merge
+/// @require {function} grayscale
+/// @see {function} color.scheme
+///
+/// @type Map
+
+$schemes: () !default;
+$schemes: map.merge(
+  (
+    'blue': $blue,
+    'indigo': $indigo,
+    'purple': $purple,
+    'pink': $pink,
+    'red': $red,
+    'orange': $orange,
+    'green': $green,
+    'teal': $teal,
+    'cyan': $cyan,
+    'gray': grayscale('700'),
+    'gray-dark': grayscale('900'),
+  ),
+  $schemes
+);

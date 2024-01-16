@@ -1,0 +1,106 @@
+@charset 'utf-8';
+@use 'sass:meta';
+@use 'sass:map';
+@use 'sass:string';
+@use 'icons' as *;
+
+
+/// Font Awesome Free 6.2.0
+///
+/// You can place Font Awesome icons just about anywhere using the following Sass mixin.
+/// Font Awesome is designed to be used with inline elements and we recommend sticking with
+/// a consistent HTML element to reference them by in your project. We like the `<i>` tag for
+/// brevity and for the fact that most folks are using `<em></em>` for emphasized/italicized
+/// semantic text these days. If that’s not your cup of tea, using a `<span>` is more
+/// semantically correct.
+///
+/// @group utilities
+///
+/// @param {String} $name
+///   - The name of the expected icon.
+///
+/// @param {String} $type [solid]
+///   - The name of Font Awesome family type.
+///     Only `solid` (default), `regular` or `brands` are allowed values.
+///
+/// @param {Bool | String} $position [false]
+///   - If needed, this will be the icon position.
+///     Only `before` or `after` are allowed values.
+///
+/// @content
+///   Any additional CSS properties that are included in the `@include`
+///   directive will be output within the `Pseudo-element` declaration.
+///
+/// @throw
+///   Cannot convert '#{$name}' to Font Awesome Free 6.2.0 icon unicode because it doesn't exist or seems to be an unexpected value.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/utilities/font/awesome';
+///
+///   .element {
+///     @include awesome.icon('chevron-down', $position: 'after');
+///   }
+///
+///   // CSS Output
+///   //
+///   .element::after {
+///     -webkit-font-smoothing: antialiased;
+///     -moz-osx-font-smoothing: grayscale;
+///     display: inline-block;
+///     font-style: normal;
+///     font-variant: normal;
+///     text-rendering: auto;
+///     line-height: 1;
+///   }
+///   .element::after {
+///     font-family: 'Font Awesome 6 Free';
+///     font-weight: 900;
+///   }
+///   .element::after {
+///     content: '\f078';
+///   }
+///
+/// @require {function} meta.type-of
+/// @require {function} map.has-key
+/// @require {function} map.get
+/// @require {function} string.unquote
+/// @require {variable} icons
+
+@mixin icon(
+  $name,
+  $type: solid,
+  $position: false
+) {
+
+  // Get the correct unicode value of any icon according to its key name.
+  $unicode: null;
+  @if meta.type-of($name) == 'string' and map.has-key($icons, $name) {
+    $unicode: map.get($icons, $name);
+  }
+  @else {
+    @error "Cannot convert '#{$name}' to Font Awesome Free 6.2.0 icon unicode because it doesn't exist or seems to be an unexpected value.";
+  }
+
+  @if $position {
+
+    // Pseudo-element position
+    //
+    &::#{$position} {
+      @extend %icon-defaults;
+      @extend %icon-#{$type}-defaults;
+      content: string.unquote('\'#{$unicode}\'');
+      @content;
+    }
+  }
+  @else {
+    @extend %icon-defaults;
+    @extend %icon-#{$type}-defaults;
+
+    // Before selector
+    //
+    &::before {
+      content: string.unquote('\'#{$unicode}\'');
+      @content;
+    }
+  }
+}

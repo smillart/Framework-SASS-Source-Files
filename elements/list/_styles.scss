@@ -1,0 +1,87 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use 'lists' as *;
+
+
+/// List styles
+///
+/// Easily set out default styles for all lists.
+///
+/// @group elements
+///
+/// @param {Number} $padding-left [1.5rem]
+///   - The left padding size applied on all lists.
+///
+/// @param {Number} $margin-bottom [1rem]
+///   - The bottom margin size applied on all lists.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/list';
+///
+///   ul, ol {
+///     @include list.styles;
+///   }
+///
+///   // CSS Output
+///   //
+///   ul, ol {
+///     padding-left: 1.5rem;
+///     margin-bottom: 1rem;
+///   }
+///   ul ul, ol ul {
+///     margin-bottom: 0;
+///   }
+///   ul ol, ol ol {
+///     margin-bottom: 0;
+///   }
+///
+/// @require {function} units.rem
+/// @require {variable} list-padding-left
+/// @require {variable} list-margin-bottom
+/// @require {variable} css-variables
+
+@mixin styles(
+  $padding-left: $list-padding-left,
+  $margin-bottom: $list-margin-bottom,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --list-padding-left: #{units.rem($padding-left)};
+    --list-margin-bottom: #{units.rem($margin-bottom)};
+    --list-item-vertical-align: unset;
+    --list-item-not-first-child-margin-left: unset;
+  }
+
+  padding-left: if($css-variables, var(--list-padding-left), units.rem($padding-left));
+  margin-bottom: if($css-variables, var(--list-margin-bottom), units.rem($margin-bottom));
+
+  // List items (Immediate children)
+  //
+  > li {
+    vertical-align: if($css-variables, var(--list-item-vertical-align), null);
+
+    // List items (Immediate children / Except the first child)
+    //
+    &:not(:first-child) {
+      margin-left: if($css-variables, var(--list-item-not-first-child-margin-left), null);
+    }
+  }
+
+  // Nested unordered lists
+  //
+  ul {
+    margin-bottom: 0;
+  }
+
+  // Nested ordered lists
+  //
+  ol {
+    margin-bottom: 0;
+  }
+}

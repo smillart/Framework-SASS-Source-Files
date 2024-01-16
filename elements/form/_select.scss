@@ -1,0 +1,115 @@
+@charset 'utf-8';
+@use '../../helpers/units';
+@use '../../options/enable/css' as *;
+@use '../../utilities/background/images' as *;
+@use 'forms' as *;
+
+
+/// Form select styles
+///
+/// Easily inject specific styles for all form selects.
+///
+/// @group elements
+///
+/// @param {Number} $padding-right [2.25rem]
+///   - The right padding size to be applied on form select types.
+///
+/// @param {String} $background-image-name
+///   - The file name of the background image to be used as form select indicator.
+///
+/// @param {String} $background-image-extension ['png']
+///   - The file extension (ex: png, jpg, svg...) of the background image to be used as form select indicator.
+///
+/// @param {String} $background-image-path ['../../images']
+///   - The folder path of the background image to be used as form select indicator.
+///
+/// @param {List} $background-position [right 0.75rem center]
+///   - The position (offsets from bottom and/or right edges) of the background image to be used as form select indicator.
+///
+/// @param {Length | String} $background-size [16px 16px]
+///   - The size of the background image to be used as form select indicator.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/elements/form';
+///
+///   .form-select {
+///     @include form.styles;
+///     @include form.control;
+///     @include form.select('arrow-down');
+///   }
+///
+///   // CSS Output
+///   //
+///   .form-select {
+///     ...
+///     background-image: url(../../images/arrow-down.png);
+///     background-position: right 0.75rem center;
+///     background-size: 1rem 1rem;
+///     background-repeat: no-repeat;
+///     padding-right: 2.25rem;
+///   }
+///   ...
+///   .form-select[multiple],
+///   .form-select[size]:not([size="1"]) {
+///     padding-right: -control;
+///     background-image: none;
+///   }
+///
+/// @require {function} units.rem
+/// @require {variable} image-folder-path
+/// @require {variable} image-fallback-extension
+/// @require {variable} form-select-background-position
+/// @require {variable} form-select-background-size
+/// @require {variable} form-control-horizontal-padding
+/// @require {variable} css-variables
+
+@mixin select(
+  $background-image-name,
+  $background-image-extension: $image-fallback-extension,
+  $background-image-path: $image-folder-path,
+  $background-position: $form-select-background-position,
+  $background-size: $form-select-background-size,
+  $padding-right: calc($form-control-horizontal-padding * 3),
+  $css-variables: $css-variables
+) {
+
+  // Use a background image to prevent screen readers from announcing the text.
+  $background-image: url(#{$background-image-path}/#{$background-image-name}.#{$background-image-extension});
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --form-select-padding-right: #{units.rem($padding-right)};
+    --form-element-background-image: #{$background-image};
+    --form-element-background-position: #{units.rem($background-position)};
+    --form-element-background-size: #{units.rem($background-size)};
+  }
+  @else {
+    background: {
+      image: $background-image;
+      position: units.rem($background-position);
+      size: units.rem($background-size);
+      repeat: no-repeat;
+    }
+  }
+
+  padding-right: if($css-variables, var(--form-select-padding-right), units.rem($padding-right));
+
+  // Selects with `size` & `multiple` attributes.
+  //
+  &[multiple],
+  &[size]:not([size="1"]) {
+
+    // Note: Custom variable values only support SassScript inside `#{}`.
+    @if $css-variables {
+      --form-select-padding-right: #{units.rem($form-control-horizontal-padding)};
+      --form-element-background-image: none;
+    }
+    @else {
+      padding-right: units.rem(-control);
+      background-image: none;
+    }
+  }
+}

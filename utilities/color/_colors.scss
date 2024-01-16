@@ -1,0 +1,41 @@
+
+/// Define all colors as consistent color scheme for use across the theme.
+///
+/// Most colors that currently make up default palette used throughout the
+/// framework for things such as button variations, form validation indicators
+/// lead to sufficient color contrast (compliant with the recommended WCAG 2.1
+/// color contrast ratio of 4.5:1) when used against a white back(fore)ground.
+///
+/// If modified, authors will need to manually modify/extend these default colors
+/// to ensure adequate color contrast ratios.
+///
+/// @see {variable} schemes
+///
+/// @type Color
+
+$blue: #0071eb !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e01a76 !default;
+$red: #dc3545 !default;
+$orange: #c05702 !default;
+$green: #218739 !default;
+$teal: #008081 !default;
+$cyan: #187699 !default;
+
+
+/// Define all grayscales as consistent shades of gray for use across the theme.
+///
+/// @see {variable} grayscales
+///
+/// @type Color
+
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;

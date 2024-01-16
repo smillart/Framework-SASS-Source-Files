@@ -1,0 +1,30 @@
+@use 'sass:map';
+@use '../color';
+
+
+/// Map of common border color brightnesses used by the components.
+///
+/// @prop {Color} light [#e9ecef]
+///   - Intense brightness for the border color.
+///
+/// @prop {Color} neutral [#ced4da]
+///   - Middle brightness for the border color.
+///
+/// @prop {Color} dark [#868e96]
+///   - Intense darkness for the border color.
+///
+/// @require {function} map.merge
+/// @require {function} color.grayscale
+/// @see {function} border.color
+///
+/// @type Map
+
+$colors: () !default;
+$colors: map.merge(
+  (
+    'light': color.grayscale('200'),
+    'neutral': color.grayscale('400'),
+    'dark': color.grayscale('600'),
+  ),
+  $colors
+);

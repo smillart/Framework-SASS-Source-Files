@@ -1,0 +1,56 @@
+@charset 'utf-8';
+@use 'gutter-width' as *;
+@use '../../options/enable/css' as *;
+@use '../../helpers/units';
+
+
+/// Generate container width, and override it in media queries.
+///
+/// @group layout
+///
+/// @param {Number} $gutter [40px]
+///   - Width value of the gutters.
+///
+/// @param {Bool} $css-variables [false]
+///   - Enable/disable the CSS variables.
+///
+/// @example scss - Usage.
+///   @use '[root_path]/_sass-framework/layout/grid';
+///
+///   .container {
+///     @include grid.make-container(20px);
+///   }
+///
+///   // CSS Output
+///   //
+///   .container {
+///     width: 100%;
+///     margin-right: auto;
+///     margin-left: auto;
+///   }
+///   .container {
+///     padding-right: 0.625rem;
+///     padding-left: 0.625rem;
+///   }
+///
+/// @require {function} units.rem
+/// @require {placeholder} container-defaults
+/// @require {variable} gutter-width
+/// @require {variable} css-variables
+
+@mixin container(
+  $gutter: $gutter-width,
+  $css-variables: $css-variables
+) {
+
+  // Note: Custom variable values only support SassScript inside `#{}`.
+  @if $css-variables {
+    --grid-gutter-width: #{units.rem($gutter)};
+  }
+
+  @extend %container-defaults;
+  padding: {
+    right: if($css-variables, calc(var(--grid-gutter-width) / 2), units.rem(calc($gutter / 2)));
+    left: if($css-variables, calc(var(--grid-gutter-width) / 2), units.rem(calc($gutter / 2)));
+  }
+}

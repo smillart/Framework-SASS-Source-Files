@@ -1,0 +1,300 @@
+@use 'sass:color';
+@use '../../utilities/background';
+@use '../../utilities/color' as _color;
+@use '../../utilities/border';
+@use '../../utilities/effect';
+@use '../../utilities/spacing';
+@use '../../options/enable/effects' as *;
+@use '../body/base' as *;
+
+
+/// FORM ELEMENT OPTIONS
+///
+/// Enable/disable by default the border radius on form elements.
+///
+/// @require {variable} rounded
+/// @see {mixin} form.styles
+///
+/// @type Bool
+
+$form-element-enable-rounded: $rounded !default;
+
+
+/// Enable/disable by default the box shadow on form elements.
+///
+/// @require {variable} shadows
+/// @see {mixin} form.theme
+///
+/// @type Bool
+
+$form-element-enable-shadows: $shadows !default;
+
+
+/// Enable/disable by default the transitions when form elements state changes.
+///
+/// @require {variable} transitions
+/// @see {mixin} form.theme
+///
+/// @type Bool
+
+$form-element-enable-transitions: $transitions !default;
+
+
+/// Enable/disable by default the native appearance of form elements.
+///
+/// @see {mixin} form.styles
+///
+/// @type Bool
+
+$form-element-enable-native-appearance: false !default;
+
+
+/// The default text color to be applied on form elements.
+///
+/// @require {variable} base-color
+/// @see {mixin} form.styles
+///
+/// @type Color
+
+$form-element-color: $base-color !default;
+
+
+/// The default background color to be applied on form elements.
+///
+/// @see {mixin} form.styles
+///
+/// @type Color
+
+$form-element-background-color: transparent !default;
+
+
+/// FORM ELEMENT BORDERS
+///
+/// The default border width to be applied on form elements.
+///
+/// @see {mixin} form.styles
+/// @see {mixin} form.file
+/// @see {mixin} form.textarea
+///
+/// @type Number
+
+$form-element-border-width: 1px !default;
+
+
+/// The default border color to be applied on form elements.
+///
+/// @see {mixin} form.styles
+///
+/// @type Color
+
+$form-element-border-color: transparent !default;
+
+
+/// The default border radius size to be applied on form elements.
+///
+/// @require {function} border.radius
+/// @see {mixin} form.styles
+///
+/// @type Number
+
+$form-element-border-radius: border.radius('medium') !default;
+
+
+/// FORM ELEMENT DISABLED/READ-ONLY STATE
+///
+/// The default text color to be applied on form elements when disabled.
+///
+/// @require {function} _color.state
+/// @see {mixin} form.styles
+///
+/// @type Color
+
+$form-element-disabled-color: _color.state('muted') !default;
+
+
+/// The default background color to be applied on form elements when read-only
+/// and/or disabled.
+///
+/// @require {function} background.state
+/// @see {mixin} form.styles
+///
+/// @type Color
+
+$form-element-disabled-background-color: background.state('muted') !default;
+
+
+/// The default border color to be applied on form elements when read-only
+/// and/or disabled.
+///
+/// @require {function} border.state
+/// @see {mixin} form.styles
+///
+/// @type Color
+
+$form-element-disabled-border-color: border.state('muted') !default;
+
+
+/// FORM ELEMENT PADDINGS
+///
+/// The default top/bottom (vertical) padding size to be applied on form controls.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} form.control
+/// @see {mixin} form.file
+/// @see {mixin} form.textarea
+///
+/// @type Number
+
+$form-control-vertical-padding: spacing.padding('medium', 'vertical') !default;
+
+
+/// The default right/left (horizontal) padding size to be applied on form controls.
+///
+/// @require {function} spacing.padding
+/// @see {mixin} form.control
+/// @see {mixin} form.file
+/// @see {mixin} form.select
+///
+/// @type Number
+
+$form-control-horizontal-padding: spacing.padding('medium') !default;
+
+
+/// The default font size to be applied on form elements.
+///
+/// @require {variable} base-font-size
+/// @see {mixin} form.control
+/// @see {mixin} form.check
+///
+/// @type Number
+
+$form-control-font-size: $base-font-size !default;
+
+
+/// The default font weight to be applied on form controls.
+///
+/// @require {variable} base-font-weight
+/// @see {mixin} form.control
+///
+/// @type Number
+
+$form-control-font-weight: $base-font-weight !default;
+
+
+/// The default text line height to be applied on form elements.
+///
+/// @require {variable} base-line-height
+/// @see {mixin} form.control
+/// @see {mixin} form.check
+/// @see {mixin} form.textarea
+///
+/// @type Number
+
+$form-control-line-height: $base-line-height !default;
+
+
+/// The default text color to be applied for placeholders on form controls.
+///
+/// @require {function} color.scale
+/// @see {mixin} form.control
+///
+/// @type Color
+
+$form-control-placeholder-color: color.scale($form-element-color, $lightness: 30%) !default;
+
+
+/// THEMED FORM CONTROLS
+///
+/// The default background color to be applied on themed form elements.
+///
+/// @require {variable} base-background-color
+/// @see {mixin} form.theme
+///
+/// @type Color
+
+$form-element-theme-background-color: $base-background-color !default;
+
+
+/// FORM FILE UPLOADS
+///
+/// The default text color to be applied on file input buttons.
+///
+/// @require {variable} base-color
+/// @see {mixin} form.file
+///
+/// @type Color
+
+$form-file-selector-button-color: $base-color !default;
+
+
+/// The default background color to be applied on file input buttons.
+///
+/// @require {function} background.state
+/// @see {mixin} form.file
+///
+/// @type Color
+
+$form-file-selector-button-background-color: background.state('light') !default;
+
+
+/// FORM SELECTS
+///
+/// The default position (offsets from bottom and/or right edges) of the background
+/// image to be used as form select indicator.
+///
+/// @see {mixin} form.select
+///
+/// @type List
+
+$form-select-background-position: right 0.75rem center !default;
+
+
+/// The default size of the background image to be used as form select indicator.
+///
+/// @see {mixin} form.select
+///
+/// @type Length
+
+$form-select-background-size: 16px 16px !default;
+
+
+/// FORM CHECK-LIST
+///
+/// The default right margin size to be applied on form check-list types.
+///
+/// @require {function} spacing.margin
+/// @see {mixin} form.check
+///
+/// @type Number
+
+$form-check-margin-right: spacing.margin('xsmall') !default;
+
+
+/// The default background image size to be applied on form check-list types
+/// (when checked).
+///
+/// @see {mixin} form.check
+///
+/// @type String
+
+$form-check-checked-background-size: contain !default;
+
+
+/// The default border color to be applied on themed form elements.
+///
+/// @require {function} border.color
+/// @see {mixin} form.theme
+///
+/// @type Color
+
+$form-element-theme-border-color: border.color('dark') !default;
+
+
+/// The default transition properties to be applied on themed form elements.
+///
+/// @require {function} effect.transition
+/// @see {placeholder} form-defaults
+///
+/// @type List
+
+$form-element-theme-transition: effect.transition('input') !default;
